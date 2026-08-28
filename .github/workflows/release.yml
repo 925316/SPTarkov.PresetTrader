@@ -1,0 +1,66 @@
+# Continuous deployment: every push to master rebuilds the Release mod package
+# and publishes it to a versioned GitHub release. The tag is read from ModMetadata
+# in src/main.cs (v<Version>); re-pushing the same version overwrites that
+# release's asset and notes, bumping the version there cuts a new release.
+
+name: release
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build
+        run: dotnet build SPTarkov.PresetTrader.sln -c Release
+
+      - name: Package
+        id: package
+        shell: pwsh
+        run: |
+          $line = (Get-Content src/main.cs | Select-String -Pattern 'SemanticVersioning\.Version Version').Line
+          $modVersion = [regex]::Match($line, '"([^"]+)"').Groups[1].Value
+          if (-not $modVersion) {
+            Write-Error "Could not read mod version from src/main.cs"
+            exit 1
+          }
+          "tag=v$modVersion" >> $env:GITHUB_OUTPUT
+
+          # Zip keeps the SPT_Runtime tree so users extract it straight into the server root.
+          New-Item -ItemType Directory dist -Force | Out-Null
+          Compress-Archive -Path Build/Release/SPT_Runtime -DestinationPath dist/SPTarkov.PresetTrader.zip -Force
+          $hash = (Get-FileHash dist/SPTarkov.PresetTrader.zip -Algorithm SHA256).Hash.ToLower()
+          "sha256=$hash" >> $env:GITHUB_OUTPUT
+
+      - name: Publish release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.package.outputs.tag }}
+          SHA: ${{ github.sha }}
+          SHA256: ${{ steps.package.outputs.sha256 }}
+        run: |
+          ASSET="dist/SPTarkov.PresetTrader.zip"
+          NOTES=$(printf 'Built from commit %s\nSHA256: %s' "${SHA:0:7}" "$SHA256")
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            gh release upload "$TAG" "$ASSET" --clobber
+            gh release edit "$TAG" --notes "$NOTES"
+          else
+            gh release create "$TAG" "$ASSET" --title "PresetTrader $TAG" --target "$SHA" --notes "$NOTES"
+          fi
