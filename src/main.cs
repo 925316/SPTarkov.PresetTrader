@@ -35,6 +35,27 @@ public record ModMetadata : IModMetadata
     public bool HasPrepatcher { get; init; }
 }
 
+public class GearPresetConfig
+{
+    public List<MatchedSet>? MatchedSets { get; set; }
+    public List<string>? LooseHelmets { get; set; }
+}
+
+public class MatchedSet
+{
+    public string? Id { get; set; }
+    public string? Tier { get; set; }
+    public string? Name { get; set; }
+    public string? HelmetTpl { get; set; }
+    public List<AttachmentRef>? Attachments { get; set; }
+}
+
+public class AttachmentRef
+{
+    public string? Slot { get; set; }
+    public string? Tpl { get; set; }
+}
+
 [Injectable(TypePriority = OnLoadOrder.PostLoad + 1)]
 public class Main(
     ISptLogger<Main> logger,
@@ -44,10 +65,10 @@ public class Main(
     RagfairConfig ragfairConfig,
     TimeUtil timeUtil,
     ICloner cloner,
-    ProfileHelper profileHelper,
     ItemHelper itemHelper,
     TradersTable tradersTable,
-    LocaleTable localeTable
+    LocaleTable localeTable,
+    PresetTraderRefresher refresher
 )
     : IOnLoad
 {
@@ -77,7 +98,7 @@ public class Main(
             return Task.CompletedTask;
         }
 
-        var traderAvatar = Path.GetFileNameWithoutExtension(traderBase.Avatar);
+        var traderAvatar = Path.ChangeExtension(traderBase.Avatar, null);
         imageRouter.AddRoute(traderAvatar, traderImagePath);
 
         if (traderConfig.UpdateTime.All(x => x.TraderId != traderBase.Id))
@@ -103,83 +124,99 @@ public class Main(
             "PresetTrader",
             "Sells weapon presets built and saved in your stash.");
 
-        var addedCount = PopulateWeaponBuilds(traderBase.Id);
+        refresher.SetTraderId(traderBase.Id);
+        var addedCount = refresher.Refresh();
+        var presetCount = PopulateGearPresets(traderBase.Id);
 
         logger.Success(
-            $"[PresetTrader]: Added {addedCount} weapon build(s) to trader {traderBase.Id}");
+            $"[PresetTrader]: Added {addedCount} weapon build(s) and {presetCount} gear preset(s) to trader {traderBase.Id}");
 
         return Task.CompletedTask;
     }
 
-    private int PopulateWeaponBuilds(MongoId traderId)
+    private int PopulateGearPresets(MongoId traderId)
     {
         if (!tradersTable.TryGetValue(traderId, out var traderData))
         {
-            logger.Error($"[PresetTrader]: Trader {traderId} was not found after registration");
+            logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot add gear presets");
             return 0;
         }
 
-        var seenBuildIds = new HashSet<MongoId>();
-        var addedCount = 0;
+        var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
+        var config = modHelper.GetJsonDataFromFile<GearPresetConfig>(pathToMod, "db/gearPresets.json");
 
-        foreach (var (_, profile) in profileHelper.GetProfiles())
+        if (config is null)
         {
-            var weaponBuilds = profile?.UserBuildData?.WeaponBuilds;
-            if (weaponBuilds is null || weaponBuilds.Count == 0)
+            logger.Warning("[PresetTrader]: db/gearPresets.json not found, skipping gear presets");
+            return 0;
+        }
+
+        var added = 0;
+
+        if (config.MatchedSets is { Count: > 0 })
+        {
+            foreach (var set in config.MatchedSets)
             {
-                continue;
-            }
-
-            foreach (var build in weaponBuilds)
-            {
-                if (build?.Items is null || build.Items.Count == 0)
-                {
-                    continue;
-                }
-
-                if (!seenBuildIds.Add(build.Id))
-                {
-                    continue;
-                }
-
                 try
                 {
-                    var itemList = cloner.Clone(build.Items);
-                    if (itemList is null || itemList.Count == 0)
+                    if (set is null || string.IsNullOrWhiteSpace(set.HelmetTpl))
                     {
-                        logger.Warning(
-                            $"[PresetTrader]: Failed to clone build '{build.Name}' ({build.Id}), skipping");
                         continue;
                     }
 
-                    var newRootId = itemList.RemapRootItemId();
-
-                    var rootItem = itemList.FirstOrDefault(item => item.Id == newRootId);
-                    if (rootItem is null)
+                    var rootId = new MongoId();
+                    var items = new List<Item>
                     {
-                        logger.Warning(
-                            $"[PresetTrader]: Root item not found for build '{build.Name}' ({build.Id}), skipping");
-                        continue;
-                    }
+                        new()
+                        {
+                            Id = rootId,
+                            Template = set.HelmetTpl,
+                            ParentId = TraderRootParentId,
+                            SlotId = TraderRootParentId,
+                            Upd = new Upd
+                            {
+                                StackObjectsCount = 1,
+                                UnlimitedCount = true,
+                                BuyRestrictionCurrent = 0
+                            }
+                        }
+                    };
 
-                    rootItem.ParentId = TraderRootParentId;
-                    rootItem.SlotId = TraderRootParentId;
-                    rootItem.Upd ??= new Upd();
-                    rootItem.Upd.StackObjectsCount = 1;
+                    if (set.Attachments is { Count: > 0 })
+                    {
+                        foreach (var att in set.Attachments)
+                        {
+                            if (att is null ||
+                                string.IsNullOrWhiteSpace(att.Tpl) ||
+                                string.IsNullOrWhiteSpace(att.Slot))
+                            {
+                                continue;
+                            }
+
+                            items.Add(new Item
+                            {
+                                Id = new MongoId(),
+                                Template = att.Tpl,
+                                ParentId = rootId,
+                                SlotId = att.Slot,
+                                Upd = new Upd()
+                            });
+                        }
+                    }
 
                     var price = (int)itemHelper.GetItemAndChildrenPrice(
-                        itemList.Select(item => item.Template));
+                        items.Select(x => x.Template));
 
                     if (price <= 0)
                     {
                         logger.Warning(
-                            $"[PresetTrader]: Skipping build '{build.Name}' ({build.Id}) - total price is 0");
+                            $"[PresetTrader]: Skipping gear set '{set.Name}' - total price is 0");
                         continue;
                     }
 
-                    traderData.Assort.Items.AddRange(itemList);
+                    traderData.Assort.Items.AddRange(items);
 
-                    traderData.Assort.BarterScheme[newRootId] =
+                    traderData.Assort.BarterScheme[rootId] =
                     [
                         [
                             new BarterScheme
@@ -190,22 +227,90 @@ public class Main(
                         ]
                     ];
 
-                    traderData.Assort.LoyalLevelItems[newRootId] = 1;
+                    traderData.Assort.LoyalLevelItems[rootId] = 1;
+
+                    added++;
 
                     logger.Debug(
-                        $"[PresetTrader]: Added build '{build.Name}' ({build.Id}) for {price} roubles");
-
-                    addedCount++;
+                        $"[PresetTrader]: Added gear set '{set.Name}' ({set.Tier}) for {price} roubles");
                 }
                 catch (Exception ex)
                 {
                     logger.Error(
-                        $"[PresetTrader]: Failed to process build '{build.Name}' ({build.Id}): {ex}");
+                        $"[PresetTrader]: Failed to process gear set '{set?.Name}': {ex}");
                 }
             }
         }
 
-        return addedCount;
+        if (config.LooseHelmets is { Count: > 0 })
+        {
+            foreach (var tpl in config.LooseHelmets)
+            {
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(tpl))
+                    {
+                        continue;
+                    }
+
+                    var rootId = new MongoId();
+
+                    var items = new List<Item>
+                    {
+                        new()
+                        {
+                            Id = rootId,
+                            Template = tpl,
+                            ParentId = TraderRootParentId,
+                            SlotId = TraderRootParentId,
+                            Upd = new Upd
+                            {
+                                StackObjectsCount = 1,
+                                UnlimitedCount = true,
+                                BuyRestrictionCurrent = 0
+                            }
+                        }
+                    };
+
+                    var price = (int)itemHelper.GetItemAndChildrenPrice(
+                        items.Select(x => x.Template));
+
+                    if (price <= 0)
+                    {
+                        logger.Warning(
+                            $"[PresetTrader]: Skipping loose helmet '{tpl}' - total price is 0");
+                        continue;
+                    }
+
+                    traderData.Assort.Items.AddRange(items);
+
+                    traderData.Assort.BarterScheme[rootId] =
+                    [
+                        [
+                            new BarterScheme
+                            {
+                                Count = price,
+                                Template = Money.ROUBLES
+                            }
+                        ]
+                    ];
+
+                    traderData.Assort.LoyalLevelItems[rootId] = 1;
+
+                    added++;
+
+                    logger.Debug(
+                        $"[PresetTrader]: Added loose helmet '{tpl}' for {price} roubles");
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(
+                        $"[PresetTrader]: Failed to process loose helmet '{tpl}': {ex}");
+                }
+            }
+        }
+
+        return added;
     }
 
     private bool AddTraderWithEmptyAssortToDb(TraderBase traderDetails)
@@ -267,5 +372,155 @@ public class Main(
                 return localeData;
             });
         }
+    }
+}
+
+[Injectable(TypePriority = OnUpdateOrder.InsuranceCallbacks)]
+public class PresetTraderRefresher(
+    ISptLogger<PresetTraderRefresher> logger,
+    ProfileHelper profileHelper,
+    TradersTable tradersTable,
+    ItemHelper itemHelper,
+    ICloner cloner)
+    : IOnUpdate
+{
+    private const string TraderRootParentId = "hideout";
+    private const int RefreshIntervalSeconds = 30;
+
+    private MongoId? _traderId;
+    private readonly HashSet<MongoId> _seenBuildIds = new();
+
+    public void SetTraderId(MongoId traderId)
+    {
+        _traderId = traderId;
+    }
+
+    public Task<bool> OnUpdateAsync(long secondsSinceLastRun, CancellationToken cancellationToken)
+    {
+        if (_traderId is null)
+        {
+            return Task.FromResult(true);
+        }
+
+        var traderId = _traderId.Value;
+
+        if (secondsSinceLastRun < RefreshIntervalSeconds)
+        {
+            return Task.FromResult(true);
+        }
+
+        var added = Refresh();
+        if (added > 0)
+        {
+            logger.Info(
+                $"[PresetTrader]: Live refresh added {added} new weapon build(s) to trader {traderId}");
+        }
+
+        return Task.FromResult(true);
+    }
+
+    public int Refresh()
+    {
+        if (_traderId is null)
+        {
+            return 0;
+        }
+
+        var traderId = _traderId.Value;
+
+        if (!tradersTable.TryGetValue(traderId, out var traderData))
+        {
+            logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot refresh weapon builds");
+            return 0;
+        }
+
+        var addedCount = 0;
+
+        foreach (var (_, profile) in profileHelper.GetProfiles())
+        {
+            var weaponBuilds = profile?.UserBuildData?.WeaponBuilds;
+            if (weaponBuilds is null || weaponBuilds.Count == 0)
+            {
+                continue;
+            }
+
+            foreach (var build in weaponBuilds)
+            {
+                if (build?.Items is null || build.Items.Count == 0)
+                {
+                    continue;
+                }
+
+                if (_seenBuildIds.Contains(build.Id))
+                {
+                    continue;
+                }
+
+                try
+                {
+                    var itemList = cloner.Clone(build.Items);
+                    if (itemList is null || itemList.Count == 0)
+                    {
+                        logger.Warning(
+                            $"[PresetTrader]: Failed to clone build '{build.Name}' ({build.Id}), skipping");
+                        continue;
+                    }
+
+                    var newRootId = itemList.RemapRootItemId();
+
+                    var rootItem = itemList.FirstOrDefault(item => item.Id == newRootId);
+                    if (rootItem is null)
+                    {
+                        logger.Warning(
+                            $"[PresetTrader]: Root item not found for build '{build.Name}' ({build.Id}), skipping");
+                        continue;
+                    }
+
+                    rootItem.ParentId = TraderRootParentId;
+                    rootItem.SlotId = TraderRootParentId;
+                    rootItem.Upd ??= new Upd();
+                    rootItem.Upd.StackObjectsCount = 1;
+
+                    var price = (int)itemHelper.GetItemAndChildrenPrice(
+                        itemList.Select(item => item.Template));
+
+                    if (price <= 0)
+                    {
+                        logger.Warning(
+                            $"[PresetTrader]: Skipping build '{build.Name}' ({build.Id}) - total price is 0");
+                        continue;
+                    }
+
+                    traderData.Assort.Items.AddRange(itemList);
+
+                    traderData.Assort.BarterScheme[newRootId] =
+                    [
+                        [
+                            new BarterScheme
+                            {
+                                Count = price,
+                                Template = Money.ROUBLES
+                            }
+                        ]
+                    ];
+
+                    traderData.Assort.LoyalLevelItems[newRootId] = 1;
+
+                    _seenBuildIds.Add(build.Id);
+
+                    logger.Debug(
+                        $"[PresetTrader]: Added build '{build.Name}' ({build.Id}) for {price} roubles");
+
+                    addedCount++;
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(
+                        $"[PresetTrader]: Failed to process build '{build.Name}' ({build.Id}): {ex}");
+                }
+            }
+        }
+
+        return addedCount;
     }
 }
