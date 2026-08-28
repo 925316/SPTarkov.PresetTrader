@@ -427,6 +427,8 @@ public class PresetTraderRefresher(
                     rootItem.SlotId = TraderRootParentId;
                     rootItem.Upd ??= new Upd();
                     rootItem.Upd.StackObjectsCount = 1;
+                    rootItem.Upd.UnlimitedCount = true;
+                    rootItem.Upd.BuyRestrictionCurrent = 0;
 
                     var price = (int)itemHelper.GetItemAndChildrenPrice(
                         itemList.Select(item => item.Template));
