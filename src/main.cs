@@ -35,18 +35,9 @@ public record ModMetadata : IModMetadata
     public bool HasPrepatcher { get; init; }
 }
 
-public class GearPresetConfig
-{
-    public List<MatchedSet>? MatchedSets { get; set; }
-    public List<string>? LooseHelmets { get; set; }
-}
-
 public class MatchedSet
 {
-    public string? Id { get; set; }
-    public string? Tier { get; set; }
-    public string? Name { get; set; }
-    public string? HelmetTpl { get; set; }
+    public string? RootTpl { get; set; }
     public List<AttachmentRef>? Attachments { get; set; }
 }
 
@@ -126,40 +117,40 @@ public class Main(
 
         refresher.SetTraderId(traderBase.Id);
         var addedCount = refresher.Refresh();
-        var presetCount = PopulateGearPresets(traderBase.Id);
+        var presetCount = PopulatePresets(traderBase.Id, "db/gearPresets.json");
 
         logger.Success(
-            $"[PresetTrader]: Added {addedCount} weapon build(s) and {presetCount} gear preset(s) to trader {traderBase.Id}");
+            $"[PresetTrader]: Added {addedCount} weapon build(s) and {presetCount} preset(s) to trader {traderBase.Id}");
 
         return Task.CompletedTask;
     }
 
-    private int PopulateGearPresets(MongoId traderId)
+    private int PopulatePresets(MongoId traderId, string relativePath)
     {
         if (!tradersTable.TryGetValue(traderId, out var traderData))
         {
-            logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot add gear presets");
+            logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot add presets");
             return 0;
         }
 
         var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
-        var config = modHelper.GetJsonDataFromFile<GearPresetConfig>(pathToMod, "db/gearPresets.json");
+        var sets = modHelper.GetJsonDataFromFile<List<MatchedSet>>(pathToMod, relativePath);
 
-        if (config is null)
+        if (sets is null)
         {
-            logger.Warning("[PresetTrader]: db/gearPresets.json not found, skipping gear presets");
+            logger.Warning($"[PresetTrader]: {relativePath} not found or empty, skipping presets");
             return 0;
         }
 
         var added = 0;
 
-        if (config.MatchedSets is { Count: > 0 })
+        if (sets is { Count: > 0 })
         {
-            foreach (var set in config.MatchedSets)
+            foreach (var set in sets)
             {
                 try
                 {
-                    if (set is null || string.IsNullOrWhiteSpace(set.HelmetTpl))
+                    if (set is null || string.IsNullOrWhiteSpace(set.RootTpl))
                     {
                         continue;
                     }
@@ -170,7 +161,7 @@ public class Main(
                         new()
                         {
                             Id = rootId,
-                            Template = set.HelmetTpl,
+                            Template = set.RootTpl,
                             ParentId = TraderRootParentId,
                             SlotId = TraderRootParentId,
                             Upd = new Upd
@@ -210,7 +201,7 @@ public class Main(
                     if (price <= 0)
                     {
                         logger.Warning(
-                            $"[PresetTrader]: Skipping gear set '{set.Name}' - total price is 0");
+                            $"[PresetTrader]: Skipping preset '{set.RootTpl}' - total price is 0");
                         continue;
                     }
 
@@ -232,80 +223,12 @@ public class Main(
                     added++;
 
                     logger.Debug(
-                        $"[PresetTrader]: Added gear set '{set.Name}' ({set.Tier}) for {price} roubles");
+                        $"[PresetTrader]: Added preset '{set.RootTpl}' for {price} roubles");
                 }
                 catch (Exception ex)
                 {
                     logger.Error(
-                        $"[PresetTrader]: Failed to process gear set '{set?.Name}': {ex}");
-                }
-            }
-        }
-
-        if (config.LooseHelmets is { Count: > 0 })
-        {
-            foreach (var tpl in config.LooseHelmets)
-            {
-                try
-                {
-                    if (string.IsNullOrWhiteSpace(tpl))
-                    {
-                        continue;
-                    }
-
-                    var rootId = new MongoId();
-
-                    var items = new List<Item>
-                    {
-                        new()
-                        {
-                            Id = rootId,
-                            Template = tpl,
-                            ParentId = TraderRootParentId,
-                            SlotId = TraderRootParentId,
-                            Upd = new Upd
-                            {
-                                StackObjectsCount = 1,
-                                UnlimitedCount = true,
-                                BuyRestrictionCurrent = 0
-                            }
-                        }
-                    };
-
-                    var price = (int)itemHelper.GetItemAndChildrenPrice(
-                        items.Select(x => x.Template));
-
-                    if (price <= 0)
-                    {
-                        logger.Warning(
-                            $"[PresetTrader]: Skipping loose helmet '{tpl}' - total price is 0");
-                        continue;
-                    }
-
-                    traderData.Assort.Items.AddRange(items);
-
-                    traderData.Assort.BarterScheme[rootId] =
-                    [
-                        [
-                            new BarterScheme
-                            {
-                                Count = price,
-                                Template = Money.ROUBLES
-                            }
-                        ]
-                    ];
-
-                    traderData.Assort.LoyalLevelItems[rootId] = 1;
-
-                    added++;
-
-                    logger.Debug(
-                        $"[PresetTrader]: Added loose helmet '{tpl}' for {price} roubles");
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(
-                        $"[PresetTrader]: Failed to process loose helmet '{tpl}': {ex}");
+                        $"[PresetTrader]: Failed to process preset '{set?.RootTpl}': {ex}");
                 }
             }
         }
