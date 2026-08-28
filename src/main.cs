@@ -51,14 +51,8 @@ public class AttachmentRef
 public class Main(
     ISptLogger<Main> logger,
     ModHelper modHelper,
-    ImageRouter imageRouter,
-    TraderConfig traderConfig,
-    RagfairConfig ragfairConfig,
-    TimeUtil timeUtil,
-    ICloner cloner,
     ItemHelper itemHelper,
     TradersTable tradersTable,
-    LocaleTable localeTable,
     PresetTraderRefresher refresher
 )
     : IOnLoad
@@ -72,48 +66,9 @@ public class Main(
         var traderBase = modHelper.GetJsonDataFromFile<TraderBase>(pathToMod, "db/base.json");
         if (traderBase is null)
         {
-            logger.Error("[PresetTrader]: db/base.json not found, aborting trader registration");
+            logger.Error("[PresetTrader]: db/base.json not found, aborting preset population");
             return Task.CompletedTask;
         }
-
-        if (string.IsNullOrWhiteSpace(traderBase.Avatar))
-        {
-            logger.Error("[PresetTrader]: Trader avatar is missing, aborting trader registration");
-            return Task.CompletedTask;
-        }
-
-        var traderImagePath = Path.Combine(pathToMod, "db", "headshot.jpg");
-        if (!File.Exists(traderImagePath))
-        {
-            logger.Error($"[PresetTrader]: Trader image not found: {traderImagePath}");
-            return Task.CompletedTask;
-        }
-
-        var traderAvatar = Path.ChangeExtension(traderBase.Avatar, null);
-        imageRouter.AddRoute(traderAvatar, traderImagePath);
-
-        if (traderConfig.UpdateTime.All(x => x.TraderId != traderBase.Id))
-        {
-            traderConfig.UpdateTime.Add(new UpdateTime
-            {
-                TraderId = traderBase.Id,
-                Seconds = new MinMax<int>(
-                    timeUtil.GetHoursAsSeconds(1),
-                    timeUtil.GetHoursAsSeconds(2))
-            });
-        }
-
-        ragfairConfig.Traders.TryAdd(traderBase.Id, true);
-
-        if (!AddTraderWithEmptyAssortToDb(traderBase))
-        {
-            return Task.CompletedTask;
-        }
-
-        AddTraderToLocales(
-            traderBase,
-            "PresetTrader",
-            "Sells weapon presets built and saved in your stash.");
 
         refresher.SetTraderId(traderBase.Id);
         var addedCount = refresher.Refresh();
@@ -235,6 +190,74 @@ public class Main(
         }
 
         return added;
+    }
+}
+
+[Injectable(TypePriority = OnLoadOrder.TraderRegistration + 1)]
+public class PresetTraderRegistration(
+    ISptLogger<PresetTraderRegistration> logger,
+    ModHelper modHelper,
+    ImageRouter imageRouter,
+    TraderConfig traderConfig,
+    TimeUtil timeUtil,
+    ICloner cloner,
+    TradersTable tradersTable,
+    LocaleTable localeTable
+)
+    : IOnLoad
+{
+    public Task OnLoadAsync(CancellationToken cancellationToken)
+    {
+        var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
+
+        var traderBase = modHelper.GetJsonDataFromFile<TraderBase>(pathToMod, "db/base.json");
+        if (traderBase is null)
+        {
+            logger.Error("[PresetTrader]: db/base.json not found, aborting trader registration");
+            return Task.CompletedTask;
+        }
+
+        if (string.IsNullOrWhiteSpace(traderBase.Avatar))
+        {
+            logger.Error("[PresetTrader]: Trader avatar is missing, aborting trader registration");
+            return Task.CompletedTask;
+        }
+
+        var traderImagePath = Path.Combine(pathToMod, "db", "headshot.jpg");
+        if (!File.Exists(traderImagePath))
+        {
+            logger.Error($"[PresetTrader]: Trader image not found: {traderImagePath}");
+            return Task.CompletedTask;
+        }
+
+        var traderAvatar = Path.ChangeExtension(traderBase.Avatar, null);
+        imageRouter.AddRoute(traderAvatar, traderImagePath);
+
+        if (traderConfig.UpdateTime.All(x => x.TraderId != traderBase.Id))
+        {
+            traderConfig.UpdateTime.Add(new UpdateTime
+            {
+                TraderId = traderBase.Id,
+                Seconds = new MinMax<int>(
+                    timeUtil.GetHoursAsSeconds(1),
+                    timeUtil.GetHoursAsSeconds(2))
+            });
+        }
+
+        if (!AddTraderWithEmptyAssortToDb(traderBase))
+        {
+            return Task.CompletedTask;
+        }
+
+        AddTraderToLocales(
+            traderBase,
+            "PresetTrader",
+            "Sells weapon presets built and saved in your stash.");
+
+        logger.Success(
+            $"[PresetTrader]: Registered trader {traderBase.Id} ahead of profile validation");
+
+        return Task.CompletedTask;
     }
 
     private bool AddTraderWithEmptyAssortToDb(TraderBase traderDetails)
