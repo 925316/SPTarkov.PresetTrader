@@ -151,8 +151,7 @@ public class Main(
                         }
                     }
 
-                    var price = (int)itemHelper.GetItemAndChildrenPrice(
-                        items.Select(x => x.Template));
+                    var price = (int)items.Select(x => x.Template).Sum(itemHelper.GetItemMaxPrice);
 
                     if (price <= 0)
                     {
@@ -430,8 +429,7 @@ public class PresetTraderRefresher(
                     rootItem.Upd.UnlimitedCount = true;
                     rootItem.Upd.BuyRestrictionCurrent = 0;
 
-                    var price = (int)itemHelper.GetItemAndChildrenPrice(
-                        itemList.Select(item => item.Template));
+                    var price = (int)itemList.Select(item => item.Template).Sum(itemHelper.GetItemMaxPrice);
 
                     if (price <= 0)
                     {
