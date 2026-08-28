@@ -118,9 +118,10 @@ public class Main(
         refresher.SetTraderId(traderBase.Id);
         var addedCount = refresher.Refresh();
         var presetCount = PopulatePresets(traderBase.Id, "db/gearPresets.json");
+        var armorCount = PopulatePresets(traderBase.Id, "db/armorPresets.json");
 
         logger.Success(
-            $"[PresetTrader]: Added {addedCount} weapon build(s) and {presetCount} preset(s) to trader {traderBase.Id}");
+            $"[PresetTrader]: Added {addedCount} weapon build(s), {presetCount} gear preset(s) and {armorCount} armor preset(s) to trader {traderBase.Id}");
 
         return Task.CompletedTask;
     }
