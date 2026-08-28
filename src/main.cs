@@ -32,7 +32,7 @@ public record ModMetadata : IModMetadata
     public Dictionary<string, SemanticVersioning.Range>? ModDependencies { get; init; }
     public string? Url { get; init; }
     public string License { get; init; } = "AGPL-3.0";
-    public bool HasPrepatcher { get; init; } = false;
+    public bool HasPrepatcher { get; init; }
 }
 
 [Injectable(TypePriority = OnLoadOrder.PostLoad + 1)]
@@ -48,14 +48,15 @@ public class Main(
     ItemHelper itemHelper,
     TradersTable tradersTable,
     LocaleTable localeTable
-    )
+)
     : IOnLoad
 {
+    private const string TraderRootParentId = "hideout";
+
     public Task OnLoadAsync(CancellationToken cancellationToken)
     {
         var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
 
-        // Read trader base settings (id, name, loyalty levels, etc)
         var traderBase = modHelper.GetJsonDataFromFile<TraderBase>(pathToMod, "db/base.json");
         if (traderBase is null)
         {
@@ -63,41 +64,65 @@ public class Main(
             return Task.CompletedTask;
         }
 
-        // Register trader avatar + stock refresh time (1-2 hours)
-        var traderImagePath = Path.Combine(pathToMod, "db/headshot.jpg");
-        imageRouter.AddRoute(traderBase.Avatar!.Replace(".jpg", ""), traderImagePath);
-        AddTraderUpdateTime(traderConfig, traderBase, timeUtil.GetHoursAsSeconds(1), timeUtil.GetHoursAsSeconds(2));
+        if (string.IsNullOrWhiteSpace(traderBase.Avatar))
+        {
+            logger.Error("[PresetTrader]: Trader avatar is missing, aborting trader registration");
+            return Task.CompletedTask;
+        }
 
-        // Make trader visible on the flea market
+        var traderImagePath = Path.Combine(pathToMod, "db", "headshot.jpg");
+        if (!File.Exists(traderImagePath))
+        {
+            logger.Error($"[PresetTrader]: Trader image not found: {traderImagePath}");
+            return Task.CompletedTask;
+        }
+
+        var traderAvatar = Path.GetFileNameWithoutExtension(traderBase.Avatar);
+        imageRouter.AddRoute(traderAvatar, traderImagePath);
+
+        if (traderConfig.UpdateTime.All(x => x.TraderId != traderBase.Id))
+        {
+            traderConfig.UpdateTime.Add(new UpdateTime
+            {
+                TraderId = traderBase.Id,
+                Seconds = new MinMax<int>(
+                    timeUtil.GetHoursAsSeconds(1),
+                    timeUtil.GetHoursAsSeconds(2))
+            });
+        }
+
         ragfairConfig.Traders.TryAdd(traderBase.Id, true);
 
-        // Add trader with empty assort to the server database
-        AddTraderWithEmptyAssortToDb(traderBase);
+        if (!AddTraderWithEmptyAssortToDb(traderBase))
+        {
+            return Task.CompletedTask;
+        }
 
-        // Add localisation text so the trader shows up in every language
-        AddTraderToLocales(traderBase, "PresetTrader", "Sells weapon presets built and saved in your stash.");
+        AddTraderToLocales(
+            traderBase,
+            "PresetTrader",
+            "Sells weapon presets built and saved in your stash.");
 
-        // Populate the assort with every weapon build saved in player profiles
         var addedCount = PopulateWeaponBuilds(traderBase.Id);
 
-        logger.Success($"[PresetTrader]: Added {addedCount} weapon build(s) to trader {traderBase.Id}");
+        logger.Success(
+            $"[PresetTrader]: Added {addedCount} weapon build(s) to trader {traderBase.Id}");
 
         return Task.CompletedTask;
     }
 
-    /// <summary>
-    ///     Iterate every profile on the server, collect all saved weapon builds, clone + remap their
-    ///     item ids, price them from the handbook and write them into the trader assort.
-    /// </summary>
-    /// <param name="traderId">Trader id to write assorts into</param>
-    /// <returns>Number of weapon builds added</returns>
-    protected int PopulateWeaponBuilds(MongoId traderId)
+    private int PopulateWeaponBuilds(MongoId traderId)
     {
-        var traderData = tradersTable[traderId];
-        var seenBuildNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        if (!tradersTable.TryGetValue(traderId, out var traderData))
+        {
+            logger.Error($"[PresetTrader]: Trader {traderId} was not found after registration");
+            return 0;
+        }
+
+        var seenBuildIds = new HashSet<MongoId>();
         var addedCount = 0;
 
-        foreach (var (profileId, profile) in profileHelper.GetProfiles())
+        foreach (var (_, profile) in profileHelper.GetProfiles())
         {
             var weaponBuilds = profile?.UserBuildData?.WeaponBuilds;
             if (weaponBuilds is null || weaponBuilds.Count == 0)
@@ -107,89 +132,93 @@ public class Main(
 
             foreach (var build in weaponBuilds)
             {
-                // Skip builds with no items, and skip duplicate names across profiles
                 if (build?.Items is null || build.Items.Count == 0)
                 {
                     continue;
                 }
 
-                if (!seenBuildNames.Add(build.Name ?? build.Id.ToString()))
+                if (!seenBuildIds.Add(build.Id))
                 {
                     continue;
                 }
 
-                // Clone before mutating, otherwise we alter the players profile data
-                var itemList = cloner.Clone(build.Items)!;
-
-                // Generate a fresh unique id for the root item + reparent its direct children
-                var newRootId = itemList.RemapRootItemId();
-
-                // Assort root items must point at the hideout (like a trader selling an item)
-                var rootItem = itemList.FirstOrDefault(item => item.Id == newRootId);
-                if (rootItem is null)
+                try
                 {
-                    continue;
+                    var itemList = cloner.Clone(build.Items);
+                    if (itemList is null || itemList.Count == 0)
+                    {
+                        logger.Warning(
+                            $"[PresetTrader]: Failed to clone build '{build.Name}' ({build.Id}), skipping");
+                        continue;
+                    }
+
+                    var newRootId = itemList.RemapRootItemId();
+
+                    var rootItem = itemList.FirstOrDefault(item => item.Id == newRootId);
+                    if (rootItem is null)
+                    {
+                        logger.Warning(
+                            $"[PresetTrader]: Root item not found for build '{build.Name}' ({build.Id}), skipping");
+                        continue;
+                    }
+
+                    rootItem.ParentId = TraderRootParentId;
+                    rootItem.SlotId = TraderRootParentId;
+                    rootItem.Upd ??= new Upd();
+                    rootItem.Upd.StackObjectsCount = 1;
+
+                    var price = (int)itemHelper.GetItemAndChildrenPrice(
+                        itemList.Select(item => item.Template));
+
+                    if (price <= 0)
+                    {
+                        logger.Warning(
+                            $"[PresetTrader]: Skipping build '{build.Name}' ({build.Id}) - total price is 0");
+                        continue;
+                    }
+
+                    traderData.Assort.Items.AddRange(itemList);
+
+                    traderData.Assort.BarterScheme[newRootId] =
+                    [
+                        [
+                            new BarterScheme
+                            {
+                                Count = price,
+                                Template = Money.ROUBLES
+                            }
+                        ]
+                    ];
+
+                    traderData.Assort.LoyalLevelItems[newRootId] = 1;
+
+                    logger.Debug(
+                        $"[PresetTrader]: Added build '{build.Name}' ({build.Id}) for {price} roubles");
+
+                    addedCount++;
                 }
-
-                rootItem.ParentId = "hideout";
-                rootItem.SlotId = "hideout";
-                rootItem.Upd ??= new Upd();
-                rootItem.Upd.StackObjectsCount ??= 100;
-
-                // Price the whole build (all items + attachments) from the handbook
-                var price = (int)itemHelper.GetItemAndChildrenPrice(itemList.Select(item => item.Template));
-                if (price <= 0)
+                catch (Exception ex)
                 {
-                    logger.Warning($"[PresetTrader]: Skipping build '{build.Name}' ({build.Id}) - total price is 0");
-                    continue;
+                    logger.Error(
+                        $"[PresetTrader]: Failed to process build '{build.Name}' ({build.Id}): {ex}");
                 }
-
-                // Write items + barter scheme (rouble price) + loyalty level (always 1) into assort
-                traderData.Assort.Items.AddRange(itemList);
-                traderData.Assort.BarterScheme[newRootId] =
-                [
-                    [new BarterScheme { Count = price, Template = Money.ROUBLES }]
-                ];
-                traderData.Assort.LoyalLevelItems[newRootId] = 1;
-
-                logger.Debug($"[PresetTrader]: Added build '{build.Name}' ({build.Id}) for {price} roubles");
-                addedCount++;
             }
         }
 
         return addedCount;
     }
 
-    /// <summary>
-    ///     Add the traders update time for when their offers refresh
-    /// </summary>
-    protected void AddTraderUpdateTime(TraderConfig traderConfig, TraderBase baseJson, int refreshTimeSecondsMin, int refreshTimeSecondsMax)
+    private bool AddTraderWithEmptyAssortToDb(TraderBase traderDetails)
     {
-        var traderRefreshRecord = new UpdateTime
+        var traderData = new Trader
         {
-            TraderId = baseJson.Id,
-            Seconds = new MinMax<int>(refreshTimeSecondsMin, refreshTimeSecondsMax)
-        };
-
-        traderConfig.UpdateTime.Add(traderRefreshRecord);
-    }
-
-    /// <summary>
-    ///     Add a traders base data to the server, no assort items
-    /// </summary>
-    protected void AddTraderWithEmptyAssortToDb(TraderBase traderDetailsToAdd)
-    {
-        var emptyTraderItemAssortObject = new TraderAssort
-        {
-            Items = [],
-            BarterScheme = new Dictionary<MongoId, List<List<BarterScheme>>>(),
-            LoyalLevelItems = new Dictionary<MongoId, int>()
-        };
-
-        var traderDataToAdd = new Trader
-        {
-            Assort = emptyTraderItemAssortObject,
-            Base = cloner.Clone(traderDetailsToAdd)!,
+            Assort = new TraderAssort
+            {
+                Items = [],
+                BarterScheme = new Dictionary<MongoId, List<List<BarterScheme>>>(),
+                LoyalLevelItems = new Dictionary<MongoId, int>()
+            },
+            Base = cloner.Clone(traderDetails)!,
             QuestAssort = new()
             {
                 { "Started", new() },
@@ -199,33 +228,43 @@ public class Main(
             Dialogue = []
         };
 
-        if (!tradersTable.TryAdd(traderDetailsToAdd.Id, traderDataToAdd))
+        if (!tradersTable.TryAdd(traderDetails.Id, traderData))
         {
-            logger.Error($"[PresetTrader]: Failed to add trader {traderDetailsToAdd.Id}, id already exists");
+            logger.Error(
+                $"[PresetTrader]: Failed to add trader {traderDetails.Id}, id already exists; aborting");
+
+            return false;
         }
+
+        return true;
     }
 
-    /// <summary>
-    ///     Add traders name/location/description to all locales
-    /// </summary>
-    protected void AddTraderToLocales(TraderBase baseJson, string firstName, string description)
+    private void AddTraderToLocales(
+        TraderBase baseJson,
+        string firstName,
+        string description)
     {
-        var locales = localeTable.Global;
         var newTraderId = baseJson.Id;
         var fullName = baseJson.Name;
         var nickName = baseJson.Nickname;
         var location = baseJson.Location;
 
-        foreach (var (localeKey, localeKvP) in locales)
+        foreach (var (_, localeKvP) in localeTable.Global)
         {
-            localeKvP.AddTransformer(lazyloadedLocaleData =>
+            localeKvP.AddTransformer(localeData =>
             {
-                lazyloadedLocaleData!.Add($"{newTraderId} FullName", fullName);
-                lazyloadedLocaleData.Add($"{newTraderId} FirstName", firstName);
-                lazyloadedLocaleData.Add($"{newTraderId} Nickname", nickName ?? fullName);
-                lazyloadedLocaleData.Add($"{newTraderId} Location", location ?? "");
-                lazyloadedLocaleData.Add($"{newTraderId} Description", description);
-                return lazyloadedLocaleData;
+                if (localeData is null)
+                {
+                    return localeData;
+                }
+
+                localeData[$"{newTraderId} FullName"] = fullName;
+                localeData[$"{newTraderId} FirstName"] = firstName;
+                localeData[$"{newTraderId} Nickname"] = nickName ?? fullName;
+                localeData[$"{newTraderId} Location"] = location ?? string.Empty;
+                localeData[$"{newTraderId} Description"] = description;
+
+                return localeData;
             });
         }
     }
