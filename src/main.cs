@@ -100,6 +100,12 @@ public class Main(
 
         var added = 0;
 
+        // Root tpls already for sale (weapon builds and previous preset passes included)
+        var soldRootTpls = traderData.Assort.Items
+            .Where(item => item.SlotId == TraderRootParentId)
+            .Select(item => item.Template)
+            .ToHashSet();
+
         if (sets is { Count: > 0 })
         {
             foreach (var set in sets)
@@ -108,6 +114,55 @@ public class Main(
                 {
                     if (set is null || string.IsNullOrWhiteSpace(set.RootTpl))
                     {
+                        continue;
+                    }
+
+                    var rootTemplate = itemHelper.GetItem(set.RootTpl).Value;
+                    if (rootTemplate is null)
+                    {
+                        logger.Warning(
+                            $"[PresetTrader]: Skipping preset '{set.RootTpl}' - tpl not found in item DB");
+                        continue;
+                    }
+
+                    string? invalidAttachmentReason = null;
+                    if (set.Attachments is { Count: > 0 })
+                    {
+                        foreach (var att in set.Attachments)
+                        {
+                            if (att is null ||
+                                string.IsNullOrWhiteSpace(att.Tpl) ||
+                                string.IsNullOrWhiteSpace(att.Slot))
+                            {
+                                invalidAttachmentReason = "malformed attachment entry";
+                                break;
+                            }
+
+                            if (!itemHelper.GetItem(att.Tpl).Key)
+                            {
+                                invalidAttachmentReason = $"attachment tpl '{att.Tpl}' not found in item DB";
+                                break;
+                            }
+
+                            if (rootTemplate.Properties?.Slots?.Any(slot => slot.Name == att.Slot) != true)
+                            {
+                                invalidAttachmentReason = $"slot '{att.Slot}' is not declared on root template '{set.RootTpl}'";
+                                break;
+                            }
+                        }
+                    }
+
+                    if (invalidAttachmentReason is not null)
+                    {
+                        logger.Warning(
+                            $"[PresetTrader]: Skipping preset '{set.RootTpl}' - {invalidAttachmentReason}");
+                        continue;
+                    }
+
+                    if (!soldRootTpls.Add(set.RootTpl))
+                    {
+                        logger.Warning(
+                            $"[PresetTrader]: Skipping preset '{set.RootTpl}' - already sold by another preset or weapon build");
                         continue;
                     }
 
@@ -321,7 +376,7 @@ public class PresetTraderRegistration(
     }
 }
 
-[Injectable(TypePriority = OnUpdateOrder.InsuranceCallbacks)]
+[Injectable(InjectionType.Singleton, TypePriority = OnUpdateOrder.InsuranceCallbacks)]
 public class PresetTraderRefresher(
     ISptLogger<PresetTraderRefresher> logger,
     ProfileHelper profileHelper,
@@ -352,7 +407,7 @@ public class PresetTraderRefresher(
 
         if (secondsSinceLastRun < RefreshIntervalSeconds)
         {
-            return Task.FromResult(true);
+            return Task.FromResult(false);
         }
 
         var added = Refresh();
