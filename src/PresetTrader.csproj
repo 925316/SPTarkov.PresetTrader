@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<OutputPath>$(SolutionDir)Build\$(Configuration)\SPT_Runtime\user\mods\$(MSBuildProjectName)\</OutputPath>
+		<OutputPath>$(SolutionDir)Build\$(Configuration)\SPT\user\mods\$(MSBuildProjectName)\</OutputPath>
 		<IntermediateOutputPath>$(SolutionDir)\Build\Intermediate\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="SPTarkov.Common" Version="4.1.2" />
-		<PackageReference Include="SPTarkov.DI" Version="4.1.2" />
-		<PackageReference Include="SPTarkov.Server.Core" Version="4.1.2" />
+		<PackageReference Include="SPTarkov.Common" Version="4.0.0" />
+		<PackageReference Include="SPTarkov.DI" Version="4.0.0" />
+		<PackageReference Include="SPTarkov.Server.Core" Version="4.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

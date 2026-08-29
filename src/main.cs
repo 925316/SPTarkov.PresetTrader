@@ -1,18 +1,17 @@
 using System.Reflection;
-using SPTarkov.Common.Models.Logging;
+using SPTarkov.Server.Core.Models.Utils;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
 using SPTarkov.Server.Core.Extensions;
-using SPTarkov.Server.Core.Helpers.Items;
-using SPTarkov.Server.Core.Helpers.Profile;
-using SPTarkov.Server.Core.Helpers.Server;
+using SPTarkov.Server.Core.Helpers;
+using SPTarkov.Server.Core.Services;
+using SPTarkov.Server.Core.Servers;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Eft.Profile;
 using SPTarkov.Server.Core.Models.Enums;
 using SPTarkov.Server.Core.Models.Spt.Config;
 using SPTarkov.Server.Core.Models.Spt.Mod;
-using SPTarkov.Server.Core.Models.Spt.Tables;
 using SPTarkov.Server.Core.Routers;
 using SPTarkov.Server.Core.Utils;
 using SPTarkov.Server.Core.Utils.Cloners;
@@ -20,19 +19,19 @@ using Path = System.IO.Path;
 
 namespace PresetTrader;
 
-public record ModMetadata : IModMetadata
+public record ModMetadata : AbstractModMetadata
 {
-    public string ModGuid { get; init; } = "com.sp.bela.presettrader";
-    public string Name { get; init; } = "PresetTrader";
-    public string Author { get; init; } = "Bela";
-    public List<string>? Contributors { get; init; }
-    public SemanticVersioning.Version Version { get; init; } = new("1.1.0");
-    public SemanticVersioning.Range SptVersion { get; init; } = new("~4.1.2");
-    public List<string>? Incompatibilities { get; init; }
-    public Dictionary<string, SemanticVersioning.Range>? ModDependencies { get; init; }
-    public string? Url { get; init; } = "https://github.com/925316/SPTarkov.PresetTrader";
-    public string License { get; init; } = "AGPL-3.0";
-    public bool HasPrepatcher { get; init; }
+    public override string ModGuid { get; init; } = "com.sp.bela.presettrader";
+    public override string Name { get; init; } = "PresetTrader";
+    public override string Author { get; init; } = "Bela";
+    public override List<string>? Contributors { get; init; }
+    public override SemanticVersioning.Version Version { get; init; } = new("0.1.0");
+    public override SemanticVersioning.Range SptVersion { get; init; } = new("~4.0.0");
+    public override List<string>? Incompatibilities { get; init; }
+    public override Dictionary<string, SemanticVersioning.Range>? ModDependencies { get; init; }
+    public override string? Url { get; init; } = "https://github.com/925316/SPTarkov.PresetTrader";
+    public override string License { get; init; } = "AGPL-3.0";
+    public override bool? IsBundleMod { get; init; } = false;
 }
 
 public class MatchedSet
@@ -52,19 +51,19 @@ public class PresetTraderConfig
     public bool EnableWeaponPresets { get; set; }
 }
 
-[Injectable(TypePriority = OnLoadOrder.PostLoad + 1)]
+[Injectable(TypePriority = OnLoadOrder.PostSptModLoader + 1)]
 public class Main(
     ISptLogger<Main> logger,
     ModHelper modHelper,
     ItemHelper itemHelper,
-    TradersTable tradersTable,
+    DatabaseService databaseService,
     PresetTraderRefresher refresher
 )
     : IOnLoad
 {
     private const string TraderRootParentId = "hideout";
 
-    public Task OnLoadAsync(CancellationToken cancellationToken)
+    public Task OnLoad()
     {
         var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
 
@@ -100,7 +99,7 @@ public class Main(
 
     private int PopulatePresets(MongoId traderId, string relativePath)
     {
-        if (!tradersTable.TryGetValue(traderId, out var traderData))
+        var traderData = databaseService.GetTrader(traderId); if (traderData is null)
         {
             logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot add presets");
             return 0;
@@ -265,7 +264,7 @@ public class Main(
 
     private int PopulateWeaponPresets(MongoId traderId, string relativePath)
     {
-        if (!tradersTable.TryGetValue(traderId, out var traderData))
+        var traderData = databaseService.GetTrader(traderId); if (traderData is null)
         {
             logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot add weapon presets");
             return 0;
@@ -396,15 +395,14 @@ public class PresetTraderRegistration(
     ISptLogger<PresetTraderRegistration> logger,
     ModHelper modHelper,
     ImageRouter imageRouter,
-    TraderConfig traderConfig,
+    ConfigServer configServer,
     TimeUtil timeUtil,
     ICloner cloner,
-    TradersTable tradersTable,
-    LocaleTable localeTable
+    DatabaseService databaseService
 )
     : IOnLoad
-{
-    public Task OnLoadAsync(CancellationToken cancellationToken)
+    {
+        public Task OnLoad()
     {
         var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
 
@@ -431,6 +429,7 @@ public class PresetTraderRegistration(
         var traderAvatar = Path.ChangeExtension(traderBase.Avatar, null);
         imageRouter.AddRoute(traderAvatar, traderImagePath);
 
+        var traderConfig = configServer.GetConfig<TraderConfig>();
         if (traderConfig.UpdateTime.All(x => x.TraderId != traderBase.Id))
         {
             traderConfig.UpdateTime.Add(new UpdateTime
@@ -478,7 +477,7 @@ public class PresetTraderRegistration(
             Dialogue = []
         };
 
-        if (!tradersTable.TryAdd(traderDetails.Id, traderData))
+        if (!databaseService.GetTraders().TryAdd(traderDetails.Id, traderData))
         {
             logger.Error(
                 $"[PresetTrader]: Failed to add trader {traderDetails.Id}, id already exists; aborting");
@@ -499,7 +498,7 @@ public class PresetTraderRegistration(
         var nickName = baseJson.Nickname;
         var location = baseJson.Location;
 
-        foreach (var (_, localeKvP) in localeTable.Global)
+        foreach (var (_, localeKvP) in databaseService.GetLocales().Global)
         {
             localeKvP.AddTransformer(localeData =>
             {
@@ -524,7 +523,7 @@ public class PresetTraderRegistration(
 public class PresetTraderRefresher(
     ISptLogger<PresetTraderRefresher> logger,
     ProfileHelper profileHelper,
-    TradersTable tradersTable,
+    DatabaseService databaseService,
     ItemHelper itemHelper,
     ICloner cloner)
     : IOnUpdate
@@ -541,7 +540,7 @@ public class PresetTraderRefresher(
         _traderId = traderId;
     }
 
-    public Task<bool> OnUpdateAsync(long secondsSinceLastRun, CancellationToken cancellationToken)
+    public Task<bool> OnUpdate(long secondsSinceLastRun)
     {
         if (_traderId is null)
         {
@@ -574,7 +573,7 @@ public class PresetTraderRefresher(
 
         var traderId = _traderId.Value;
 
-        if (!tradersTable.TryGetValue(traderId, out var traderData))
+        var traderData = databaseService.GetTrader(traderId); if (traderData is null)
         {
             logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot refresh weapon builds");
             return 0;
