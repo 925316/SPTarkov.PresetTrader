@@ -533,7 +533,8 @@ public class PresetTraderRefresher(
     private const int RefreshIntervalSeconds = 30;
 
     private MongoId? _traderId;
-    private readonly HashSet<MongoId> _seenBuildIds = new();
+    private readonly Dictionary<MongoId, MongoId> _buildRootIds = new();
+    private readonly Dictionary<MongoId, string> _buildSignatures = new();
 
     public void SetTraderId(MongoId traderId)
     {
@@ -554,11 +555,11 @@ public class PresetTraderRefresher(
             return Task.FromResult(false);
         }
 
-        var added = Refresh();
-        if (added > 0)
+        var synced = Refresh();
+        if (synced > 0)
         {
             logger.Info(
-                $"[PresetTrader]: Live refresh added {added} new weapon build(s) to trader {traderId}");
+                $"[PresetTrader]: Live refresh synced {synced} weapon build(s) to trader {traderId}");
         }
 
         return Task.FromResult(true);
@@ -579,7 +580,8 @@ public class PresetTraderRefresher(
             return 0;
         }
 
-        var addedCount = 0;
+        var syncedCount = 0;
+        var currentBuildIds = new HashSet<MongoId>();
 
         foreach (var (_, profile) in profileHelper.GetProfiles())
         {
@@ -596,9 +598,24 @@ public class PresetTraderRefresher(
                     continue;
                 }
 
-                if (_seenBuildIds.Contains(build.Id))
+                currentBuildIds.Add(build.Id);
+
+                var signature = ComputeBuildSignature(build.Items);
+
+                if (_buildRootIds.TryGetValue(build.Id, out var existingRootId)
+                    && _buildSignatures.TryGetValue(build.Id, out var existingSignature)
+                    && existingSignature == signature)
                 {
                     continue;
+                }
+
+                if (_buildRootIds.TryGetValue(build.Id, out var staleRootId))
+                {
+                    RemoveBuildAssort(traderData, staleRootId);
+                    _buildRootIds.Remove(build.Id);
+                    _buildSignatures.Remove(build.Id);
+                    logger.Debug(
+                        $"[PresetTrader]: Replacing modified build '{build.Name}' ({build.Id})");
                 }
 
                 try
@@ -652,12 +669,13 @@ public class PresetTraderRefresher(
 
                     traderData.Assort.LoyalLevelItems[newRootId] = 1;
 
-                    _seenBuildIds.Add(build.Id);
+                    _buildRootIds[build.Id] = newRootId;
+                    _buildSignatures[build.Id] = signature;
 
                     logger.Debug(
                         $"[PresetTrader]: Added build '{build.Name}' ({build.Id}) for {price} roubles");
 
-                    addedCount++;
+                    syncedCount++;
                 }
                 catch (Exception ex)
                 {
@@ -667,6 +685,51 @@ public class PresetTraderRefresher(
             }
         }
 
-        return addedCount;
+        foreach (var kvp in _buildRootIds.ToList())
+        {
+            if (!currentBuildIds.Contains(kvp.Key))
+            {
+                RemoveBuildAssort(traderData, kvp.Value);
+                _buildRootIds.Remove(kvp.Key);
+                _buildSignatures.Remove(kvp.Key);
+                logger.Debug(
+                    $"[PresetTrader]: Removed deleted build ({kvp.Key}) from trader");
+            }
+        }
+
+        return syncedCount;
+    }
+
+    private void RemoveBuildAssort(Trader traderData, MongoId rootId)
+    {
+        var toRemove = new HashSet<MongoId> { rootId };
+        var queue = new Queue<MongoId>();
+        queue.Enqueue(rootId);
+
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+            foreach (var item in traderData.Assort.Items)
+            {
+                if (item.ParentId is not null && item.ParentId.Equals(current) && toRemove.Add(item.Id))
+                {
+                    queue.Enqueue(item.Id);
+                }
+            }
+        }
+
+        traderData.Assort.Items.RemoveAll(item => toRemove.Contains(item.Id));
+        traderData.Assort.BarterScheme.Remove(rootId);
+        traderData.Assort.LoyalLevelItems.Remove(rootId);
+    }
+
+    private static string ComputeBuildSignature(List<Item> items)
+    {
+        var parts = items
+            .Select(item => $"{item.Template}|{item.SlotId ?? string.Empty}")
+            .OrderBy(x => x, StringComparer.Ordinal)
+            .ToArray();
+
+        return string.Join(";", parts);
     }
 }
