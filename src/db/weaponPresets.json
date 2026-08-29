@@ -1,0 +1,3953 @@
+﻿{
+    "Gunsmith 01": [
+        {
+            "_id": "683739bd6c6e1172e0043fbe",
+            "_tpl": "54491c4f4bdc2db1078b4568",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "683739bd6c6e1172e0043fbf",
+            "_tpl": "55d4491a4bdc2d882f8b456e",
+            "slotId": "mod_barrel",
+            "parentId": "683739bd6c6e1172e0043fbe"
+        },
+        {
+            "_id": "683739bd6c6e1172e0043fc0",
+            "_tpl": "55d45f484bdc2d972f8b456d",
+            "slotId": "mod_handguard",
+            "parentId": "683739bd6c6e1172e0043fbe"
+        },
+        {
+            "_id": "683739bd6c6e1172e0043fc1",
+            "_tpl": "55d484b44bdc2d1d4e8b456d",
+            "slotId": "mod_magazine",
+            "parentId": "683739bd6c6e1172e0043fbe"
+        },
+        {
+            "_id": "683739bd6c6e1172e0043fc2",
+            "_tpl": "56083a334bdc2dc8488b4571",
+            "slotId": "mod_stock",
+            "parentId": "683739bd6c6e1172e0043fbe"
+        },
+        {
+            "_id": "683739bd6c6e1172e0043fc3",
+            "_tpl": "5cc9c20cd7f00c001336c65d",
+            "slotId": "mod_tactical_000",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "683739bd6c6e1172e0043fc0"
+        }
+    ],
+    "Gunsmith 02": [
+        {
+            "_id": "68373b676c6e1172e0047782",
+            "_tpl": "57dc2fa62459775949412633",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68373b676c6e1172e0047783",
+            "_tpl": "57e3dba62459770f0c32322b",
+            "slotId": "mod_pistol_grip",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "68373b676c6e1172e0047782"
+        },
+        {
+            "_id": "68373b676c6e1172e0047784",
+            "_tpl": "57dc347d245977596754e7a1",
+            "slotId": "mod_stock",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "68373b676c6e1172e0047782"
+        },
+        {
+            "_id": "68373b676c6e1172e0047785",
+            "_tpl": "55d482194bdc2d1d4e8b456b",
+            "slotId": "mod_magazine",
+            "parentId": "68373b676c6e1172e0047782"
+        },
+        {
+            "_id": "68373b676c6e1172e0047786",
+            "_tpl": "57dc334d245977597164366f",
+            "slotId": "mod_reciever",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "68373b676c6e1172e0047782"
+        },
+        {
+            "_id": "68373b676c6e1172e0047787",
+            "_tpl": "59d36a0086f7747e673f3946",
+            "slotId": "mod_gas_block",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "68373b676c6e1172e0047782"
+        },
+        {
+            "_id": "68373b676c6e1172e0047788",
+            "_tpl": "57ffa9f4245977728561e844",
+            "slotId": "mod_handguard",
+            "parentId": "68373b676c6e1172e0047787"
+        },
+        {
+            "_id": "68373b676c6e1172e0047789",
+            "_tpl": "5c87ca002e221600114cb150",
+            "slotId": "mod_foregrip",
+            "parentId": "68373b676c6e1172e0047788"
+        }
+    ],
+    "Gunsmith 03": [
+        {
+            "_id": "68373c1a6c6e1172e004a03e",
+            "_tpl": "5926bb2186f7744b1c6c6e60",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68373c1a6c6e1172e004a03f",
+            "_tpl": "5a351711c4a282000b1521a4",
+            "slotId": "mod_magazine",
+            "parentId": "68373c1a6c6e1172e004a03e"
+        },
+        {
+            "_id": "68373c1a6c6e1172e004a040",
+            "_tpl": "5926f2e086f7745aae644231",
+            "slotId": "mod_reciever",
+            "parentId": "68373c1a6c6e1172e004a03e"
+        },
+        {
+            "_id": "68373c1a6c6e1172e004a041",
+            "_tpl": "5926c32286f774616e42de99",
+            "slotId": "mod_charge",
+            "parentId": "68373c1a6c6e1172e004a03e"
+        },
+        {
+            "_id": "68373c1a6c6e1172e004a042",
+            "_tpl": "5926f34786f77469195bfe92",
+            "slotId": "mod_handguard",
+            "parentId": "68373c1a6c6e1172e004a040"
+        },
+        {
+            "_id": "68373c1a6c6e1172e004a043",
+            "_tpl": "5926d2be86f774134d668e4e",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68373c1a6c6e1172e004a040"
+        },
+        {
+            "_id": "68373c1a6c6e1172e004a044",
+            "_tpl": "5926d40686f7740f152b6b7e",
+            "slotId": "mod_stock",
+            "parentId": "68373c1a6c6e1172e004a040"
+        },
+        {
+            "_id": "68373c1a6c6e1172e004a045",
+            "_tpl": "5926d33d86f77410de68ebc0",
+            "slotId": "mod_muzzle",
+            "parentId": "68373c1a6c6e1172e004a040"
+        },
+        {
+            "_id": "68373c1a6c6e1172e004a046",
+            "_tpl": "59c63b4486f7747afb151c1c",
+            "slotId": "mod_mount",
+            "parentId": "68373c1a6c6e1172e004a045"
+        },
+        {
+            "_id": "68373c1a6c6e1172e004a047",
+            "_tpl": "5cc9c20cd7f00c001336c65d",
+            "slotId": "mod_tactical_000",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "68373c1a6c6e1172e004a046"
+        }
+    ],
+    "Gunsmith 04": [
+        {
+            "_id": "68373cf76c6e1172e004d7d6",
+            "_tpl": "587e02ff24597743df3deaeb",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68373cf76c6e1172e004d7d7",
+            "_tpl": "5afd7ded5acfc40017541f5e",
+            "slotId": "mod_stock",
+            "parentId": "68373cf76c6e1172e004d7d6"
+        },
+        {
+            "_id": "68373cf76c6e1172e004d7d8",
+            "_tpl": "634eff66517ccc8a960fc735",
+            "slotId": "mod_barrel",
+            "parentId": "68373cf76c6e1172e004d7d6"
+        },
+        {
+            "_id": "68373cf76c6e1172e004d7d9",
+            "_tpl": "587df583245977373c4f1129",
+            "slotId": "mod_magazine",
+            "parentId": "68373cf76c6e1172e004d7d6"
+        },
+        {
+            "_id": "68373cf76c6e1172e004d7da",
+            "_tpl": "587e08ee245977446b4410cf",
+            "slotId": "mod_mount",
+            "parentId": "68373cf76c6e1172e004d7d6"
+        },
+        {
+            "_id": "68373cf76c6e1172e004d7db",
+            "_tpl": "634f06262e5def262d0b30ca",
+            "slotId": "mod_reciever",
+            "parentId": "68373cf76c6e1172e004d7d6"
+        },
+        {
+            "_id": "68373cf76c6e1172e004d7dc",
+            "_tpl": "5afd7e095acfc40017541f61",
+            "slotId": "mod_stock",
+            "parentId": "68373cf76c6e1172e004d7d7"
+        },
+        {
+            "_id": "68373cf76c6e1172e004d7dd",
+            "_tpl": "5afd7e445acfc4001637e35a",
+            "slotId": "mod_pistol_grip",
+            "parentId": "68373cf76c6e1172e004d7d7"
+        },
+        {
+            "_id": "68373cf76c6e1172e004d7de",
+            "_tpl": "634f05a21f9f536910079b56",
+            "slotId": "mod_mount_000",
+            "parentId": "68373cf76c6e1172e004d7d8"
+        },
+        {
+            "_id": "68373cf76c6e1172e004d7df",
+            "_tpl": "593d490386f7745ee97a1555",
+            "slotId": "mod_muzzle",
+            "parentId": "68373cf76c6e1172e004d7d8"
+        },
+        {
+            "_id": "68373cf76c6e1172e004d7e0",
+            "_tpl": "5cf638cbd7f00c06595bc936",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68373cf76c6e1172e004d7da"
+        },
+        {
+            "_id": "68373cf76c6e1172e004d7e1",
+            "_tpl": "55d4ae6c4bdc2d8b2f8b456e",
+            "slotId": "mod_stock",
+            "parentId": "68373cf76c6e1172e004d7dc"
+        },
+        {
+            "_id": "68373cf76c6e1172e004d7e2",
+            "_tpl": "634f036a517ccc8a960fc746",
+            "slotId": "mod_gas_block",
+            "parentId": "68373cf76c6e1172e004d7de"
+        },
+        {
+            "_id": "68373cf76c6e1172e004d7e3",
+            "_tpl": "634f03d40384a3ba4f06f874",
+            "slotId": "mod_mount_000",
+            "parentId": "68373cf76c6e1172e004d7e2"
+        }
+    ],
+    "Gunsmith 05": [
+        {
+            "_id": "68373d776c6e1172e004f55a",
+            "_tpl": "5a7828548dc32e5a9c28b516",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68373d776c6e1172e004f55b",
+            "_tpl": "5a787f7ac5856700177af660",
+            "slotId": "mod_barrel",
+            "parentId": "68373d776c6e1172e004f55a"
+        },
+        {
+            "_id": "68373d776c6e1172e004f55c",
+            "_tpl": "5a788068c5856700137e4c8f",
+            "slotId": "mod_handguard",
+            "parentId": "68373d776c6e1172e004f55a"
+        },
+        {
+            "_id": "68373d776c6e1172e004f55d",
+            "_tpl": "5a7882dcc5856700177af662",
+            "slotId": "mod_magazine",
+            "parentId": "68373d776c6e1172e004f55a"
+        },
+        {
+            "_id": "68373d776c6e1172e004f55e",
+            "_tpl": "5a78813bc5856700186c4abe",
+            "slotId": "mod_stock",
+            "parentId": "68373d776c6e1172e004f55a"
+        },
+        {
+            "_id": "68373d776c6e1172e004f55f",
+            "_tpl": "5c0111ab0db834001966914d",
+            "slotId": "mod_muzzle",
+            "parentId": "68373d776c6e1172e004f55b"
+        },
+        {
+            "_id": "68373d776c6e1172e004f560",
+            "_tpl": "5b7be4895acfc400170e2dd5",
+            "slotId": "mod_foregrip",
+            "parentId": "68373d776c6e1172e004f55c"
+        },
+        {
+            "_id": "68373d776c6e1172e004f561",
+            "_tpl": "5b7be47f5acfc400170e2dd2",
+            "slotId": "mod_mount_000",
+            "parentId": "68373d776c6e1172e004f55c"
+        },
+        {
+            "_id": "68373d776c6e1172e004f562",
+            "_tpl": "58272d7f2459774f6311ddfd",
+            "slotId": "mod_muzzle",
+            "parentId": "68373d776c6e1172e004f55f"
+        },
+        {
+            "_id": "68373d776c6e1172e004f563",
+            "_tpl": "5c87ca002e221600114cb150",
+            "slotId": "mod_foregrip",
+            "parentId": "68373d776c6e1172e004f560"
+        },
+        {
+            "_id": "68373d776c6e1172e004f564",
+            "_tpl": "5cc9c20cd7f00c001336c65d",
+            "slotId": "mod_tactical",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "68373d776c6e1172e004f561"
+        }
+    ],
+    "Gunsmith 06": [
+        {
+            "_id": "68569cd62b31f3393003483f",
+            "_tpl": "59d6088586f774275f37482f",
+            "upd": {
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "FireMode": {
+                    "FireMode": "single"
+                }
+            }
+        },
+        {
+            "_id": "68569cd62b31f33930034840",
+            "_tpl": "59d64ec286f774171d1e0a42",
+            "slotId": "mod_gas_block",
+            "parentId": "68569cd62b31f3393003483f"
+        },
+        {
+            "_id": "68569cd62b31f33930034841",
+            "_tpl": "59bffc1f86f77435b128b872",
+            "slotId": "mod_muzzle",
+            "parentId": "68569cd62b31f3393003483f"
+        },
+        {
+            "_id": "68569cd62b31f33930034842",
+            "_tpl": "5947f92f86f77427344a76b1",
+            "slotId": "mod_pistol_grip",
+            "parentId": "68569cd62b31f3393003483f"
+        },
+        {
+            "_id": "68569cd62b31f33930034843",
+            "_tpl": "5d2c76ed48f03532f2136169",
+            "slotId": "mod_reciever",
+            "parentId": "68569cd62b31f3393003483f"
+        },
+        {
+            "_id": "68569cd62b31f33930034844",
+            "_tpl": "59d6514b86f774171a068a08",
+            "slotId": "mod_stock",
+            "parentId": "68569cd62b31f3393003483f"
+        },
+        {
+            "_id": "68569cd62b31f33930034845",
+            "_tpl": "59d6272486f77466146386ff",
+            "slotId": "mod_magazine",
+            "parentId": "68569cd62b31f3393003483f"
+        },
+        {
+            "_id": "68569cd62b31f33930034846",
+            "_tpl": "57cff947245977638e6f2a19",
+            "slotId": "mod_handguard",
+            "parentId": "68569cd62b31f33930034840"
+        },
+        {
+            "_id": "68569cd62b31f33930034847",
+            "_tpl": "59bffbb386f77435b379b9c2",
+            "slotId": "mod_muzzle",
+            "parentId": "68569cd62b31f33930034841"
+        },
+        {
+            "_id": "68569cd62b31f33930034848",
+            "_tpl": "6477772ea8a38bb2050ed4db",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68569cd62b31f33930034843"
+        },
+        {
+            "_id": "68569cd62b31f33930034849",
+            "_tpl": "5b7be4895acfc400170e2dd5",
+            "slotId": "mod_mount_003",
+            "parentId": "68569cd62b31f33930034846"
+        },
+        {
+            "_id": "68569cd62b31f3393003484a",
+            "_tpl": "59f8a37386f7747af3328f06",
+            "slotId": "mod_foregrip",
+            "parentId": "68569cd62b31f33930034849"
+        }
+    ],
+    "Gunsmith 07": [
+        {
+            "_id": "68373fc56c6e1172e005958e",
+            "_tpl": "5447a9cd4bdc2dbd208b4567",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68373fc56c6e1172e005958f",
+            "_tpl": "55d4b9964bdc2d1d4e8b456e",
+            "slotId": "mod_pistol_grip",
+            "parentId": "68373fc56c6e1172e005958e"
+        },
+        {
+            "_id": "68373fc56c6e1172e0059590",
+            "_tpl": "544a37c44bdc2d25388b4567",
+            "slotId": "mod_magazine",
+            "parentId": "68373fc56c6e1172e005958e"
+        },
+        {
+            "_id": "68373fc56c6e1172e0059591",
+            "_tpl": "55d355e64bdc2d962f8b4569",
+            "slotId": "mod_reciever",
+            "parentId": "68373fc56c6e1172e005958e"
+        },
+        {
+            "_id": "68373fc56c6e1172e0059592",
+            "_tpl": "5649be884bdc2d79388b4577",
+            "slotId": "mod_stock",
+            "parentId": "68373fc56c6e1172e005958e"
+        },
+        {
+            "_id": "68373fc56c6e1172e0059593",
+            "_tpl": "55d44fd14bdc2d962f8b456e",
+            "slotId": "mod_charge",
+            "parentId": "68373fc56c6e1172e005958e"
+        },
+        {
+            "_id": "68373fc56c6e1172e0059594",
+            "_tpl": "5ae30bad5acfc400185c2dc4",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68373fc56c6e1172e0059591"
+        },
+        {
+            "_id": "68373fc56c6e1172e0059595",
+            "_tpl": "55d35ee94bdc2d61338b4568",
+            "slotId": "mod_barrel",
+            "parentId": "68373fc56c6e1172e0059591"
+        },
+        {
+            "_id": "68373fc56c6e1172e0059596",
+            "_tpl": "5c78f2792e221600106f4683",
+            "slotId": "mod_handguard",
+            "parentId": "68373fc56c6e1172e0059591"
+        },
+        {
+            "_id": "68373fc56c6e1172e0059597",
+            "_tpl": "5fbbaa86f9986c4cff3fe5f6",
+            "slotId": "mod_stock_000",
+            "parentId": "68373fc56c6e1172e0059592"
+        },
+        {
+            "_id": "68373fc56c6e1172e0059598",
+            "_tpl": "59db7e1086f77448be30ddf3",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68373fc56c6e1172e0059594"
+        },
+        {
+            "_id": "68373fc56c6e1172e0059599",
+            "_tpl": "5c7fb51d2e2216001219ce11",
+            "slotId": "mod_muzzle",
+            "parentId": "68373fc56c6e1172e0059595"
+        },
+        {
+            "_id": "68373fc56c6e1172e005959a",
+            "_tpl": "56ea8d2fd2720b7c698b4570",
+            "slotId": "mod_gas_block",
+            "parentId": "68373fc56c6e1172e0059595"
+        },
+        {
+            "_id": "68373fc56c6e1172e005959b",
+            "_tpl": "651a8bf3a8520e48047bf708",
+            "slotId": "mod_foregrip",
+            "parentId": "68373fc56c6e1172e0059596"
+        },
+        {
+            "_id": "68373fc56c6e1172e005959c",
+            "_tpl": "55d6190f4bdc2d87028b4567",
+            "slotId": "mod_muzzle",
+            "parentId": "68373fc56c6e1172e0059599"
+        }
+    ],
+    "Gunsmith 08": [
+        {
+            "_id": "683740b66c6e1172e005e002",
+            "_tpl": "5ab8e9fcd8ce870019439434",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "683740b66c6e1172e005e003",
+            "_tpl": "59c6633186f7740cf0493bb9",
+            "slotId": "mod_gas_block",
+            "parentId": "683740b66c6e1172e005e002"
+        },
+        {
+            "_id": "683740b66c6e1172e005e004",
+            "_tpl": "5649ab884bdc2ded0b8b457f",
+            "slotId": "mod_muzzle",
+            "parentId": "683740b66c6e1172e005e002"
+        },
+        {
+            "_id": "683740b66c6e1172e005e005",
+            "_tpl": "5649ae4a4bdc2d1b2b8b4588",
+            "slotId": "mod_pistol_grip",
+            "parentId": "683740b66c6e1172e005e002"
+        },
+        {
+            "_id": "683740b66c6e1172e005e006",
+            "_tpl": "5649af884bdc2d1b2b8b4589",
+            "slotId": "mod_reciever",
+            "parentId": "683740b66c6e1172e005e002"
+        },
+        {
+            "_id": "683740b66c6e1172e005e007",
+            "_tpl": "5649b0544bdc2d1b2b8b458a",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "683740b66c6e1172e005e002"
+        },
+        {
+            "_id": "683740b66c6e1172e005e008",
+            "_tpl": "59ecc28286f7746d7a68aa8c",
+            "slotId": "mod_stock",
+            "parentId": "683740b66c6e1172e005e002"
+        },
+        {
+            "_id": "683740b66c6e1172e005e009",
+            "_tpl": "5bed61680db834001d2c45ab",
+            "slotId": "mod_magazine",
+            "parentId": "683740b66c6e1172e005e002"
+        },
+        {
+            "_id": "683740b66c6e1172e005e00a",
+            "_tpl": "5efaf417aeb21837e749c7f2",
+            "slotId": "mod_handguard",
+            "parentId": "683740b66c6e1172e005e003"
+        },
+        {
+            "_id": "683740b66c6e1172e005e00b",
+            "_tpl": "59ecc3dd86f7746dc827481c",
+            "slotId": "mod_stock",
+            "parentId": "683740b66c6e1172e005e008"
+        },
+        {
+            "_id": "683740b66c6e1172e005e00c",
+            "_tpl": "5c1bc4812e22164bef5cfde7",
+            "slotId": "mod_foregrip",
+            "parentId": "683740b66c6e1172e005e00a"
+        },
+        {
+            "_id": "683740b66c6e1172e005e00d",
+            "_tpl": "5a5f1ce64f39f90b401987bc",
+            "slotId": "mod_tactical_002",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "683740b66c6e1172e005e00a"
+        }
+    ],
+    "Gunsmith 09": [
+        {
+            "_id": "6837410e6c6e1172e005ffee",
+            "_tpl": "56d59856d2720bd8418b456a",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "6837410e6c6e1172e005ffef",
+            "_tpl": "587de4282459771bca0ec90b",
+            "slotId": "mod_barrel",
+            "parentId": "6837410e6c6e1172e005ffee"
+        },
+        {
+            "_id": "6837410e6c6e1172e005fff0",
+            "_tpl": "5c00076d0db834001d23ee1f",
+            "slotId": "mod_pistol_grip",
+            "parentId": "6837410e6c6e1172e005ffee"
+        },
+        {
+            "_id": "6837410e6c6e1172e005fff1",
+            "_tpl": "5c0009510db834001966907f",
+            "slotId": "mod_reciever",
+            "parentId": "6837410e6c6e1172e005ffee"
+        },
+        {
+            "_id": "6837410e6c6e1172e005fff2",
+            "_tpl": "5c920e902e221644f31c3c99",
+            "slotId": "mod_magazine",
+            "parentId": "6837410e6c6e1172e005ffee"
+        },
+        {
+            "_id": "6837410e6c6e1172e005fff3",
+            "_tpl": "5cc9c20cd7f00c001336c65d",
+            "slotId": "mod_tactical",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "6837410e6c6e1172e005ffee"
+        },
+        {
+            "_id": "6837410e6c6e1172e005fff4",
+            "_tpl": "5c6beec32e221601da3578f2",
+            "slotId": "mod_muzzle",
+            "parentId": "6837410e6c6e1172e005ffef"
+        }
+    ],
+    "Gunsmith 10": [
+        {
+            "_id": "68569df72b31f33930037fa4",
+            "_tpl": "5ac66d9b5acfc4001633997a",
+            "upd": {
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "Foldable": {
+                    "Folded": false
+                },
+                "FireMode": {
+                    "FireMode": "single"
+                }
+            }
+        },
+        {
+            "_id": "68569df72b31f33930037fa5",
+            "_tpl": "59c6633186f7740cf0493bb9",
+            "slotId": "mod_gas_block",
+            "parentId": "68569df72b31f33930037fa4"
+        },
+        {
+            "_id": "68569df72b31f33930037fa6",
+            "_tpl": "59bffc1f86f77435b128b872",
+            "slotId": "mod_muzzle",
+            "parentId": "68569df72b31f33930037fa4"
+        },
+        {
+            "_id": "68569df72b31f33930037fa7",
+            "_tpl": "5947f92f86f77427344a76b1",
+            "slotId": "mod_pistol_grip",
+            "parentId": "68569df72b31f33930037fa4"
+        },
+        {
+            "_id": "68569df72b31f33930037fa8",
+            "_tpl": "5d2c76ed48f03532f2136169",
+            "slotId": "mod_reciever",
+            "parentId": "68569df72b31f33930037fa4"
+        },
+        {
+            "_id": "68569df72b31f33930037fa9",
+            "_tpl": "5ac78eaf5acfc4001926317a",
+            "slotId": "mod_stock",
+            "parentId": "68569df72b31f33930037fa4"
+        },
+        {
+            "_id": "68569df72b31f33930037faa",
+            "_tpl": "55d482194bdc2d1d4e8b456b",
+            "slotId": "mod_magazine",
+            "parentId": "68569df72b31f33930037fa4"
+        },
+        {
+            "_id": "68569df72b31f33930037fab",
+            "_tpl": "5cbda392ae92155f3c17c39f",
+            "slotId": "mod_handguard",
+            "parentId": "68569df72b31f33930037fa5"
+        },
+        {
+            "_id": "68569df72b31f33930037fac",
+            "_tpl": "59bffbb386f77435b379b9c2",
+            "slotId": "mod_muzzle",
+            "parentId": "68569df72b31f33930037fa6"
+        },
+        {
+            "_id": "68569df72b31f33930037fad",
+            "_tpl": "6477772ea8a38bb2050ed4db",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68569df72b31f33930037fa8"
+        },
+        {
+            "_id": "68569df72b31f33930037fae",
+            "_tpl": "5b222d405acfc400153af4fe",
+            "slotId": "mod_stock",
+            "parentId": "68569df72b31f33930037fa9"
+        },
+        {
+            "_id": "68569df72b31f33930037faf",
+            "_tpl": "5c87ca002e221600114cb150",
+            "slotId": "mod_foregrip",
+            "parentId": "68569df72b31f33930037fab"
+        }
+    ],
+    "Gunsmith 11": [
+        {
+            "_id": "683742c06c6e1172e0068ede",
+            "_tpl": "5fc3f2d5900b1d5091531e57",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "683742c06c6e1172e0068edf",
+            "_tpl": "5a7ad2e851dfba0016153692",
+            "slotId": "mod_magazine",
+            "parentId": "683742c06c6e1172e0068ede"
+        },
+        {
+            "_id": "683742c06c6e1172e0068ee0",
+            "_tpl": "5fb6567747ce63734e3fa1dc",
+            "slotId": "mod_sight_front",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "683742c06c6e1172e0068ede"
+        },
+        {
+            "_id": "683742c06c6e1172e0068ee1",
+            "_tpl": "5fb6564947ce63734e3fa1da",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "683742c06c6e1172e0068ede"
+        },
+        {
+            "_id": "683742c06c6e1172e0068ee2",
+            "_tpl": "5fb655b748c711690e3a8d5a",
+            "slotId": "mod_stock",
+            "parentId": "683742c06c6e1172e0068ede"
+        },
+        {
+            "_id": "683742c06c6e1172e0068ee3",
+            "_tpl": "5fbbc383d5cb881a7363194a",
+            "slotId": "mod_barrel",
+            "parentId": "683742c06c6e1172e0068ede"
+        },
+        {
+            "_id": "683742c06c6e1172e0068ee4",
+            "_tpl": "5fbb978207e8a97d1f0902d3",
+            "slotId": "mod_mount",
+            "parentId": "683742c06c6e1172e0068ede"
+        },
+        {
+            "_id": "683742c06c6e1172e0068ee5",
+            "_tpl": "5649be884bdc2d79388b4577",
+            "slotId": "mod_stock_000",
+            "parentId": "683742c06c6e1172e0068ee2"
+        },
+        {
+            "_id": "683742c06c6e1172e0068ee6",
+            "_tpl": "5a32a064c4a28200741e22de",
+            "slotId": "mod_muzzle",
+            "parentId": "683742c06c6e1172e0068ee3"
+        },
+        {
+            "_id": "683742c06c6e1172e0068ee7",
+            "_tpl": "5f6340d3ca442212f4047eb2",
+            "slotId": "mod_foregrip",
+            "parentId": "683742c06c6e1172e0068ee4"
+        },
+        {
+            "_id": "683742c06c6e1172e0068ee8",
+            "_tpl": "5fbbaa86f9986c4cff3fe5f6",
+            "slotId": "mod_stock_000",
+            "parentId": "683742c06c6e1172e0068ee5"
+        }
+    ],
+    "Gunsmith 12": [
+        {
+            "_id": "6837436d6c6e1172e006d787",
+            "_tpl": "58948c8e86f77409493f7266",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "6837436d6c6e1172e006d788",
+            "_tpl": "5b07db875acfc40dc528a5f6",
+            "slotId": "mod_pistol_grip",
+            "parentId": "6837436d6c6e1172e006d787"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d789",
+            "_tpl": "5894a05586f774094708ef75",
+            "slotId": "mod_magazine",
+            "parentId": "6837436d6c6e1172e006d787"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d78a",
+            "_tpl": "5894a5b586f77426d2590767",
+            "slotId": "mod_reciever",
+            "parentId": "6837436d6c6e1172e006d787"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d78b",
+            "_tpl": "5894a13e86f7742405482982",
+            "slotId": "mod_stock",
+            "parentId": "6837436d6c6e1172e006d787"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d78c",
+            "_tpl": "58949edd86f77409483e16a9",
+            "slotId": "mod_charge",
+            "parentId": "6837436d6c6e1172e006d787"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d78d",
+            "_tpl": "5894a2c386f77427140b8342",
+            "slotId": "mod_barrel",
+            "parentId": "6837436d6c6e1172e006d78a"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d78e",
+            "_tpl": "5894a42086f77426d2590762",
+            "slotId": "mod_handguard",
+            "parentId": "6837436d6c6e1172e006d78a"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d78f",
+            "_tpl": "5894a81786f77427140b8347",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6837436d6c6e1172e006d78a"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d790",
+            "_tpl": "5b3a16655acfc40016387a2a",
+            "slotId": "mod_muzzle",
+            "parentId": "6837436d6c6e1172e006d78d"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d791",
+            "_tpl": "5894a73486f77426d259076c",
+            "slotId": "mod_sight_front",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6837436d6c6e1172e006d78e"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d792",
+            "_tpl": "58a56f8d86f774651579314c",
+            "slotId": "mod_mount_000",
+            "parentId": "6837436d6c6e1172e006d78e"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d793",
+            "_tpl": "58a5c12e86f7745d585a2b9e",
+            "slotId": "mod_mount_001",
+            "parentId": "6837436d6c6e1172e006d78e"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d794",
+            "_tpl": "58a56f8d86f774651579314c",
+            "slotId": "mod_mount_002",
+            "parentId": "6837436d6c6e1172e006d78e"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d795",
+            "_tpl": "5b07dd285acfc4001754240d",
+            "slotId": "mod_tactical",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "6837436d6c6e1172e006d792"
+        },
+        {
+            "_id": "6837436d6c6e1172e006d796",
+            "_tpl": "64806bdd26c80811d408d37a",
+            "slotId": "mod_foregrip",
+            "parentId": "6837436d6c6e1172e006d793"
+        }
+    ],
+    "Gunsmith 13": [
+        {
+            "_id": "68569f022b31f3393003ab3c",
+            "_tpl": "5a367e5dc4a282000e49738f",
+            "upd": {
+                "SpawnedInSession": true,
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "FireMode": {
+                    "FireMode": "single"
+                }
+            }
+        },
+        {
+            "_id": "68569f022b31f3393003ab3d",
+            "_tpl": "6113c3586c780c1e710c90bc",
+            "slotId": "mod_pistol_grip",
+            "parentId": "68569f022b31f3393003ab3c"
+        },
+        {
+            "_id": "68569f022b31f3393003ab3e",
+            "_tpl": "5a33ca0fc4a282000d72292f",
+            "slotId": "mod_stock",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "68569f022b31f3393003ab3c"
+        },
+        {
+            "_id": "68569f022b31f3393003ab3f",
+            "_tpl": "5a329052c4a28200741e22d3",
+            "slotId": "mod_handguard",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "68569f022b31f3393003ab3c"
+        },
+        {
+            "_id": "68569f022b31f3393003ab40",
+            "_tpl": "5a34fae7c4a2826c6e06d760",
+            "slotId": "mod_barrel",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "68569f022b31f3393003ab3c"
+        },
+        {
+            "_id": "68569f022b31f3393003ab41",
+            "_tpl": "5c86592b2e2216000e69e77c",
+            "slotId": "mod_scope",
+            "parentId": "68569f022b31f3393003ab3c"
+        },
+        {
+            "_id": "68569f022b31f3393003ab42",
+            "_tpl": "5c1780312e221602b66cc189",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68569f022b31f3393003ab3c"
+        },
+        {
+            "_id": "68569f022b31f3393003ab43",
+            "_tpl": "5a33cae9c4a28232980eb086",
+            "slotId": "mod_stock",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "68569f022b31f3393003ab3e"
+        },
+        {
+            "_id": "68569f022b31f3393003ab44",
+            "_tpl": "5c0102b20db834001d23eebc",
+            "slotId": "mod_foregrip",
+            "parentId": "68569f022b31f3393003ab3f"
+        },
+        {
+            "_id": "68569f022b31f3393003ab45",
+            "_tpl": "59bffc1f86f77435b128b872",
+            "slotId": "mod_muzzle",
+            "parentId": "68569f022b31f3393003ab40"
+        },
+        {
+            "_id": "68569f022b31f3393003ab46",
+            "_tpl": "5a34fbadc4a28200741e230a",
+            "slotId": "mod_gas_block",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "68569f022b31f3393003ab40"
+        },
+        {
+            "_id": "68569f022b31f3393003ab47",
+            "_tpl": "5aa66be6e5b5b0214e506e97",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68569f022b31f3393003ab41"
+        },
+        {
+            "_id": "68569f022b31f3393003ab48",
+            "_tpl": "5c7fc87d2e221644f31c0298",
+            "slotId": "mod_foregrip",
+            "parentId": "68569f022b31f3393003ab44"
+        },
+        {
+            "_id": "68569f022b31f3393003ab49",
+            "_tpl": "59bffbb386f77435b379b9c2",
+            "slotId": "mod_muzzle",
+            "parentId": "68569f022b31f3393003ab45"
+        },
+        {
+            "_id": "68569f022b31f3393003ab4a",
+            "_tpl": "5c17804b2e2216152006c02f",
+            "slotId": "mod_sight_front",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68569f022b31f3393003ab46"
+        }
+    ],
+    "Gunsmith 14": [
+        {
+            "_id": "68569f792b31f3393003c867",
+            "_tpl": "5bb2475ed4351e00853264e3",
+            "upd": {
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "FireMode": {
+                    "FireMode": "single"
+                }
+            }
+        },
+        {
+            "_id": "68569f792b31f3393003c868",
+            "_tpl": "5d15cf3bd7ad1a67e71518b2",
+            "slotId": "mod_pistol_grip",
+            "parentId": "68569f792b31f3393003c867"
+        },
+        {
+            "_id": "68569f792b31f3393003c869",
+            "_tpl": "55d4887d4bdc2d962f8b4570",
+            "slotId": "mod_magazine",
+            "parentId": "68569f792b31f3393003c867"
+        },
+        {
+            "_id": "68569f792b31f3393003c86a",
+            "_tpl": "5bb20d53d4351e4502010a69",
+            "slotId": "mod_reciever",
+            "parentId": "68569f792b31f3393003c867"
+        },
+        {
+            "_id": "68569f792b31f3393003c86b",
+            "_tpl": "5947eab886f77475961d96c5",
+            "slotId": "mod_stock",
+            "parentId": "68569f792b31f3393003c867"
+        },
+        {
+            "_id": "68569f792b31f3393003c86c",
+            "_tpl": "5bb20dbcd4351e44f824c04e",
+            "slotId": "mod_charge",
+            "parentId": "68569f792b31f3393003c867"
+        },
+        {
+            "_id": "68569f792b31f3393003c86d",
+            "_tpl": "558022b54bdc2dac148b458d",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68569f792b31f3393003c86a"
+        },
+        {
+            "_id": "68569f792b31f3393003c86e",
+            "_tpl": "5bb20d92d4351e00853263eb",
+            "slotId": "mod_barrel",
+            "parentId": "68569f792b31f3393003c86a"
+        },
+        {
+            "_id": "68569f792b31f3393003c86f",
+            "_tpl": "5c6d10fa2e221600106f3f23",
+            "slotId": "mod_handguard",
+            "parentId": "68569f792b31f3393003c86a"
+        },
+        {
+            "_id": "68569f792b31f3393003c870",
+            "_tpl": "5c18b9192e2216398b5a8104",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68569f792b31f3393003c86a"
+        },
+        {
+            "_id": "68569f792b31f3393003c871",
+            "_tpl": "5c7fb51d2e2216001219ce11",
+            "slotId": "mod_muzzle",
+            "parentId": "68569f792b31f3393003c86e"
+        },
+        {
+            "_id": "68569f792b31f3393003c872",
+            "_tpl": "5bb20dcad4351e3bac1212da",
+            "slotId": "mod_gas_block",
+            "parentId": "68569f792b31f3393003c86e"
+        },
+        {
+            "_id": "68569f792b31f3393003c873",
+            "_tpl": "6269220d70b6c02e665f2635",
+            "slotId": "mod_mount_000",
+            "parentId": "68569f792b31f3393003c86f"
+        },
+        {
+            "_id": "68569f792b31f3393003c874",
+            "_tpl": "5b7be4895acfc400170e2dd5",
+            "slotId": "mod_foregrip",
+            "parentId": "68569f792b31f3393003c86f"
+        },
+        {
+            "_id": "68569f792b31f3393003c875",
+            "_tpl": "5c18b90d2e2216152142466b",
+            "slotId": "mod_sight_front",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68569f792b31f3393003c86f"
+        },
+        {
+            "_id": "68569f792b31f3393003c876",
+            "_tpl": "5ea17bbc09aa976f2e7a51cd",
+            "slotId": "mod_muzzle",
+            "parentId": "68569f792b31f3393003c871"
+        },
+        {
+            "_id": "68569f792b31f3393003c877",
+            "_tpl": "5c06595c0db834001a66af6c",
+            "slotId": "mod_tactical",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "68569f792b31f3393003c873"
+        },
+        {
+            "_id": "68569f792b31f3393003c878",
+            "_tpl": "5fce0cf655375d18a253eff0",
+            "slotId": "mod_foregrip",
+            "parentId": "68569f792b31f3393003c874"
+        }
+    ],
+    "Gunsmith 15": [
+        {
+            "_id": "683746866c6e1172e0082a31",
+            "_tpl": "57c44b372459772d2b39b8ce",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "683746866c6e1172e0082a32",
+            "_tpl": "57c44dd02459772d2e0ae249",
+            "slotId": "mod_muzzle",
+            "parentId": "683746866c6e1172e0082a31"
+        },
+        {
+            "_id": "683746866c6e1172e0082a33",
+            "_tpl": "57c44f4f2459772d2c627113",
+            "slotId": "mod_reciever",
+            "parentId": "683746866c6e1172e0082a31"
+        },
+        {
+            "_id": "683746866c6e1172e0082a34",
+            "_tpl": "5a9e81fba2750c00164f6b11",
+            "slotId": "mod_magazine",
+            "parentId": "683746866c6e1172e0082a31"
+        },
+        {
+            "_id": "683746866c6e1172e0082a35",
+            "_tpl": "5a69a2ed8dc32e000d46d1f1",
+            "slotId": "mod_pistol_grip",
+            "parentId": "683746866c6e1172e0082a31"
+        },
+        {
+            "_id": "683746866c6e1172e0082a36",
+            "_tpl": "5a7c74b3e899ef0014332c29",
+            "slotId": "mod_mount_004",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "683746866c6e1172e0082a31"
+        },
+        {
+            "_id": "683746866c6e1172e0082a37",
+            "_tpl": "651178336cad06c37c049eb4",
+            "slotId": "mod_handguard",
+            "parentId": "683746866c6e1172e0082a31"
+        },
+        {
+            "_id": "683746866c6e1172e0082a38",
+            "_tpl": "57c44e7b2459772d28133248",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "683746866c6e1172e0082a32"
+        },
+        {
+            "_id": "683746866c6e1172e0082a39",
+            "_tpl": "57a3459f245977764a01f703",
+            "slotId": "mod_mount_000",
+            "parentId": "683746866c6e1172e0082a32"
+        },
+        {
+            "_id": "683746866c6e1172e0082a3a",
+            "_tpl": "5a9eb32da2750c00171b3f9c",
+            "slotId": "mod_stock_000",
+            "parentId": "683746866c6e1172e0082a35"
+        },
+        {
+            "_id": "683746866c6e1172e0082a3b",
+            "_tpl": "544909bb4bdc2d6f028b4577",
+            "slotId": "mod_tactical",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "683746866c6e1172e0082a39"
+        }
+    ],
+    "Gunsmith 16": [
+        {
+            "_id": "683746db6c6e1172e0084769",
+            "_tpl": "588892092459774ac91d4b11",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "683746db6c6e1172e008476a",
+            "_tpl": "5888988e24597752fe43a6fa",
+            "slotId": "mod_magazine",
+            "parentId": "683746db6c6e1172e0084769"
+        },
+        {
+            "_id": "683746db6c6e1172e008476b",
+            "_tpl": "5c86592b2e2216000e69e77c",
+            "slotId": "mod_scope",
+            "parentId": "683746db6c6e1172e0084769"
+        },
+        {
+            "_id": "683746db6c6e1172e008476c",
+            "_tpl": "5888956924597752983e182d",
+            "slotId": "mod_barrel",
+            "parentId": "683746db6c6e1172e0084769"
+        },
+        {
+            "_id": "683746db6c6e1172e008476d",
+            "_tpl": "57c55f172459772d27602381",
+            "slotId": "mod_pistol_grip",
+            "parentId": "683746db6c6e1172e0084769"
+        },
+        {
+            "_id": "683746db6c6e1172e008476e",
+            "_tpl": "58889d0c2459775bc215d981",
+            "slotId": "mod_stock",
+            "parentId": "683746db6c6e1172e0084769"
+        },
+        {
+            "_id": "683746db6c6e1172e008476f",
+            "_tpl": "5aa66be6e5b5b0214e506e97",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "683746db6c6e1172e008476b"
+        },
+        {
+            "_id": "683746db6c6e1172e0084770",
+            "_tpl": "5888996c24597754281f9419",
+            "slotId": "mod_muzzle",
+            "parentId": "683746db6c6e1172e008476c"
+        },
+        {
+            "_id": "683746db6c6e1172e0084771",
+            "_tpl": "5888976c24597754281f93f5",
+            "slotId": "mod_handguard",
+            "parentId": "683746db6c6e1172e008476c"
+        },
+        {
+            "_id": "683746db6c6e1172e0084772",
+            "_tpl": "5cc9c20cd7f00c001336c65d",
+            "slotId": "mod_tactical_001",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "683746db6c6e1172e0084771"
+        }
+    ],
+    "Gunsmith 17": [
+        {
+            "_id": "6856a0812b31f3393003f1cc",
+            "_tpl": "5ac66d015acfc400180ae6e4",
+            "upd": {
+                "SpawnedInSession": true,
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 70
+                },
+                "Foldable": {
+                    "Folded": false
+                },
+                "FireMode": {
+                    "FireMode": "single"
+                }
+            }
+        },
+        {
+            "_id": "6856a0812b31f3393003f1cd",
+            "_tpl": "59c6633186f7740cf0493bb9",
+            "slotId": "mod_gas_block",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a0812b31f3393003f1cc"
+        },
+        {
+            "_id": "6856a0812b31f3393003f1ce",
+            "_tpl": "5e21ca18e4d47f0da15e77dd",
+            "slotId": "mod_muzzle",
+            "parentId": "6856a0812b31f3393003f1cc"
+        },
+        {
+            "_id": "6856a0812b31f3393003f1cf",
+            "_tpl": "5947f92f86f77427344a76b1",
+            "slotId": "mod_pistol_grip",
+            "parentId": "6856a0812b31f3393003f1cc"
+        },
+        {
+            "_id": "6856a0812b31f3393003f1d0",
+            "_tpl": "5649af884bdc2d1b2b8b4589",
+            "slotId": "mod_reciever",
+            "parentId": "6856a0812b31f3393003f1cc"
+        },
+        {
+            "_id": "6856a0812b31f3393003f1d1",
+            "_tpl": "5beec8b20db834001961942a",
+            "slotId": "mod_stock",
+            "parentId": "6856a0812b31f3393003f1cc"
+        },
+        {
+            "_id": "6856a0812b31f3393003f1d2",
+            "_tpl": "5c0548ae0db834001966a3c2",
+            "slotId": "mod_magazine",
+            "parentId": "6856a0812b31f3393003f1cc"
+        },
+        {
+            "_id": "6856a0812b31f3393003f1d3",
+            "_tpl": "6130ca3fd92c473c77020dbd",
+            "slotId": "mod_charge",
+            "parentId": "6856a0812b31f3393003f1cc"
+        },
+        {
+            "_id": "6856a0812b31f3393003f1d4",
+            "_tpl": "5648b4534bdc2d3d1c8b4580",
+            "slotId": "mod_handguard",
+            "parentId": "6856a0812b31f3393003f1cd"
+        },
+        {
+            "_id": "6856a0812b31f3393003f1d5",
+            "_tpl": "5f6372e2865db925d54f3869",
+            "slotId": "mod_muzzle",
+            "parentId": "6856a0812b31f3393003f1ce"
+        },
+        {
+            "_id": "6856a0812b31f3393003f1d6",
+            "_tpl": "6477772ea8a38bb2050ed4db",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a0812b31f3393003f1d0"
+        },
+        {
+            "_id": "6856a0812b31f3393003f1d7",
+            "_tpl": "5fbbaa86f9986c4cff3fe5f6",
+            "slotId": "mod_stock",
+            "parentId": "6856a0812b31f3393003f1d1"
+        },
+        {
+            "_id": "6856a0812b31f3393003f1d8",
+            "_tpl": "588226ef24597767af46e39c",
+            "slotId": "mod_foregrip",
+            "parentId": "6856a0812b31f3393003f1d4"
+        },
+        {
+            "_id": "6856a0812b31f3393003f1d9",
+            "_tpl": "5b3a337e5acfc4704b4a19a0",
+            "slotId": "mod_tactical_002",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "6856a0812b31f3393003f1d4"
+        },
+        {
+            "_id": "6856a0812b31f3393003f1da",
+            "_tpl": "5f6339d53ada5942720e2dc3",
+            "slotId": "mod_muzzle",
+            "parentId": "6856a0812b31f3393003f1d5"
+        }
+    ],
+    "Gunsmith 18": [
+        {
+            "_id": "6856a12f2b31f33930041e90",
+            "_tpl": "5a0ec13bfcdbcb00165aa685",
+            "upd": {
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "FireMode": {
+                    "FireMode": "single"
+                }
+            }
+        },
+        {
+            "_id": "6856a12f2b31f33930041e91",
+            "_tpl": "59d64ec286f774171d1e0a42",
+            "slotId": "mod_gas_block",
+            "parentId": "6856a12f2b31f33930041e90"
+        },
+        {
+            "_id": "6856a12f2b31f33930041e92",
+            "_tpl": "5a9fbacda2750c00141e080f",
+            "slotId": "mod_muzzle",
+            "parentId": "6856a12f2b31f33930041e90"
+        },
+        {
+            "_id": "6856a12f2b31f33930041e93",
+            "_tpl": "5b30ac585acfc433000eb79c",
+            "slotId": "mod_pistol_grip",
+            "parentId": "6856a12f2b31f33930041e90"
+        },
+        {
+            "_id": "6856a12f2b31f33930041e94",
+            "_tpl": "5d2c76ed48f03532f2136169",
+            "slotId": "mod_reciever",
+            "parentId": "6856a12f2b31f33930041e90"
+        },
+        {
+            "_id": "6856a12f2b31f33930041e95",
+            "_tpl": "5b0e794b5acfc47a877359b2",
+            "slotId": "mod_stock",
+            "parentId": "6856a12f2b31f33930041e90"
+        },
+        {
+            "_id": "6856a12f2b31f33930041e96",
+            "_tpl": "59d6272486f77466146386ff",
+            "slotId": "mod_magazine",
+            "parentId": "6856a12f2b31f33930041e90"
+        },
+        {
+            "_id": "6856a12f2b31f33930041e97",
+            "_tpl": "57cff947245977638e6f2a19",
+            "slotId": "mod_handguard",
+            "parentId": "6856a12f2b31f33930041e91"
+        },
+        {
+            "_id": "6856a12f2b31f33930041e98",
+            "_tpl": "5c07dd120db834001c39092d",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a12f2b31f33930041e94"
+        },
+        {
+            "_id": "6856a12f2b31f33930041e99",
+            "_tpl": "57cffb66245977632f391a99",
+            "slotId": "mod_mount_003",
+            "parentId": "6856a12f2b31f33930041e97"
+        }
+    ],
+    "Gunsmith 19": [
+        {
+            "_id": "68374a416c6e1172e0096cad",
+            "_tpl": "5c46fbd72e2216398b5a8c9c",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68374a416c6e1172e0096cae",
+            "_tpl": "6516b129609aaf354b34b3a8",
+            "slotId": "mod_pistol_grip",
+            "parentId": "68374a416c6e1172e0096cad"
+        },
+        {
+            "_id": "68374a416c6e1172e0096caf",
+            "_tpl": "6197b229af1f5202c57a9bea",
+            "slotId": "mod_stock",
+            "parentId": "68374a416c6e1172e0096cad"
+        },
+        {
+            "_id": "68374a416c6e1172e0096cb0",
+            "_tpl": "5c471cb32e221602b177afaa",
+            "slotId": "mod_barrel",
+            "parentId": "68374a416c6e1172e0096cad"
+        },
+        {
+            "_id": "68374a416c6e1172e0096cb1",
+            "_tpl": "5dfcd0e547101c39625f66f9",
+            "slotId": "mod_mount_001",
+            "parentId": "68374a416c6e1172e0096cad"
+        },
+        {
+            "_id": "68374a416c6e1172e0096cb2",
+            "_tpl": "5dfce88fe9dc277128008b2e",
+            "slotId": "mod_reciever",
+            "parentId": "68374a416c6e1172e0096cad"
+        },
+        {
+            "_id": "68374a416c6e1172e0096cb3",
+            "_tpl": "5b30ac585acfc433000eb79c",
+            "slotId": "mod_pistolgrip",
+            "parentId": "68374a416c6e1172e0096cae"
+        },
+        {
+            "_id": "68374a416c6e1172e0096cb4",
+            "_tpl": "5947e98b86f774778f1448bc",
+            "slotId": "mod_stock",
+            "parentId": "68374a416c6e1172e0096caf"
+        },
+        {
+            "_id": "68374a416c6e1172e0096cb5",
+            "_tpl": "5c471bfc2e221602b21d4e17",
+            "slotId": "mod_muzzle",
+            "parentId": "68374a416c6e1172e0096cb0"
+        },
+        {
+            "_id": "68374a416c6e1172e0096cb6",
+            "_tpl": "5c471c842e221615214259b5",
+            "slotId": "mod_gas_block",
+            "parentId": "68374a416c6e1172e0096cb0"
+        },
+        {
+            "_id": "68374a416c6e1172e0096cb7",
+            "_tpl": "57c69dd424597774c03b7bbc",
+            "slotId": "mod_scope",
+            "parentId": "68374a416c6e1172e0096cb1"
+        },
+        {
+            "_id": "68374a416c6e1172e0096cb8",
+            "_tpl": "5e01e9e273d8eb11426f5bc3",
+            "slotId": "mod_muzzle",
+            "parentId": "68374a416c6e1172e0096cb5"
+        },
+        {
+            "_id": "68374a416c6e1172e0096cb9",
+            "_tpl": "5e01ea19e9dc277128008c0b",
+            "slotId": "mod_muzzle",
+            "parentId": "68374a416c6e1172e0096cb8"
+        },
+        {
+            "_id": "68374a416c6e1172e0096cba",
+            "_tpl": "57c5ac0824597754771e88a9",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374a416c6e1172e0096cb7"
+        }
+    ],
+    "Gunsmith 20": [
+        {
+            "_id": "68374b046c6e1172e009a59e",
+            "_tpl": "5aafa857e5b5b00018480968",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68374b046c6e1172e009a59f",
+            "_tpl": "5aaf8a0be5b5b00015693243",
+            "slotId": "mod_magazine",
+            "parentId": "68374b046c6e1172e009a59e"
+        },
+        {
+            "_id": "68374b046c6e1172e009a5a0",
+            "_tpl": "5addbf175acfc408fb13965b",
+            "slotId": "mod_stock",
+            "parentId": "68374b046c6e1172e009a59e"
+        },
+        {
+            "_id": "68374b046c6e1172e009a5a1",
+            "_tpl": "5aaf9d53e5b5b00015042a52",
+            "slotId": "mod_barrel",
+            "parentId": "68374b046c6e1172e009a59e"
+        },
+        {
+            "_id": "68374b046c6e1172e009a5a2",
+            "_tpl": "5abcbb20d8ce87001773e258",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374b046c6e1172e009a59e"
+        },
+        {
+            "_id": "68374b046c6e1172e009a5a3",
+            "_tpl": "5addbfef5acfc400185c2857",
+            "slotId": "mod_mount",
+            "parentId": "68374b046c6e1172e009a59e"
+        },
+        {
+            "_id": "68374b046c6e1172e009a5a4",
+            "_tpl": "5addbfbb5acfc400194dbcf7",
+            "slotId": "mod_mount",
+            "parentId": "68374b046c6e1172e009a5a0"
+        },
+        {
+            "_id": "68374b046c6e1172e009a5a5",
+            "_tpl": "57fd23e32459772d0805bcf1",
+            "slotId": "mod_tactical",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "68374b046c6e1172e009a5a0"
+        },
+        {
+            "_id": "68374b046c6e1172e009a5a6",
+            "_tpl": "5aafa1c2e5b5b00015042a56",
+            "slotId": "mod_muzzle",
+            "parentId": "68374b046c6e1172e009a5a1"
+        },
+        {
+            "_id": "68374b046c6e1172e009a5a7",
+            "_tpl": "5c86592b2e2216000e69e77c",
+            "slotId": "mod_scope",
+            "parentId": "68374b046c6e1172e009a5a3"
+        },
+        {
+            "_id": "68374b046c6e1172e009a5a8",
+            "_tpl": "58d39d3d86f77445bb794ae7",
+            "slotId": "mod_scope",
+            "parentId": "68374b046c6e1172e009a5a4"
+        },
+        {
+            "_id": "68374b046c6e1172e009a5a9",
+            "_tpl": "58d399e486f77442e0016fe7",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374b046c6e1172e009a5a8"
+        },
+        {
+            "_id": "68374b046c6e1172e009a5aa",
+            "_tpl": "5aafa49ae5b5b00015042a58",
+            "slotId": "mod_sight_front",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374b046c6e1172e009a5a6"
+        },
+        {
+            "_id": "68374b046c6e1172e009a5ab",
+            "_tpl": "5aa66be6e5b5b0214e506e97",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374b046c6e1172e009a5a7"
+        }
+    ],
+    "Gunsmith 21 p1": [
+        {
+            "_id": "68374b8d6c6e1172e009ddaa",
+            "_tpl": "5bfea6e90db834001b7347f3",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68374b8d6c6e1172e009ddab",
+            "_tpl": "5cde739cd7f00c0010373bd3",
+            "slotId": "mod_stock",
+            "parentId": "68374b8d6c6e1172e009ddaa"
+        },
+        {
+            "_id": "68374b8d6c6e1172e009ddac",
+            "_tpl": "5bfebc320db8340019668d79",
+            "slotId": "mod_barrel",
+            "parentId": "68374b8d6c6e1172e009ddaa"
+        },
+        {
+            "_id": "68374b8d6c6e1172e009ddad",
+            "_tpl": "5cde7b43d7f00c000d36b93e",
+            "slotId": "mod_mount",
+            "parentId": "68374b8d6c6e1172e009ddaa"
+        },
+        {
+            "_id": "68374b8d6c6e1172e009ddae",
+            "_tpl": "5649be884bdc2d79388b4577",
+            "slotId": "mod_stock",
+            "parentId": "68374b8d6c6e1172e009ddab"
+        },
+        {
+            "_id": "68374b8d6c6e1172e009ddaf",
+            "_tpl": "5a339805c4a2826c6e06d73d",
+            "slotId": "mod_pistol_grip",
+            "parentId": "68374b8d6c6e1172e009ddab"
+        },
+        {
+            "_id": "68374b8d6c6e1172e009ddb0",
+            "_tpl": "5cde7afdd7f00c000d36b89d",
+            "slotId": "mod_handguard",
+            "parentId": "68374b8d6c6e1172e009ddab"
+        },
+        {
+            "_id": "68374b8d6c6e1172e009ddb1",
+            "_tpl": "5d1f819086f7744b355c219b",
+            "slotId": "mod_muzzle",
+            "parentId": "68374b8d6c6e1172e009ddac"
+        },
+        {
+            "_id": "68374b8d6c6e1172e009ddb2",
+            "_tpl": "61713cc4d8e3106d9806c109",
+            "slotId": "mod_scope",
+            "parentId": "68374b8d6c6e1172e009ddad"
+        },
+        {
+            "_id": "68374b8d6c6e1172e009ddb3",
+            "_tpl": "5fce16961f152d4312622bc9",
+            "slotId": "mod_stock_000",
+            "parentId": "68374b8d6c6e1172e009ddae"
+        },
+        {
+            "_id": "68374b8d6c6e1172e009ddb4",
+            "_tpl": "5cff9e84d7ad1a049e54ed55",
+            "slotId": "mod_muzzle",
+            "parentId": "68374b8d6c6e1172e009ddb1"
+        },
+        {
+            "_id": "68374b8d6c6e1172e009ddb5",
+            "_tpl": "62850c28da09541f43158cca",
+            "slotId": "mod_scope_000",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374b8d6c6e1172e009ddb2"
+        }
+    ],
+    "Gunsmith 21 p2": [
+        {
+            "_id": "68374bb96c6e1172e009ebbe",
+            "_tpl": "5e81c3cbac2bb513793cdc75",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68374bb96c6e1172e009ebbf",
+            "_tpl": "5e81c519cb2b95385c177551",
+            "slotId": "mod_barrel",
+            "parentId": "68374bb96c6e1172e009ebbe"
+        },
+        {
+            "_id": "68374bb96c6e1172e009ebc0",
+            "_tpl": "5ef366938cef260c0642acad",
+            "slotId": "mod_pistol_grip",
+            "parentId": "68374bb96c6e1172e009ebbe"
+        },
+        {
+            "_id": "68374bb96c6e1172e009ebc1",
+            "_tpl": "5e81edc13397a21db957f6a1",
+            "slotId": "mod_reciever",
+            "parentId": "68374bb96c6e1172e009ebbe"
+        },
+        {
+            "_id": "68374bb96c6e1172e009ebc2",
+            "_tpl": "5e81c4ca763d9f754677befa",
+            "slotId": "mod_magazine",
+            "parentId": "68374bb96c6e1172e009ebbe"
+        },
+        {
+            "_id": "68374bb96c6e1172e009ebc3",
+            "_tpl": "5e81c6a2ac2bb513793cdc7f",
+            "slotId": "mod_trigger",
+            "parentId": "68374bb96c6e1172e009ebbe"
+        },
+        {
+            "_id": "68374bb96c6e1172e009ebc4",
+            "_tpl": "5e81c550763d9f754677befd",
+            "slotId": "mod_hammer",
+            "parentId": "68374bb96c6e1172e009ebbe"
+        },
+        {
+            "_id": "68374bb96c6e1172e009ebc5",
+            "_tpl": "5e81c539cb2b95385c177553",
+            "slotId": "mod_catch",
+            "parentId": "68374bb96c6e1172e009ebbe"
+        },
+        {
+            "_id": "68374bb96c6e1172e009ebc6",
+            "_tpl": "5ef369b08cef260c0642acaf",
+            "slotId": "mod_mount_001",
+            "parentId": "68374bb96c6e1172e009ebbe"
+        },
+        {
+            "_id": "68374bb96c6e1172e009ebc7",
+            "_tpl": "5e81ee4dcb2b95385c177582",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374bb96c6e1172e009ebc1"
+        },
+        {
+            "_id": "68374bb96c6e1172e009ebc8",
+            "_tpl": "5e81ee213397a21db957f6a6",
+            "slotId": "mod_sight_front",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374bb96c6e1172e009ebc1"
+        },
+        {
+            "_id": "68374bb96c6e1172e009ebc9",
+            "_tpl": "5ef61964ec7f42238c31e0c1",
+            "slotId": "mod_muzzle",
+            "parentId": "68374bb96c6e1172e009ebc1"
+        },
+        {
+            "_id": "68374bb96c6e1172e009ebca",
+            "_tpl": "5cc9c20cd7f00c001336c65d",
+            "slotId": "mod_tactical",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "68374bb96c6e1172e009ebc6"
+        }
+    ],
+    "Gunsmith 22": [
+        {
+            "_id": "6856a2042b31f33930044bf6",
+            "_tpl": "5447a9cd4bdc2dbd208b4567",
+            "upd": {
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "FireMode": {
+                    "FireMode": "single"
+                }
+            }
+        },
+        {
+            "_id": "6856a2042b31f33930044bf7",
+            "_tpl": "59db3a1d86f77429e05b4e92",
+            "slotId": "mod_pistol_grip",
+            "parentId": "6856a2042b31f33930044bf6"
+        },
+        {
+            "_id": "6856a2042b31f33930044bf8",
+            "_tpl": "544a37c44bdc2d25388b4567",
+            "slotId": "mod_magazine",
+            "parentId": "6856a2042b31f33930044bf6"
+        },
+        {
+            "_id": "6856a2042b31f33930044bf9",
+            "_tpl": "55d355e64bdc2d962f8b4569",
+            "slotId": "mod_reciever",
+            "parentId": "6856a2042b31f33930044bf6"
+        },
+        {
+            "_id": "6856a2042b31f33930044bfa",
+            "_tpl": "591af10186f774139d495f0e",
+            "slotId": "mod_stock",
+            "parentId": "6856a2042b31f33930044bf6"
+        },
+        {
+            "_id": "6856a2042b31f33930044bfb",
+            "_tpl": "55d44fd14bdc2d962f8b456e",
+            "slotId": "mod_charge",
+            "parentId": "6856a2042b31f33930044bf6"
+        },
+        {
+            "_id": "6856a2042b31f33930044bfc",
+            "_tpl": "5a1ead28fcdbcb001912fa9f",
+            "slotId": "mod_scope",
+            "parentId": "6856a2042b31f33930044bf9"
+        },
+        {
+            "_id": "6856a2042b31f33930044bfd",
+            "_tpl": "55d35ee94bdc2d61338b4568",
+            "slotId": "mod_barrel",
+            "parentId": "6856a2042b31f33930044bf9"
+        },
+        {
+            "_id": "6856a2042b31f33930044bfe",
+            "_tpl": "5b2cfa535acfc432ff4db7a0",
+            "slotId": "mod_handguard",
+            "parentId": "6856a2042b31f33930044bf9"
+        },
+        {
+            "_id": "6856a2042b31f33930044bff",
+            "_tpl": "5a1eaa87fcdbcb001865f75e",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a2042b31f33930044bfc"
+        },
+        {
+            "_id": "6856a2042b31f33930044c00",
+            "_tpl": "56ea8180d2720bf2698b456a",
+            "slotId": "mod_muzzle",
+            "parentId": "6856a2042b31f33930044bfd"
+        },
+        {
+            "_id": "6856a2042b31f33930044c01",
+            "_tpl": "56eabcd4d2720b66698b4574",
+            "slotId": "mod_gas_block",
+            "parentId": "6856a2042b31f33930044bfd"
+        },
+        {
+            "_id": "6856a2042b31f33930044c02",
+            "_tpl": "5b30bc285acfc47a8608615d",
+            "slotId": "mod_mount_000",
+            "parentId": "6856a2042b31f33930044bfe"
+        },
+        {
+            "_id": "6856a2042b31f33930044c03",
+            "_tpl": "5a1eacb3fcdbcb09800872be",
+            "slotId": "mod_tactical",
+            "parentId": "6856a2042b31f33930044bff"
+        },
+        {
+            "_id": "6856a2042b31f33930044c04",
+            "_tpl": "57dbb57e2459774673234890",
+            "slotId": "mod_muzzle",
+            "parentId": "6856a2042b31f33930044c00"
+        },
+        {
+            "_id": "6856a2042b31f33930044c05",
+            "_tpl": "64807a29e5ffe165600abc97",
+            "slotId": "mod_foregrip",
+            "parentId": "6856a2042b31f33930044c02"
+        }
+    ],
+    "Gunsmith 23": [
+        {
+            "_id": "68374df46c6e1172e00ab4aa",
+            "_tpl": "606587252535c57a13424cfd",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68374df46c6e1172e00ab4ab",
+            "_tpl": "6113cce3d92c473c770200c7",
+            "slotId": "mod_pistol_grip",
+            "parentId": "68374df46c6e1172e00ab4aa"
+        },
+        {
+            "_id": "68374df46c6e1172e00ab4ac",
+            "_tpl": "5c6175362e221600133e3b94",
+            "slotId": "mod_magazine",
+            "parentId": "68374df46c6e1172e00ab4aa"
+        },
+        {
+            "_id": "68374df46c6e1172e00ab4ad",
+            "_tpl": "606587a88900dc2d9a55b659",
+            "slotId": "mod_reciever",
+            "parentId": "68374df46c6e1172e00ab4aa"
+        },
+        {
+            "_id": "68374df46c6e1172e00ab4ae",
+            "_tpl": "606587e18900dc2d9a55b65f",
+            "slotId": "mod_stock_001",
+            "parentId": "68374df46c6e1172e00ab4aa"
+        },
+        {
+            "_id": "68374df46c6e1172e00ab4af",
+            "_tpl": "606587bd6d0bd7580617bacc",
+            "slotId": "mod_charge",
+            "parentId": "68374df46c6e1172e00ab4aa"
+        },
+        {
+            "_id": "68374df46c6e1172e00ab4b0",
+            "_tpl": "59f9d81586f7744c7506ee62",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374df46c6e1172e00ab4ad"
+        },
+        {
+            "_id": "68374df46c6e1172e00ab4b1",
+            "_tpl": "6065878ac9cf8012264142fd",
+            "slotId": "mod_barrel",
+            "parentId": "68374df46c6e1172e00ab4ad"
+        },
+        {
+            "_id": "68374df46c6e1172e00ab4b2",
+            "_tpl": "5d00ef6dd7ad1a0940739b16",
+            "slotId": "mod_handguard",
+            "parentId": "68374df46c6e1172e00ab4ad"
+        },
+        {
+            "_id": "68374df46c6e1172e00ab4b3",
+            "_tpl": "5c87a07c2e2216001219d4a2",
+            "slotId": "mod_stock_000",
+            "parentId": "68374df46c6e1172e00ab4ae"
+        },
+        {
+            "_id": "68374df46c6e1172e00ab4b4",
+            "_tpl": "5bbdb8bdd4351e4502011460",
+            "slotId": "mod_muzzle",
+            "parentId": "68374df46c6e1172e00ab4b1"
+        },
+        {
+            "_id": "68374df46c6e1172e00ab4b5",
+            "_tpl": "6065dc8a132d4d12c81fd8e3",
+            "slotId": "mod_gas_block",
+            "parentId": "68374df46c6e1172e00ab4b1"
+        },
+        {
+            "_id": "68374df46c6e1172e00ab4b6",
+            "_tpl": "5f6340d3ca442212f4047eb2",
+            "slotId": "mod_foregrip",
+            "parentId": "68374df46c6e1172e00ab4b2"
+        },
+        {
+            "_id": "68374df46c6e1172e00ab4b7",
+            "_tpl": "5a800961159bd4315e3a1657",
+            "slotId": "mod_tactical_003",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "68374df46c6e1172e00ab4b2"
+        }
+    ],
+    "Gunsmith 24": [
+        {
+            "_id": "68374f026c6e1172e00b1916",
+            "_tpl": "5df8ce05b11454561e39243b",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68374f026c6e1172e00b1917",
+            "_tpl": "5d025cc1d7ad1a53845279ef",
+            "slotId": "mod_pistol_grip",
+            "parentId": "68374f026c6e1172e00b1916"
+        },
+        {
+            "_id": "68374f026c6e1172e00b1918",
+            "_tpl": "5df8f535bb49d91fb446d6b0",
+            "slotId": "mod_magazine",
+            "parentId": "68374f026c6e1172e00b1916"
+        },
+        {
+            "_id": "68374f026c6e1172e00b1919",
+            "_tpl": "5649be884bdc2d79388b4577",
+            "slotId": "mod_stock",
+            "parentId": "68374f026c6e1172e00b1916"
+        },
+        {
+            "_id": "68374f026c6e1172e00b191a",
+            "_tpl": "5df8e4080b92095fd441e594",
+            "slotId": "mod_reciever",
+            "parentId": "68374f026c6e1172e00b1916"
+        },
+        {
+            "_id": "68374f026c6e1172e00b191b",
+            "_tpl": "5df8e053bb49d91fb446d6a6",
+            "slotId": "mod_charge",
+            "parentId": "68374f026c6e1172e00b1916"
+        },
+        {
+            "_id": "68374f026c6e1172e00b191c",
+            "_tpl": "5d44069ca4b9361ebd26fc37",
+            "slotId": "mod_stock_000",
+            "parentId": "68374f026c6e1172e00b1919"
+        },
+        {
+            "_id": "68374f026c6e1172e00b191d",
+            "_tpl": "5d1b5e94d7ad1a2b865a96b0",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374f026c6e1172e00b191a"
+        },
+        {
+            "_id": "68374f026c6e1172e00b191e",
+            "_tpl": "5df917564a9f347bc92edca3",
+            "slotId": "mod_barrel",
+            "parentId": "68374f026c6e1172e00b191a"
+        },
+        {
+            "_id": "68374f026c6e1172e00b191f",
+            "_tpl": "5df916dfbb49d91fb446d6b9",
+            "slotId": "mod_handguard",
+            "parentId": "68374f026c6e1172e00b191a"
+        },
+        {
+            "_id": "68374f026c6e1172e00b1920",
+            "_tpl": "5dfa3d7ac41b2312ea33362a",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374f026c6e1172e00b191a"
+        },
+        {
+            "_id": "68374f026c6e1172e00b1921",
+            "_tpl": "5dfa3cd1b33c0951220c079b",
+            "slotId": "mod_muzzle",
+            "parentId": "68374f026c6e1172e00b191e"
+        },
+        {
+            "_id": "68374f026c6e1172e00b1922",
+            "_tpl": "5dfa3d45dfc58d14537c20b0",
+            "slotId": "mod_gas_block",
+            "parentId": "68374f026c6e1172e00b191e"
+        },
+        {
+            "_id": "68374f026c6e1172e00b1923",
+            "_tpl": "5649a2464bdc2d91118b45a8",
+            "slotId": "mod_scope",
+            "parentId": "68374f026c6e1172e00b191f"
+        },
+        {
+            "_id": "68374f026c6e1172e00b1924",
+            "_tpl": "6269220d70b6c02e665f2635",
+            "slotId": "mod_mount_000",
+            "parentId": "68374f026c6e1172e00b191f"
+        },
+        {
+            "_id": "68374f026c6e1172e00b1925",
+            "_tpl": "5dfa3d950dee1b22f862eae0",
+            "slotId": "mod_sight_front",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374f026c6e1172e00b191f"
+        },
+        {
+            "_id": "68374f026c6e1172e00b1926",
+            "_tpl": "5b7be4895acfc400170e2dd5",
+            "slotId": "mod_foregrip",
+            "parentId": "68374f026c6e1172e00b191f"
+        },
+        {
+            "_id": "68374f026c6e1172e00b1927",
+            "_tpl": "5dfa3d2b0dee1b22f862eade",
+            "slotId": "mod_muzzle",
+            "parentId": "68374f026c6e1172e00b1921"
+        },
+        {
+            "_id": "68374f026c6e1172e00b1928",
+            "_tpl": "577d128124597739d65d0e56",
+            "slotId": "mod_scope",
+            "parentId": "68374f026c6e1172e00b1923"
+        },
+        {
+            "_id": "68374f026c6e1172e00b1929",
+            "_tpl": "5d2369418abbc306c62e0c80",
+            "slotId": "mod_tactical",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "68374f026c6e1172e00b1924"
+        },
+        {
+            "_id": "68374f026c6e1172e00b192a",
+            "_tpl": "5b057b4f5acfc4771e1bd3e9",
+            "slotId": "mod_foregrip",
+            "parentId": "68374f026c6e1172e00b1926"
+        },
+        {
+            "_id": "68374f026c6e1172e00b192b",
+            "_tpl": "577d141e24597739c5255e01",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374f026c6e1172e00b1928"
+        }
+    ],
+    "Gunsmith 25": [
+        {
+            "_id": "68374fbd6c6e1172e00b532f",
+            "_tpl": "64ca3d3954fc657e230529cc",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68374fbd6c6e1172e00b5330",
+            "_tpl": "5947f92f86f77427344a76b1",
+            "slotId": "mod_pistolgrip",
+            "parentId": "68374fbd6c6e1172e00b532f"
+        },
+        {
+            "_id": "68374fbd6c6e1172e00b5331",
+            "_tpl": "646372518610c40fc20204e8",
+            "slotId": "mod_magazine",
+            "parentId": "68374fbd6c6e1172e00b532f"
+        },
+        {
+            "_id": "68374fbd6c6e1172e00b5332",
+            "_tpl": "6492d7847363b8a52206bc52",
+            "slotId": "mod_stock",
+            "parentId": "68374fbd6c6e1172e00b532f"
+        },
+        {
+            "_id": "68374fbd6c6e1172e00b5333",
+            "_tpl": "646371faf2404ab67905c8e9",
+            "slotId": "mod_barrel",
+            "parentId": "68374fbd6c6e1172e00b532f"
+        },
+        {
+            "_id": "68374fbd6c6e1172e00b5334",
+            "_tpl": "6491c6f6ef312a876705191b",
+            "slotId": "mod_handguard",
+            "parentId": "68374fbd6c6e1172e00b532f"
+        },
+        {
+            "_id": "68374fbd6c6e1172e00b5335",
+            "_tpl": "6492fb8253acae0af00a29b6",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374fbd6c6e1172e00b532f"
+        },
+        {
+            "_id": "68374fbd6c6e1172e00b5336",
+            "_tpl": "5cf638cbd7f00c06595bc936",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68374fbd6c6e1172e00b532f"
+        },
+        {
+            "_id": "68374fbd6c6e1172e00b5337",
+            "_tpl": "5a0c59791526d8dba737bba7",
+            "slotId": "mod_stock_000",
+            "parentId": "68374fbd6c6e1172e00b5332"
+        },
+        {
+            "_id": "68374fbd6c6e1172e00b5338",
+            "_tpl": "5649ad3f4bdc2df8348b4585",
+            "slotId": "mod_pistolgrip_000",
+            "parentId": "68374fbd6c6e1172e00b5332"
+        },
+        {
+            "_id": "68374fbd6c6e1172e00b5339",
+            "_tpl": "6492ef63cfcf7c89e701abf1",
+            "slotId": "mod_muzzle",
+            "parentId": "68374fbd6c6e1172e00b5333"
+        },
+        {
+            "_id": "68374fbd6c6e1172e00b533a",
+            "_tpl": "5cc9c20cd7f00c001336c65d",
+            "slotId": "mod_tactical_000",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "68374fbd6c6e1172e00b5334"
+        },
+        {
+            "_id": "68374fbd6c6e1172e00b533b",
+            "_tpl": "5cf639aad7f00c065703d455",
+            "slotId": "mod_tactical",
+            "parentId": "68374fbd6c6e1172e00b5336"
+        }
+    ],
+    "Gunsmith Friend 01 p2": [
+        {
+            "_id": "68382e792295e5562415bbad",
+            "_tpl": "5df24cf80dee1b22f862e9bc",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68382e792295e5562415bbae",
+            "_tpl": "5df25b6c0b92095fd441e4cf",
+            "slotId": "mod_magazine",
+            "parentId": "68382e792295e5562415bbad"
+        },
+        {
+            "_id": "68382e792295e5562415bbaf",
+            "_tpl": "5df256570dee1b22f862e9c4",
+            "slotId": "mod_barrel",
+            "parentId": "68382e792295e5562415bbad"
+        },
+        {
+            "_id": "68382e792295e5562415bbb0",
+            "_tpl": "5df35e59c41b2312ea3334d5",
+            "slotId": "mod_stock",
+            "upd": {
+                "Foldable": {
+                    "Folded": false
+                }
+            },
+            "parentId": "68382e792295e5562415bbad"
+        },
+        {
+            "_id": "68382e792295e5562415bbb1",
+            "_tpl": "5df35e970b92095fd441e4d2",
+            "slotId": "mod_mount",
+            "parentId": "68382e792295e5562415bbad"
+        },
+        {
+            "_id": "68382e792295e5562415bbb2",
+            "_tpl": "59bffc1f86f77435b128b872",
+            "slotId": "mod_muzzle",
+            "parentId": "68382e792295e5562415bbaf"
+        },
+        {
+            "_id": "68382e792295e5562415bbb3",
+            "_tpl": "5df25d3bfd6b4e6e2276dc9a",
+            "slotId": "mod_handguard",
+            "parentId": "68382e792295e5562415bbb0"
+        },
+        {
+            "_id": "68382e792295e5562415bbb4",
+            "_tpl": "5df38a5fb74cd90030650cb6",
+            "slotId": "mod_pistol_grip",
+            "parentId": "68382e792295e5562415bbb0"
+        },
+        {
+            "_id": "68382e792295e5562415bbb5",
+            "_tpl": "5df35ddddfc58d14537c2036",
+            "slotId": "mod_stock_axis",
+            "parentId": "68382e792295e5562415bbb0"
+        },
+        {
+            "_id": "68382e792295e5562415bbb6",
+            "_tpl": "5c86592b2e2216000e69e77c",
+            "slotId": "mod_scope",
+            "parentId": "68382e792295e5562415bbb1"
+        },
+        {
+            "_id": "68382e792295e5562415bbb7",
+            "_tpl": "59bffbb386f77435b379b9c2",
+            "slotId": "mod_muzzle",
+            "parentId": "68382e792295e5562415bbb2"
+        },
+        {
+            "_id": "68382e792295e5562415bbb8",
+            "_tpl": "5df35eb2b11454561e3923e2",
+            "slotId": "mod_mount_000",
+            "parentId": "68382e792295e5562415bbb3"
+        },
+        {
+            "_id": "68382e792295e5562415bbb9",
+            "_tpl": "5df35eb2b11454561e3923e2",
+            "slotId": "mod_mount_001",
+            "parentId": "68382e792295e5562415bbb3"
+        },
+        {
+            "_id": "68382e792295e5562415bbba",
+            "_tpl": "5df35ea9c41b2312ea3334d8",
+            "slotId": "mod_mount_002",
+            "parentId": "68382e792295e5562415bbb3"
+        },
+        {
+            "_id": "68382e792295e5562415bbbb",
+            "_tpl": "5df35eb2b11454561e3923e2",
+            "slotId": "mod_mount_003",
+            "parentId": "68382e792295e5562415bbb3"
+        },
+        {
+            "_id": "68382e792295e5562415bbbc",
+            "_tpl": "5df36948bb49d91fb446d5ad",
+            "slotId": "mod_foregrip",
+            "parentId": "68382e792295e5562415bbb3"
+        },
+        {
+            "_id": "68382e792295e5562415bbbd",
+            "_tpl": "5888961624597754281f93f3",
+            "slotId": "mod_bipod",
+            "parentId": "68382e792295e5562415bbb3"
+        },
+        {
+            "_id": "68382e792295e5562415bbbe",
+            "_tpl": "5aa66be6e5b5b0214e506e97",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68382e792295e5562415bbb6"
+        }
+    ],
+    "Gunsmith Friend 01 p3": [
+        {
+            "_id": "68382ec82295e5562415d9ce",
+            "_tpl": "5a7ae0c351dfba0017554310",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68382ec82295e5562415d9cf",
+            "_tpl": "5a6b5e468dc32e001207faf5",
+            "slotId": "mod_barrel",
+            "parentId": "68382ec82295e5562415d9ce"
+        },
+        {
+            "_id": "68382ec82295e5562415d9d0",
+            "_tpl": "5a7b4960e899ef197b331a2d",
+            "slotId": "mod_pistol_grip",
+            "parentId": "68382ec82295e5562415d9ce"
+        },
+        {
+            "_id": "68382ec82295e5562415d9d1",
+            "_tpl": "5a6f5e048dc32e00094b97da",
+            "slotId": "mod_reciever",
+            "parentId": "68382ec82295e5562415d9ce"
+        },
+        {
+            "_id": "68382ec82295e5562415d9d2",
+            "_tpl": "5a718da68dc32e000d46d264",
+            "slotId": "mod_magazine",
+            "parentId": "68382ec82295e5562415d9ce"
+        },
+        {
+            "_id": "68382ec82295e5562415d9d3",
+            "_tpl": "560d657b4bdc2da74d8b4572",
+            "slotId": "mod_tactical",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "68382ec82295e5562415d9ce"
+        },
+        {
+            "_id": "68382ec82295e5562415d9d4",
+            "_tpl": "5a6b592c8dc32e00094b97bf",
+            "slotId": "mod_muzzle",
+            "parentId": "68382ec82295e5562415d9cf"
+        },
+        {
+            "_id": "68382ec82295e5562415d9d5",
+            "_tpl": "5a6f5d528dc32e00094b97d9",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68382ec82295e5562415d9d1"
+        },
+        {
+            "_id": "68382ec82295e5562415d9d6",
+            "_tpl": "5a6f58f68dc32e000a311390",
+            "slotId": "mod_sight_front",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "68382ec82295e5562415d9d1"
+        }
+    ],
+    "Gunsmith Friend 01 p1": [
+        {
+            "_id": "6856a2b72b31f3393004780c",
+            "_tpl": "59984ab886f7743e98271174",
+            "upd": {
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "Foldable": {
+                    "Folded": false
+                },
+                "FireMode": {
+                    "FireMode": "single"
+                }
+            }
+        },
+        {
+            "_id": "6856a2b72b31f3393004780d",
+            "_tpl": "5649ae4a4bdc2d1b2b8b4588",
+            "slotId": "mod_pistol_grip",
+            "parentId": "6856a2b72b31f3393004780c"
+        },
+        {
+            "_id": "6856a2b72b31f3393004780e",
+            "_tpl": "5ac78eaf5acfc4001926317a",
+            "slotId": "mod_stock",
+            "parentId": "6856a2b72b31f3393004780c"
+        },
+        {
+            "_id": "6856a2b72b31f3393004780f",
+            "_tpl": "599860ac86f77436b225ed1a",
+            "slotId": "mod_magazine",
+            "parentId": "6856a2b72b31f3393004780c"
+        },
+        {
+            "_id": "6856a2b72b31f33930047810",
+            "_tpl": "59bfc5c886f7743bf6794e62",
+            "slotId": "mod_muzzle",
+            "parentId": "6856a2b72b31f3393004780c"
+        },
+        {
+            "_id": "6856a2b72b31f33930047811",
+            "_tpl": "59985a6c86f77414ec448d17",
+            "slotId": "mod_reciever",
+            "parentId": "6856a2b72b31f3393004780c"
+        },
+        {
+            "_id": "6856a2b72b31f33930047812",
+            "_tpl": "599860e986f7743bb57573a6",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a2b72b31f3393004780c"
+        },
+        {
+            "_id": "6856a2b72b31f33930047813",
+            "_tpl": "676177df1f08ed5e8800b7ae",
+            "slotId": "mod_gas_block",
+            "parentId": "6856a2b72b31f3393004780c"
+        },
+        {
+            "_id": "6856a2b72b31f33930047814",
+            "_tpl": "59ecc3dd86f7746dc827481c",
+            "slotId": "mod_stock",
+            "parentId": "6856a2b72b31f3393004780e"
+        },
+        {
+            "_id": "6856a2b72b31f33930047815",
+            "_tpl": "58d39d3d86f77445bb794ae7",
+            "slotId": "mod_scope",
+            "parentId": "6856a2b72b31f33930047811"
+        },
+        {
+            "_id": "6856a2b72b31f33930047816",
+            "_tpl": "5b7be4895acfc400170e2dd5",
+            "slotId": "mod_foregrip",
+            "parentId": "6856a2b72b31f33930047813"
+        },
+        {
+            "_id": "6856a2b72b31f33930047817",
+            "_tpl": "5b7be47f5acfc400170e2dd2",
+            "slotId": "mod_mount_000",
+            "parentId": "6856a2b72b31f33930047813"
+        },
+        {
+            "_id": "6856a2b72b31f33930047818",
+            "_tpl": "544909bb4bdc2d6f028b4577",
+            "slotId": "mod_tactical",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "6856a2b72b31f33930047813"
+        },
+        {
+            "_id": "6856a2b72b31f33930047819",
+            "_tpl": "58d39b0386f77443380bf13c",
+            "slotId": "mod_scope",
+            "parentId": "6856a2b72b31f33930047815"
+        },
+        {
+            "_id": "6856a2b72b31f3393004781a",
+            "_tpl": "58d399e486f77442e0016fe7",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a2b72b31f33930047819"
+        },
+        {
+            "_id": "6856a2b72b31f3393004781b",
+            "_tpl": "5c1bc7752e221602b1779b34",
+            "slotId": "mod_foregrip",
+            "parentId": "6856a2b72b31f33930047816"
+        },
+        {
+            "_id": "6856a2b72b31f3393004781c",
+            "_tpl": "560d657b4bdc2da74d8b4572",
+            "slotId": "mod_tactical",
+            "upd": {
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "6856a2b72b31f33930047817"
+        }
+    ],
+    "Gunsmith Special Order": [
+        {
+            "_id": "686d73efc4f4c727580b8173",
+            "_tpl": "5447a9cd4bdc2dbd208b4567",
+            "upd": {
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "FireMode": {
+                    "FireMode": "fullauto"
+                }
+            }
+        },
+        {
+            "_id": "686d73efc4f4c727580b8174",
+            "_tpl": "55d4b9964bdc2d1d4e8b456e",
+            "slotId": "mod_pistol_grip",
+            "parentId": "686d73efc4f4c727580b8173"
+        },
+        {
+            "_id": "686d73efc4f4c727580b8175",
+            "_tpl": "5aaa5e60e5b5b000140293d6",
+            "slotId": "mod_magazine",
+            "parentId": "686d73efc4f4c727580b8173"
+        },
+        {
+            "_id": "686d73efc4f4c727580b8176",
+            "_tpl": "55d355e64bdc2d962f8b4569",
+            "slotId": "mod_reciever",
+            "parentId": "686d73efc4f4c727580b8173"
+        },
+        {
+            "_id": "686d73efc4f4c727580b8177",
+            "_tpl": "638de3603a1a4031d8260b8c",
+            "slotId": "mod_stock",
+            "parentId": "686d73efc4f4c727580b8173"
+        },
+        {
+            "_id": "686d73efc4f4c727580b8178",
+            "_tpl": "55d44fd14bdc2d962f8b456e",
+            "slotId": "mod_charge",
+            "parentId": "686d73efc4f4c727580b8173"
+        },
+        {
+            "_id": "686d73efc4f4c727580b8179",
+            "_tpl": "58491f3324597764bc48fa02",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "686d73efc4f4c727580b8176"
+        },
+        {
+            "_id": "686d73efc4f4c727580b817a",
+            "_tpl": "5c0e2f94d174af029f650d56",
+            "slotId": "mod_barrel",
+            "parentId": "686d73efc4f4c727580b8176"
+        },
+        {
+            "_id": "686d73efc4f4c727580b817b",
+            "_tpl": "5c78f26f2e221601da3581d1",
+            "slotId": "mod_handguard",
+            "parentId": "686d73efc4f4c727580b8176"
+        },
+        {
+            "_id": "686d73efc4f4c727580b817c",
+            "_tpl": "5fbbaa86f9986c4cff3fe5f6",
+            "slotId": "mod_stock_000",
+            "parentId": "686d73efc4f4c727580b8177"
+        },
+        {
+            "_id": "686d73efc4f4c727580b817d",
+            "_tpl": "544a38634bdc2d58388b4568",
+            "slotId": "mod_muzzle",
+            "parentId": "686d73efc4f4c727580b817a"
+        },
+        {
+            "_id": "686d73efc4f4c727580b817e",
+            "_tpl": "56eabcd4d2720b66698b4574",
+            "slotId": "mod_gas_block",
+            "parentId": "686d73efc4f4c727580b817a"
+        },
+        {
+            "_id": "686d73efc4f4c727580b817f",
+            "_tpl": "651a8bf3a8520e48047bf708",
+            "slotId": "mod_foregrip",
+            "parentId": "686d73efc4f4c727580b817b"
+        }
+    ],
+    "Test Drive 1": [
+        {
+            "_id": "6856a4272b31f3393004d0c1",
+            "_tpl": "5aafa857e5b5b00018480968",
+            "upd": {
+                "SpawnedInSession": true,
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "FireMode": {
+                    "FireMode": "single"
+                }
+            }
+        },
+        {
+            "_id": "6856a4272b31f3393004d0c2",
+            "_tpl": "5aaf8a0be5b5b00015693243",
+            "slotId": "mod_magazine",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4272b31f3393004d0c1"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0c3",
+            "_tpl": "5addbf175acfc408fb13965b",
+            "slotId": "mod_stock",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4272b31f3393004d0c1"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0c4",
+            "_tpl": "5addbac75acfc400194dbc56",
+            "slotId": "mod_barrel",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4272b31f3393004d0c1"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0c5",
+            "_tpl": "5abcbb20d8ce87001773e258",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "SpawnedInSession": true,
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a4272b31f3393004d0c1"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0c6",
+            "_tpl": "5addbfef5acfc400185c2857",
+            "slotId": "mod_mount",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4272b31f3393004d0c1"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0c7",
+            "_tpl": "5a608bf24f39f98ffc77720e",
+            "slotId": "cartridges",
+            "location": 0,
+            "upd": {
+                "StackObjectsCount": 20,
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4272b31f3393004d0c2"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0c8",
+            "_tpl": "5addbfbb5acfc400194dbcf7",
+            "slotId": "mod_mount",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4272b31f3393004d0c3"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0c9",
+            "_tpl": "626becf9582c3e319310b837",
+            "slotId": "mod_tactical",
+            "upd": {
+                "SpawnedInSession": true,
+                "Light": {
+                    "IsActive": true,
+                    "SelectedMode": 0
+                }
+            },
+            "parentId": "6856a4272b31f3393004d0c3"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0ca",
+            "_tpl": "59bffc1f86f77435b128b872",
+            "slotId": "mod_muzzle",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4272b31f3393004d0c4"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0cb",
+            "_tpl": "57c69dd424597774c03b7bbc",
+            "slotId": "mod_scope",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4272b31f3393004d0c6"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0cc",
+            "_tpl": "5649a2464bdc2d91118b45a8",
+            "slotId": "mod_scope",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4272b31f3393004d0c8"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0cd",
+            "_tpl": "58d2664f86f7747fec5834f6",
+            "slotId": "mod_scope",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4272b31f3393004d0cc"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0ce",
+            "_tpl": "58d268fc86f774111273f8c2",
+            "slotId": "mod_scope",
+            "upd": {
+                "SpawnedInSession": true,
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a4272b31f3393004d0cd"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0cf",
+            "_tpl": "59bffbb386f77435b379b9c2",
+            "slotId": "mod_muzzle",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4272b31f3393004d0ca"
+        },
+        {
+            "_id": "6856a4272b31f3393004d0d0",
+            "_tpl": "617151c1d92c473c770214ab",
+            "slotId": "mod_scope",
+            "upd": {
+                "SpawnedInSession": true,
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a4272b31f3393004d0cb"
+        }
+    ],
+    "Test Drive 2": [
+        {
+            "_id": "6856a4952b31f3393004ec35",
+            "_tpl": "62e14904c2699c0ec93adc47",
+            "upd": {
+                "SpawnedInSession": true,
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "Foldable": {
+                    "Folded": false
+                },
+                "FireMode": {
+                    "FireMode": "single"
+                }
+            }
+        },
+        {
+            "_id": "6856a4952b31f3393004ec36",
+            "_tpl": "62e153bcdb1a5c41971c1b5b",
+            "slotId": "mod_magazine",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4952b31f3393004ec35"
+        },
+        {
+            "_id": "6856a4952b31f3393004ec37",
+            "_tpl": "62e2a7138e1ac9380579c122",
+            "slotId": "mod_muzzle",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4952b31f3393004ec35"
+        },
+        {
+            "_id": "6856a4952b31f3393004ec38",
+            "_tpl": "62e2969582ebf260c20539c2",
+            "slotId": "mod_stock",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4952b31f3393004ec35"
+        },
+        {
+            "_id": "6856a4952b31f3393004ec39",
+            "_tpl": "62e27a7865f0b1592a49e17b",
+            "slotId": "mod_reciever",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4952b31f3393004ec35"
+        },
+        {
+            "_id": "6856a4952b31f3393004ec3a",
+            "_tpl": "637ba19df7ca6372bf2613d7",
+            "slotId": "mod_handguard",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4952b31f3393004ec35"
+        },
+        {
+            "_id": "6856a4952b31f3393004ec3b",
+            "_tpl": "637ba29bf7ca6372bf2613db",
+            "slotId": "mod_pistolgrip",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4952b31f3393004ec35"
+        },
+        {
+            "_id": "6856a4952b31f3393004ec3c",
+            "_tpl": "62ff9920fe938a24c90c10d2",
+            "slotId": "mod_mount",
+            "upd": {
+                "SpawnedInSession": true,
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a4952b31f3393004ec39"
+        },
+        {
+            "_id": "6856a4952b31f3393004ec3d",
+            "_tpl": "62ed1921b3608410ef5a2c04",
+            "slotId": "mod_mount_001",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4952b31f3393004ec3a"
+        }
+    ],
+    "Test Drive 3": [
+        {
+            "_id": "6856a4a22b31f3393004fada",
+            "_tpl": "6499849fc93611967b034949",
+            "upd": {
+                "SpawnedInSession": true,
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "Foldable": {
+                    "Folded": false
+                },
+                "FireMode": {
+                    "FireMode": "single"
+                }
+            }
+        },
+        {
+            "_id": "6856a4a22b31f3393004fadb",
+            "_tpl": "649ec107961514b22506b10c",
+            "slotId": "mod_gas_block",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4a22b31f3393004fada"
+        },
+        {
+            "_id": "6856a4a22b31f3393004fadc",
+            "_tpl": "64c196ad26a15b84aa07132f",
+            "slotId": "mod_muzzle",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4a22b31f3393004fada"
+        },
+        {
+            "_id": "6856a4a22b31f3393004fadd",
+            "_tpl": "5beec8ea0db834001a6f9dbf",
+            "slotId": "mod_pistol_grip",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4a22b31f3393004fada"
+        },
+        {
+            "_id": "6856a4a22b31f3393004fade",
+            "_tpl": "649ec2f3961514b22506b111",
+            "slotId": "mod_reciever",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4a22b31f3393004fada"
+        },
+        {
+            "_id": "6856a4a22b31f3393004fadf",
+            "_tpl": "649ec87d8007560a9001ab36",
+            "slotId": "mod_stock_001",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4a22b31f3393004fada"
+        },
+        {
+            "_id": "6856a4a22b31f3393004fae0",
+            "_tpl": "649ec30cb013f04a700e60fb",
+            "slotId": "mod_magazine",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4a22b31f3393004fada"
+        },
+        {
+            "_id": "6856a4a22b31f3393004fae1",
+            "_tpl": "649ec127c93611967b034957",
+            "slotId": "mod_handguard",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4a22b31f3393004fada"
+        },
+        {
+            "_id": "6856a4a22b31f3393004fae2",
+            "_tpl": "5c0517910db83400232ffee5",
+            "slotId": "mod_scope",
+            "upd": {
+                "SpawnedInSession": true,
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a4a22b31f3393004fade"
+        },
+        {
+            "_id": "6856a4a22b31f3393004fae3",
+            "_tpl": "5beec8c20db834001d2c465c",
+            "slotId": "mod_stock",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a4a22b31f3393004fadf"
+        }
+    ],
+    "Test Drive 4": [
+        {
+            "_id": "6856a52b2b31f339300517ea",
+            "_tpl": "65268d8ecb944ff1e90ea385",
+            "upd": {
+                "SpawnedInSession": true,
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "FireMode": {
+                    "FireMode": "fullauto"
+                }
+            }
+        },
+        {
+            "_id": "6856a52b2b31f339300517eb",
+            "_tpl": "6513f0a194c72326990a3868",
+            "slotId": "mod_magazine",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a52b2b31f339300517ea"
+        },
+        {
+            "_id": "6856a52b2b31f339300517ec",
+            "_tpl": "6513f1798cb24472490ee331",
+            "slotId": "mod_stock",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a52b2b31f339300517ea"
+        },
+        {
+            "_id": "6856a52b2b31f339300517ed",
+            "_tpl": "6513eff1e06849f06c0957d4",
+            "slotId": "mod_barrel",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a52b2b31f339300517ea"
+        },
+        {
+            "_id": "6856a52b2b31f339300517ee",
+            "_tpl": "6513f05a94c72326990a3866",
+            "slotId": "mod_handguard",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a52b2b31f339300517ea"
+        },
+        {
+            "_id": "6856a52b2b31f339300517ef",
+            "_tpl": "6513f153e63f29908d0ffaba",
+            "slotId": "mod_sight_rear",
+            "upd": {
+                "SpawnedInSession": true,
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a52b2b31f339300517ea"
+        },
+        {
+            "_id": "6856a52b2b31f339300517f0",
+            "_tpl": "618a75c9a3884f56c957ca1b",
+            "slotId": "mod_scope",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a52b2b31f339300517ea"
+        },
+        {
+            "_id": "6856a52b2b31f339300517f1",
+            "_tpl": "6513f13a8cb24472490ee32f",
+            "slotId": "mod_pistolgrip",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a52b2b31f339300517ec"
+        },
+        {
+            "_id": "6856a52b2b31f339300517f2",
+            "_tpl": "6513f037e06849f06c0957d7",
+            "slotId": "mod_bipod",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a52b2b31f339300517ed"
+        },
+        {
+            "_id": "6856a52b2b31f339300517f3",
+            "_tpl": "6513f0f5e63f29908d0ffab8",
+            "slotId": "mod_muzzle",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a52b2b31f339300517ed"
+        },
+        {
+            "_id": "6856a52b2b31f339300517f4",
+            "_tpl": "618a75f0bd321d49084cd399",
+            "slotId": "mod_scope",
+            "upd": {
+                "SpawnedInSession": true,
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a52b2b31f339300517f0"
+        },
+        {
+            "_id": "6856a52b2b31f339300517f5",
+            "_tpl": "618a760e526131765025aae3",
+            "slotId": "mod_tactical",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a52b2b31f339300517f4"
+        }
+    ],
+    "Test Drive 5": [
+        {
+            "_id": "6856a53a2b31f339300526bf",
+            "_tpl": "6680304edadb7aa61d00cef0",
+            "upd": {
+                "SpawnedInSession": true,
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "Foldable": {
+                    "Folded": false
+                },
+                "FireMode": {
+                    "FireMode": "single"
+                }
+            }
+        },
+        {
+            "_id": "6856a53a2b31f339300526c0",
+            "_tpl": "66866f622a2296a8d9099639",
+            "slotId": "mod_magazine",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a53a2b31f339300526bf"
+        },
+        {
+            "_id": "6856a53a2b31f339300526c1",
+            "_tpl": "668670e3fb75ee4a5e02eb16",
+            "slotId": "mod_muzzle_000",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a53a2b31f339300526bf"
+        },
+        {
+            "_id": "6856a53a2b31f339300526c2",
+            "_tpl": "66867310f3734a938b077f79",
+            "slotId": "mod_stock",
+            "upd": {
+                "SpawnedInSession": true,
+                "Foldable": {
+                    "Folded": false
+                }
+            },
+            "parentId": "6856a53a2b31f339300526bf"
+        },
+        {
+            "_id": "6856a53a2b31f339300526c3",
+            "_tpl": "6680326874b8f2050c0b9178",
+            "slotId": "mod_reciever",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a53a2b31f339300526bf"
+        },
+        {
+            "_id": "6856a53a2b31f339300526c4",
+            "_tpl": "668670432b934a68630a7fe8",
+            "slotId": "mod_barrel",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a53a2b31f339300526bf"
+        },
+        {
+            "_id": "6856a53a2b31f339300526c5",
+            "_tpl": "655f13e0a246670fb0373245",
+            "slotId": "mod_scope",
+            "upd": {
+                "SpawnedInSession": true,
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0,
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0,
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a53a2b31f339300526c3"
+        }
+    ],
+    "Test Drive 6": [
+        {
+            "_id": "6856a54d2b31f339300526c6",
+            "_tpl": "674d6121c09f69dfb201a888",
+            "upd": {
+                "SpawnedInSession": true,
+                "Repairable": {
+                    "MaxDurability": 100,
+                    "Durability": 100
+                },
+                "FireMode": {
+                    "FireMode": "single"
+                }
+            }
+        },
+        {
+            "_id": "6856a54d2b31f339300526c7",
+            "_tpl": "63f4da90f31d4a33b87bd054",
+            "slotId": "mod_pistol_grip",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a54d2b31f339300526c6"
+        },
+        {
+            "_id": "6856a54d2b31f339300526c8",
+            "_tpl": "628a665a86cbd9750d2ff5e5",
+            "slotId": "mod_reciever",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a54d2b31f339300526c6"
+        },
+        {
+            "_id": "6856a54d2b31f339300526c9",
+            "_tpl": "5b0e794b5acfc47a877359b2",
+            "slotId": "mod_stock_000",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a54d2b31f339300526c6"
+        },
+        {
+            "_id": "6856a54d2b31f339300526ca",
+            "_tpl": "5c0548ae0db834001966a3c2",
+            "slotId": "mod_magazine",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a54d2b31f339300526c6"
+        },
+        {
+            "_id": "6856a54d2b31f339300526cb",
+            "_tpl": "5a33b2c9c4a282000c5a9511",
+            "slotId": "mod_scope",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a54d2b31f339300526c6"
+        },
+        {
+            "_id": "6856a54d2b31f339300526cc",
+            "_tpl": "674d5e287075e056160e0176",
+            "slotId": "mod_handguard",
+            "upd": {
+                "SpawnedInSession": true
+            },
+            "parentId": "6856a54d2b31f339300526c6"
+        },
+        {
+            "_id": "6856a54d2b31f339300526cd",
+            "_tpl": "5a32aa8bc4a2826c6e06d737",
+            "slotId": "mod_scope",
+            "upd": {
+                "SpawnedInSession": true,
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0
+                    ],
+                    "SelectedScope": 0,
+                    "ScopeZoomValue": 0
+                }
+            },
+            "parentId": "6856a54d2b31f339300526cb"
+        }
+    ],
+    "Hell on Earth": [
+        {
+            "_id": "68419cbf04dd247bec06ec07",
+            "_tpl": "5580223e4bdc2d1c128b457f",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "BackgroundColor": "yellow",
+            "upd": {
+                "UnlimitedCount": true
+            }
+        },
+        {
+            "_id": "68419cbf04dd247bec06ec08",
+            "_tpl": "5580169d4bdc2d9d138b4585",
+            "slotId": "mod_barrel",
+            "parentId": "68419cbf04dd247bec06ec07"
+        },
+        {
+            "_id": "68419cbf04dd247bec06ec09",
+            "_tpl": "611a31ce5b7ffe001b4649d1",
+            "slotId": "mod_stock",
+            "parentId": "68419cbf04dd247bec06ec07"
+        }
+    ]
+}
