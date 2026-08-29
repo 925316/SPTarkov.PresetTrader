@@ -122,7 +122,7 @@ public class Main(
                             SlotId = TraderRootParentId,
                             Upd = new Upd
                             {
-                                StackObjectsCount = 1,
+                                StackObjectsCount = 999,
                                 UnlimitedCount = true,
                                 BuyRestrictionCurrent = 0
                             }
@@ -425,7 +425,7 @@ public class PresetTraderRefresher(
                     rootItem.ParentId = TraderRootParentId;
                     rootItem.SlotId = TraderRootParentId;
                     rootItem.Upd ??= new Upd();
-                    rootItem.Upd.StackObjectsCount = 1;
+                    rootItem.Upd.StackObjectsCount = 999;
                     rootItem.Upd.UnlimitedCount = true;
                     rootItem.Upd.BuyRestrictionCurrent = 0;
 
