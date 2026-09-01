@@ -7,6 +7,7 @@ using SPTarkov.Server.Core.Helpers.Items;
 using SPTarkov.Server.Core.Helpers.Profile;
 using SPTarkov.Server.Core.Helpers.Server;
 using SPTarkov.Server.Core.Models.Common;
+using SPTarkov.Server.Core.Models.Eft.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Eft.Profile;
 using SPTarkov.Server.Core.Models.Enums;
@@ -26,7 +27,7 @@ public record ModMetadata : IModMetadata
     public string Name { get; init; } = "PresetTrader";
     public string Author { get; init; } = "Bela";
     public List<string>? Contributors { get; init; }
-    public SemanticVersioning.Version Version { get; init; } = new("1.1.0");
+    public SemanticVersioning.Version Version { get; init; } = new("1.2.0");
     public SemanticVersioning.Range SptVersion { get; init; } = new("~4.1.2");
     public List<string>? Incompatibilities { get; init; }
     public Dictionary<string, SemanticVersioning.Range>? ModDependencies { get; init; }
@@ -47,23 +48,14 @@ public class AttachmentRef
     public string? Tpl { get; set; }
 }
 
-public class PresetTraderConfig
-{
-    public bool EnableWeaponPresets { get; set; }
-}
-
 [Injectable(TypePriority = OnLoadOrder.PostLoad + 1)]
 public class Main(
     ISptLogger<Main> logger,
     ModHelper modHelper,
-    ItemHelper itemHelper,
-    TradersTable tradersTable,
     PresetTraderRefresher refresher
 )
     : IOnLoad
 {
-    private const string TraderRootParentId = "hideout";
-
     public Task OnLoadAsync(CancellationToken cancellationToken)
     {
         var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
@@ -76,36 +68,413 @@ public class Main(
         }
 
         refresher.SetTraderId(traderBase.Id);
-        var addedCount = refresher.Refresh();
-        var presetCount = PopulatePresets(traderBase.Id, "db/gearPresets.json");
-        var armorCount = PopulatePresets(traderBase.Id, "db/armorPresets.json");
+        refresher.InitialLoad();
 
-        var config = modHelper.GetJsonDataFromFile<PresetTraderConfig>(pathToMod, "db/config.json");
-        var weaponPresetCount = 0;
-        if (config?.EnableWeaponPresets == true)
+        return Task.CompletedTask;
+    }
+}
+
+[Injectable(TypePriority = OnLoadOrder.TraderRegistration + 1)]
+public class PresetTraderRegistration(
+    ISptLogger<PresetTraderRegistration> logger,
+    ModHelper modHelper,
+    ImageRouter imageRouter,
+    TraderConfig traderConfig,
+    TimeUtil timeUtil,
+    ICloner cloner,
+    TradersTable tradersTable,
+    LocaleTable localeTable
+)
+    : IOnLoad
+{
+    public Task OnLoadAsync(CancellationToken cancellationToken)
+    {
+        var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
+
+        var traderBase = modHelper.GetJsonDataFromFile<TraderBase>(pathToMod, "db/base.json");
+        if (traderBase is null)
         {
-            weaponPresetCount = PopulateWeaponPresets(traderBase.Id, "db/weaponPresets.json");
+            logger.Error("[PresetTrader]: db/base.json not found, aborting trader registration");
+            return Task.CompletedTask;
         }
-        else
+
+        if (string.IsNullOrWhiteSpace(traderBase.Avatar))
         {
-            logger.Info(
-                $"[PresetTrader]: Gunsmith Weapon presets disabled in config.json, skipping");
+            logger.Error("[PresetTrader]: Trader avatar is missing, aborting trader registration");
+            return Task.CompletedTask;
         }
+
+        var traderImagePath = Path.Combine(pathToMod, "db", "headshot.jpg");
+        if (!File.Exists(traderImagePath))
+        {
+            logger.Error($"[PresetTrader]: Trader image not found: {traderImagePath}");
+            return Task.CompletedTask;
+        }
+
+        var traderAvatar = Path.ChangeExtension(traderBase.Avatar, null);
+        imageRouter.AddRoute(traderAvatar, traderImagePath);
+
+        if (traderConfig.UpdateTime.All(x => x.TraderId != traderBase.Id))
+        {
+            traderConfig.UpdateTime.Add(new UpdateTime
+            {
+                TraderId = traderBase.Id,
+                Seconds = new MinMax<int>(
+                    timeUtil.GetHoursAsSeconds(1),
+                    timeUtil.GetHoursAsSeconds(2))
+            });
+        }
+
+        if (!AddTraderWithEmptyAssortToDb(traderBase))
+        {
+            return Task.CompletedTask;
+        }
+
+        AddTraderToLocales(
+            traderBase,
+            "PresetTrader",
+            "Sells weapon presets built and saved in your stash.");
 
         logger.Success(
-            $"[PresetTrader]: Added {addedCount} weapon build(s), {presetCount} gear preset(s), {armorCount} armor preset(s) and {weaponPresetCount} weapon preset(s) to trader {traderBase.Id}");
+            $"[PresetTrader]: Registered trader {traderBase.Id} ahead of profile validation");
 
         return Task.CompletedTask;
     }
 
-    private int PopulatePresets(MongoId traderId, string relativePath)
+    private bool AddTraderWithEmptyAssortToDb(TraderBase traderDetails)
     {
-        if (!tradersTable.TryGetValue(traderId, out var traderData))
+        var traderData = new Trader
         {
-            logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot add presets");
+            Assort = new TraderAssort
+            {
+                Items = [],
+                BarterScheme = new Dictionary<MongoId, List<List<BarterScheme>>>(),
+                LoyalLevelItems = new Dictionary<MongoId, int>()
+            },
+            Base = cloner.Clone(traderDetails)!,
+            QuestAssort = new()
+            {
+                { "Started", new() },
+                { "Success", new() },
+                { "Fail", new() }
+            },
+            Dialogue = []
+        };
+
+        if (!tradersTable.TryAdd(traderDetails.Id, traderData))
+        {
+            logger.Error(
+                $"[PresetTrader]: Failed to add trader {traderDetails.Id}, id already exists; aborting");
+
+            return false;
+        }
+
+        return true;
+    }
+
+    private void AddTraderToLocales(
+        TraderBase baseJson,
+        string firstName,
+        string description)
+    {
+        var newTraderId = baseJson.Id;
+        var fullName = baseJson.Name;
+        var nickName = baseJson.Nickname;
+        var location = baseJson.Location;
+
+        foreach (var (_, localeKvP) in localeTable.Global)
+        {
+            localeKvP.AddTransformer(localeData =>
+            {
+                if (localeData is null)
+                {
+                    return localeData;
+                }
+
+                localeData[$"{newTraderId} FullName"] = fullName;
+                localeData[$"{newTraderId} FirstName"] = firstName;
+                localeData[$"{newTraderId} Nickname"] = nickName ?? fullName;
+                localeData[$"{newTraderId} Location"] = location ?? string.Empty;
+                localeData[$"{newTraderId} Description"] = description;
+
+                return localeData;
+            });
+        }
+    }
+}
+
+[Injectable(InjectionType.Singleton, TypePriority = OnUpdateOrder.InsuranceCallbacks)]
+public class PresetTraderRefresher(
+    ISptLogger<PresetTraderRefresher> logger,
+    ProfileHelper profileHelper,
+    TradersTable tradersTable,
+    ItemHelper itemHelper,
+    ICloner cloner,
+    ModHelper modHelper)
+    : IOnUpdate
+{
+    private const string TraderRootParentId = "hideout";
+    private const int RefreshIntervalSeconds = 30;
+    private const int MinFlipIntervalSeconds = 5;
+
+    private MongoId? _traderId;
+    private bool _showingWeaponPresets;
+    private long _lastFlipUnix;
+    private readonly Dictionary<MongoId, MongoId> _buildRootIds = new();
+    private readonly Dictionary<MongoId, string> _buildSignatures = new();
+
+    public void SetTraderId(MongoId traderId)
+    {
+        _traderId = traderId;
+    }
+
+    public string GetTraderIdString()
+    {
+        return _traderId?.ToString() ?? string.Empty;
+    }
+
+    /// <summary>
+    /// Flips between builds+gear+armor and gunsmith/quest. 5s debounce
+    /// because the client fires multiple assort requests on open.
+    /// </summary>
+    public void FlipGroup()
+    {
+        if (_traderId is null)
+        {
+            return;
+        }
+
+        var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        if (now - _lastFlipUnix < MinFlipIntervalSeconds)
+        {
+            return;
+        }
+
+        _lastFlipUnix = now;
+        Rotate(_traderId.Value);
+    }
+
+    public Task<bool> OnUpdateAsync(long secondsSinceLastRun, CancellationToken cancellationToken)
+    {
+        if (_traderId is null)
+        {
+            return Task.FromResult(true);
+        }
+
+        // Builds+gear+armor only; router handles FlipGroup.
+        if (_showingWeaponPresets)
+        {
+            return Task.FromResult(false);
+        }
+
+        if (secondsSinceLastRun < RefreshIntervalSeconds)
+        {
+            return Task.FromResult(false);
+        }
+
+        Refresh();
+
+        return Task.FromResult(true);
+    }
+
+    public int Refresh()
+    {
+        if (_traderId is null)
+        {
             return 0;
         }
 
+        var traderId = _traderId.Value;
+
+        if (!tradersTable.TryGetValue(traderId, out var traderData))
+        {
+            logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot refresh weapon builds");
+            return 0;
+        }
+
+        var syncedCount = 0;
+        var currentBuildIds = new HashSet<MongoId>();
+
+        foreach (var (_, profile) in profileHelper.GetProfiles())
+        {
+            var weaponBuilds = profile?.UserBuildData?.WeaponBuilds;
+            if (weaponBuilds is null || weaponBuilds.Count == 0)
+            {
+                continue;
+            }
+
+            foreach (var build in weaponBuilds)
+            {
+                if (build?.Items is null || build.Items.Count == 0)
+                {
+                    continue;
+                }
+
+                currentBuildIds.Add(build.Id);
+
+                var signature = ComputeBuildSignature(build.Items);
+
+                if (_buildRootIds.TryGetValue(build.Id, out var existingRootId)
+                    && _buildSignatures.TryGetValue(build.Id, out var existingSignature)
+                    && existingSignature == signature)
+                {
+                    continue;
+                }
+
+                if (_buildRootIds.TryGetValue(build.Id, out var staleRootId))
+                {
+                    RemoveBuildAssort(traderData, staleRootId);
+                    _buildRootIds.Remove(build.Id);
+                    _buildSignatures.Remove(build.Id);
+                    logger.Debug(
+                        $"[PresetTrader]: Replacing modified build '{build.Name}' ({build.Id})");
+                }
+
+                try
+                {
+                    var itemList = cloner.Clone(build.Items);
+                    if (itemList is null || itemList.Count == 0)
+                    {
+                        logger.Warning(
+                            $"[PresetTrader]: Failed to clone build '{build.Name}' ({build.Id}), skipping");
+                        continue;
+                    }
+
+                    var newRootId = itemList.RemapRootItemId();
+
+                    var rootItem = itemList.FirstOrDefault(item => item.Id == newRootId);
+                    if (rootItem is null)
+                    {
+                        logger.Warning(
+                            $"[PresetTrader]: Root item not found for build '{build.Name}' ({build.Id}), skipping");
+                        continue;
+                    }
+
+                    rootItem.ParentId = TraderRootParentId;
+                    rootItem.SlotId = TraderRootParentId;
+                    rootItem.Upd ??= new Upd();
+                    rootItem.Upd.StackObjectsCount = 999;
+                    rootItem.Upd.UnlimitedCount = true;
+                    rootItem.Upd.BuyRestrictionCurrent = 0;
+
+                    var price = (int)itemList.Select(item => item.Template).Sum(itemHelper.GetItemMaxPrice);
+
+                    if (price <= 0)
+                    {
+                        logger.Warning(
+                            $"[PresetTrader]: Skipping build '{build.Name}' ({build.Id}) - total price is 0");
+                        continue;
+                    }
+
+                    traderData.Assort.Items.AddRange(itemList);
+
+                    traderData.Assort.BarterScheme[newRootId] =
+                    [
+                        [
+                            new BarterScheme
+                            {
+                                Count = price,
+                                Template = Money.ROUBLES
+                            }
+                        ]
+                    ];
+
+                    traderData.Assort.LoyalLevelItems[newRootId] = 1;
+
+                    _buildRootIds[build.Id] = newRootId;
+                    _buildSignatures[build.Id] = signature;
+
+                    logger.Debug(
+                        $"[PresetTrader]: Added build '{build.Name}' ({build.Id}) for {price} roubles");
+
+                    syncedCount++;
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(
+                        $"[PresetTrader]: Failed to process build '{build.Name}' ({build.Id}): {ex}");
+                }
+            }
+        }
+
+        foreach (var kvp in _buildRootIds.ToList())
+        {
+            if (!currentBuildIds.Contains(kvp.Key))
+            {
+                RemoveBuildAssort(traderData, kvp.Value);
+                _buildRootIds.Remove(kvp.Key);
+                _buildSignatures.Remove(kvp.Key);
+                logger.Debug(
+                    $"[PresetTrader]: Removed deleted build ({kvp.Key}) from trader");
+            }
+        }
+
+        return syncedCount;
+    }
+
+    public void InitialLoad()
+    {
+        if (_traderId is null)
+        {
+            return;
+        }
+
+        var traderId = _traderId.Value;
+
+        if (!tradersTable.TryGetValue(traderId, out var traderData))
+        {
+            logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot load presets");
+            return;
+        }
+
+        _showingWeaponPresets = false;
+        _buildRootIds.Clear();
+        _buildSignatures.Clear();
+
+        var buildCount = Refresh();
+        var gearCount = PopulatePresets(traderData, "db/gearPresets.json");
+        var armorCount = PopulatePresets(traderData, "db/armorPresets.json");
+
+        logger.Success(
+            $"[PresetTrader]: Loaded {buildCount} weapon build(s), {gearCount} gear preset(s) and {armorCount} armor preset(s) to trader {traderId}. Opening the trader or refreshing flips to gunsmith/quest weapon presets.");
+    }
+
+    private void Rotate(MongoId traderId)
+    {
+        if (!tradersTable.TryGetValue(traderId, out var traderData))
+        {
+            logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot rotate assorts");
+            return;
+        }
+
+        _showingWeaponPresets = !_showingWeaponPresets;
+
+        // Clear assort for repopulation
+        traderData.Assort.Items.Clear();
+        traderData.Assort.BarterScheme.Clear();
+        traderData.Assort.LoyalLevelItems.Clear();
+
+        _buildRootIds.Clear();
+        _buildSignatures.Clear();
+
+        if (_showingWeaponPresets)
+        {
+            var count = PopulateWeaponPresets(traderData, "db/weaponPresets.json");
+            logger.Info(
+                $"[PresetTrader]: Rotated to gunsmith/quest weapon presets: {count} preset(s)");
+        }
+        else
+        {
+            var buildCount = Refresh();
+            var gearCount = PopulatePresets(traderData, "db/gearPresets.json");
+            var armorCount = PopulatePresets(traderData, "db/armorPresets.json");
+            logger.Info(
+                $"[PresetTrader]: Rotated back to weapon builds, gear and armor: {buildCount} build(s), {gearCount} gear, {armorCount} armor");
+        }
+    }
+
+    private int PopulatePresets(Trader traderData, string relativePath)
+    {
         var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
         var sets = modHelper.GetJsonDataFromFile<List<MatchedSet>>(pathToMod, relativePath);
 
@@ -117,7 +486,7 @@ public class Main(
 
         var added = 0;
 
-        // Root tpls already for sale (weapon builds and previous preset passes included)
+        // Root tpls already sold (builds + previous passes)
         var soldRootTpls = traderData.Assort.Items
             .Where(item => item.SlotId == TraderRootParentId)
             .Select(item => item.Template)
@@ -263,14 +632,8 @@ public class Main(
         return added;
     }
 
-    private int PopulateWeaponPresets(MongoId traderId, string relativePath)
+    private int PopulateWeaponPresets(Trader traderData, string relativePath)
     {
-        if (!tradersTable.TryGetValue(traderId, out var traderData))
-        {
-            logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot add weapon presets");
-            return 0;
-        }
-
         var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
         var presets = modHelper.GetJsonDataFromFile<Dictionary<string, List<Item>>>(pathToMod, relativePath);
 
@@ -300,12 +663,11 @@ public class Main(
                     continue;
                 }
 
-                // Every child must point at a parent inside the tree whose template declares the slot
+                // Validate child-parent slot relationships
                 var itemsById = presetItems.ToDictionary(item => item.Id.ToString());
                 string? invalidReason = null;
                 foreach (var child in presetItems)
                 {
-                    // Root gets reparented to the trader root below; some sources pre-tag it "hideout"
                     if (child.Id == rootId)
                     {
                         continue;
@@ -389,316 +751,6 @@ public class Main(
 
         return added;
     }
-}
-
-[Injectable(TypePriority = OnLoadOrder.TraderRegistration + 1)]
-public class PresetTraderRegistration(
-    ISptLogger<PresetTraderRegistration> logger,
-    ModHelper modHelper,
-    ImageRouter imageRouter,
-    TraderConfig traderConfig,
-    TimeUtil timeUtil,
-    ICloner cloner,
-    TradersTable tradersTable,
-    LocaleTable localeTable
-)
-    : IOnLoad
-{
-    public Task OnLoadAsync(CancellationToken cancellationToken)
-    {
-        var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
-
-        var traderBase = modHelper.GetJsonDataFromFile<TraderBase>(pathToMod, "db/base.json");
-        if (traderBase is null)
-        {
-            logger.Error("[PresetTrader]: db/base.json not found, aborting trader registration");
-            return Task.CompletedTask;
-        }
-
-        if (string.IsNullOrWhiteSpace(traderBase.Avatar))
-        {
-            logger.Error("[PresetTrader]: Trader avatar is missing, aborting trader registration");
-            return Task.CompletedTask;
-        }
-
-        var traderImagePath = Path.Combine(pathToMod, "db", "headshot.jpg");
-        if (!File.Exists(traderImagePath))
-        {
-            logger.Error($"[PresetTrader]: Trader image not found: {traderImagePath}");
-            return Task.CompletedTask;
-        }
-
-        var traderAvatar = Path.ChangeExtension(traderBase.Avatar, null);
-        imageRouter.AddRoute(traderAvatar, traderImagePath);
-
-        if (traderConfig.UpdateTime.All(x => x.TraderId != traderBase.Id))
-        {
-            traderConfig.UpdateTime.Add(new UpdateTime
-            {
-                TraderId = traderBase.Id,
-                Seconds = new MinMax<int>(
-                    timeUtil.GetHoursAsSeconds(1),
-                    timeUtil.GetHoursAsSeconds(2))
-            });
-        }
-
-        if (!AddTraderWithEmptyAssortToDb(traderBase))
-        {
-            return Task.CompletedTask;
-        }
-
-        AddTraderToLocales(
-            traderBase,
-            "PresetTrader",
-            "Sells weapon presets built and saved in your stash.");
-
-        logger.Success(
-            $"[PresetTrader]: Registered trader {traderBase.Id} ahead of profile validation");
-
-        return Task.CompletedTask;
-    }
-
-    private bool AddTraderWithEmptyAssortToDb(TraderBase traderDetails)
-    {
-        var traderData = new Trader
-        {
-            Assort = new TraderAssort
-            {
-                Items = [],
-                BarterScheme = new Dictionary<MongoId, List<List<BarterScheme>>>(),
-                LoyalLevelItems = new Dictionary<MongoId, int>()
-            },
-            Base = cloner.Clone(traderDetails)!,
-            QuestAssort = new()
-            {
-                { "Started", new() },
-                { "Success", new() },
-                { "Fail", new() }
-            },
-            Dialogue = []
-        };
-
-        if (!tradersTable.TryAdd(traderDetails.Id, traderData))
-        {
-            logger.Error(
-                $"[PresetTrader]: Failed to add trader {traderDetails.Id}, id already exists; aborting");
-
-            return false;
-        }
-
-        return true;
-    }
-
-    private void AddTraderToLocales(
-        TraderBase baseJson,
-        string firstName,
-        string description)
-    {
-        var newTraderId = baseJson.Id;
-        var fullName = baseJson.Name;
-        var nickName = baseJson.Nickname;
-        var location = baseJson.Location;
-
-        foreach (var (_, localeKvP) in localeTable.Global)
-        {
-            localeKvP.AddTransformer(localeData =>
-            {
-                if (localeData is null)
-                {
-                    return localeData;
-                }
-
-                localeData[$"{newTraderId} FullName"] = fullName;
-                localeData[$"{newTraderId} FirstName"] = firstName;
-                localeData[$"{newTraderId} Nickname"] = nickName ?? fullName;
-                localeData[$"{newTraderId} Location"] = location ?? string.Empty;
-                localeData[$"{newTraderId} Description"] = description;
-
-                return localeData;
-            });
-        }
-    }
-}
-
-[Injectable(InjectionType.Singleton, TypePriority = OnUpdateOrder.InsuranceCallbacks)]
-public class PresetTraderRefresher(
-    ISptLogger<PresetTraderRefresher> logger,
-    ProfileHelper profileHelper,
-    TradersTable tradersTable,
-    ItemHelper itemHelper,
-    ICloner cloner)
-    : IOnUpdate
-{
-    private const string TraderRootParentId = "hideout";
-    private const int RefreshIntervalSeconds = 30;
-
-    private MongoId? _traderId;
-    private readonly Dictionary<MongoId, MongoId> _buildRootIds = new();
-    private readonly Dictionary<MongoId, string> _buildSignatures = new();
-
-    public void SetTraderId(MongoId traderId)
-    {
-        _traderId = traderId;
-    }
-
-    public Task<bool> OnUpdateAsync(long secondsSinceLastRun, CancellationToken cancellationToken)
-    {
-        if (_traderId is null)
-        {
-            return Task.FromResult(true);
-        }
-
-        var traderId = _traderId.Value;
-
-        if (secondsSinceLastRun < RefreshIntervalSeconds)
-        {
-            return Task.FromResult(false);
-        }
-
-        var synced = Refresh();
-        if (synced > 0)
-        {
-            logger.Info(
-                $"[PresetTrader]: Live refresh synced {synced} weapon build(s) to trader {traderId}");
-        }
-
-        return Task.FromResult(true);
-    }
-
-    public int Refresh()
-    {
-        if (_traderId is null)
-        {
-            return 0;
-        }
-
-        var traderId = _traderId.Value;
-
-        if (!tradersTable.TryGetValue(traderId, out var traderData))
-        {
-            logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot refresh weapon builds");
-            return 0;
-        }
-
-        var syncedCount = 0;
-        var currentBuildIds = new HashSet<MongoId>();
-
-        foreach (var (_, profile) in profileHelper.GetProfiles())
-        {
-            var weaponBuilds = profile?.UserBuildData?.WeaponBuilds;
-            if (weaponBuilds is null || weaponBuilds.Count == 0)
-            {
-                continue;
-            }
-
-            foreach (var build in weaponBuilds)
-            {
-                if (build?.Items is null || build.Items.Count == 0)
-                {
-                    continue;
-                }
-
-                currentBuildIds.Add(build.Id);
-
-                var signature = ComputeBuildSignature(build.Items);
-
-                if (_buildRootIds.TryGetValue(build.Id, out var existingRootId)
-                    && _buildSignatures.TryGetValue(build.Id, out var existingSignature)
-                    && existingSignature == signature)
-                {
-                    continue;
-                }
-
-                if (_buildRootIds.TryGetValue(build.Id, out var staleRootId))
-                {
-                    RemoveBuildAssort(traderData, staleRootId);
-                    _buildRootIds.Remove(build.Id);
-                    _buildSignatures.Remove(build.Id);
-                    logger.Debug(
-                        $"[PresetTrader]: Replacing modified build '{build.Name}' ({build.Id})");
-                }
-
-                try
-                {
-                    var itemList = cloner.Clone(build.Items);
-                    if (itemList is null || itemList.Count == 0)
-                    {
-                        logger.Warning(
-                            $"[PresetTrader]: Failed to clone build '{build.Name}' ({build.Id}), skipping");
-                        continue;
-                    }
-
-                    var newRootId = itemList.RemapRootItemId();
-
-                    var rootItem = itemList.FirstOrDefault(item => item.Id == newRootId);
-                    if (rootItem is null)
-                    {
-                        logger.Warning(
-                            $"[PresetTrader]: Root item not found for build '{build.Name}' ({build.Id}), skipping");
-                        continue;
-                    }
-
-                    rootItem.ParentId = TraderRootParentId;
-                    rootItem.SlotId = TraderRootParentId;
-                    rootItem.Upd ??= new Upd();
-                    rootItem.Upd.StackObjectsCount = 999;
-                    rootItem.Upd.UnlimitedCount = true;
-                    rootItem.Upd.BuyRestrictionCurrent = 0;
-
-                    var price = (int)itemList.Select(item => item.Template).Sum(itemHelper.GetItemMaxPrice);
-
-                    if (price <= 0)
-                    {
-                        logger.Warning(
-                            $"[PresetTrader]: Skipping build '{build.Name}' ({build.Id}) - total price is 0");
-                        continue;
-                    }
-
-                    traderData.Assort.Items.AddRange(itemList);
-
-                    traderData.Assort.BarterScheme[newRootId] =
-                    [
-                        [
-                            new BarterScheme
-                            {
-                                Count = price,
-                                Template = Money.ROUBLES
-                            }
-                        ]
-                    ];
-
-                    traderData.Assort.LoyalLevelItems[newRootId] = 1;
-
-                    _buildRootIds[build.Id] = newRootId;
-                    _buildSignatures[build.Id] = signature;
-
-                    logger.Debug(
-                        $"[PresetTrader]: Added build '{build.Name}' ({build.Id}) for {price} roubles");
-
-                    syncedCount++;
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(
-                        $"[PresetTrader]: Failed to process build '{build.Name}' ({build.Id}): {ex}");
-                }
-            }
-        }
-
-        foreach (var kvp in _buildRootIds.ToList())
-        {
-            if (!currentBuildIds.Contains(kvp.Key))
-            {
-                RemoveBuildAssort(traderData, kvp.Value);
-                _buildRootIds.Remove(kvp.Key);
-                _buildSignatures.Remove(kvp.Key);
-                logger.Debug(
-                    $"[PresetTrader]: Removed deleted build ({kvp.Key}) from trader");
-            }
-        }
-
-        return syncedCount;
-    }
 
     private void RemoveBuildAssort(Trader traderData, MongoId rootId)
     {
@@ -733,3 +785,31 @@ public class PresetTraderRefresher(
         return string.Join(";", parts);
     }
 }
+
+/// <summary>
+/// Runs before SPT's TraderDynamicRouter (Routers=400000) so the flip
+/// happens before the assort snapshot. Returns empty; SPT serves the
+/// flipped assort. URL matches all getTraderAssort/ — guard on trader ID.
+/// </summary>
+[Injectable(TypePriority = OnLoadOrder.Routers - 1)]
+public class PresetTraderAssortRouter(
+    JsonUtil jsonUtil,
+    PresetTraderRefresher refresher
+) : DynamicRouter(
+    jsonUtil,
+    [
+        new RouteAction<EmptyRequestData>(
+            "/client/trading/api/getTraderAssort/",
+            async (url, info, sessionID, output, cancellationToken) =>
+            {
+                // URL prefix matches all traders; guard on our ID.
+                if (url.Contains(refresher.GetTraderIdString()))
+                {
+                    refresher.FlipGroup();
+                }
+
+                return string.Empty;
+            }
+        ),
+    ]
+) { }
