@@ -217,13 +217,18 @@ public class PresetTraderRefresher(
 {
     private const string TraderRootParentId = "hideout";
     private const int RefreshIntervalSeconds = 30;
-    private const int MinFlipIntervalSeconds = 5;
-    private const int TradeSuppressWindowSeconds = 10;
+    private const int RotationDecisionDelayMs = 250;
+    private const int CompanionWindowMs = 500;
+    private const int PostPurchaseSuppressMs = 1500;
+    private const int MinRotationIntervalMs = 500;
+
+    private readonly object _assortGate = new();
 
     private MongoId? _traderId;
     private bool _showingWeaponPresets;
-    private long _lastFlipUnix;
-    private long _lastTradeUnix;
+    private long _lastOtherTraderAssortFetchUnixMs;
+    private long _lastPurchaseUnixMs;
+    private long _lastRotationUnixMs;
     private readonly Dictionary<MongoId, MongoId> _buildRootIds = new();
     private readonly Dictionary<MongoId, string> _buildSignatures = new();
 
@@ -237,34 +242,63 @@ public class PresetTraderRefresher(
         return _traderId?.ToString() ?? string.Empty;
     }
 
+    public void RecordOtherTraderAssortFetch()
+    {
+        Interlocked.Exchange(ref _lastOtherTraderAssortFetchUnixMs, CurrentUnixMs());
+    }
+
     /// <summary>
-    /// Flips the assort group (5s debounce, 10s post-purchase hold).
+    /// Rotates on a deliberate open/refresh: a lone assort fetch that is
+    /// neither a bulk-refresh companion nor the post-purchase auto-refresh.
     /// </summary>
-    public void FlipGroup()
+    public async Task OnOwnTraderAssortFetchedAsync(CancellationToken cancellationToken)
     {
         if (_traderId is null)
         {
             return;
         }
 
-        var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-        if (now - _lastFlipUnix < MinFlipIntervalSeconds)
+        // Let companion fetches land before deciding.
+        try
+        {
+            await Task.Delay(RotationDecisionDelayMs, cancellationToken);
+        }
+        catch (TaskCanceledException)
         {
             return;
         }
 
-        if (now - _lastTradeUnix < TradeSuppressWindowSeconds)
+        var now = CurrentUnixMs();
+
+        if (now - Interlocked.Read(ref _lastOtherTraderAssortFetchUnixMs) < CompanionWindowMs)
+        {
+            logger.Debug("[PresetTrader]: Skipping rotation - bulk trader refresh");
+            return;
+        }
+
+        if (now - Interlocked.Read(ref _lastPurchaseUnixMs) < PostPurchaseSuppressMs)
+        {
+            logger.Debug("[PresetTrader]: Skipping rotation - post-purchase auto-refresh");
+            return;
+        }
+
+        if (now - Interlocked.Read(ref _lastRotationUnixMs) < MinRotationIntervalMs)
         {
             return;
         }
 
-        _lastFlipUnix = now;
+        Interlocked.Exchange(ref _lastRotationUnixMs, now);
         Rotate(_traderId.Value);
     }
 
     public void NotifyTrade()
     {
-        _lastTradeUnix = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        Interlocked.Exchange(ref _lastPurchaseUnixMs, CurrentUnixMs());
+    }
+
+    private static long CurrentUnixMs()
+    {
+        return DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
     }
 
     public Task<bool> OnUpdateAsync(long secondsSinceLastRun, CancellationToken cancellationToken)
@@ -274,7 +308,7 @@ public class PresetTraderRefresher(
             return Task.FromResult(true);
         }
 
-        // Builds+gear+armor only; router handles FlipGroup.
+        // Builds+gear+armor only; the assort router handles rotation.
         if (_showingWeaponPresets)
         {
             return Task.FromResult(false);
@@ -299,6 +333,15 @@ public class PresetTraderRefresher(
 
         var traderId = _traderId.Value;
 
+        lock (_assortGate)
+        {
+            return RefreshCore(traderId);
+        }
+    }
+
+    // Caller must hold _assortGate.
+    private int RefreshCore(MongoId traderId)
+    {
         if (!tradersTable.TryGetValue(traderId, out var traderData))
         {
             logger.Error($"[PresetTrader]: Trader {traderId} not found, cannot refresh weapon builds");
@@ -441,15 +484,19 @@ public class PresetTraderRefresher(
         }
 
         _showingWeaponPresets = false;
-        _buildRootIds.Clear();
-        _buildSignatures.Clear();
 
-        var buildCount = Refresh();
-        var gearCount = PopulatePresets(traderData, "db/gearPresets.json");
-        var armorCount = PopulatePresets(traderData, "db/armorPresets.json");
+        lock (_assortGate)
+        {
+            _buildRootIds.Clear();
+            _buildSignatures.Clear();
 
-        logger.Success(
-            $"[PresetTrader]: Loaded {buildCount} weapon build(s), {gearCount} gear preset(s) and {armorCount} armor preset(s) to trader {traderId}. Opening the trader or refreshing flips to gunsmith/quest weapon presets.");
+            var buildCount = RefreshCore(traderId);
+            var gearCount = PopulatePresets(traderData, "db/gearPresets.json");
+            var armorCount = PopulatePresets(traderData, "db/armorPresets.json");
+
+            logger.Success(
+                $"[PresetTrader]: Loaded {buildCount} weapon build(s), {gearCount} gear preset(s) and {armorCount} armor preset(s) to trader {traderId}. Opening the trader or refreshing flips to gunsmith/quest weapon presets.");
+        }
     }
 
     private void Rotate(MongoId traderId)
@@ -460,29 +507,32 @@ public class PresetTraderRefresher(
             return;
         }
 
-        _showingWeaponPresets = !_showingWeaponPresets;
-
-        // Clear assort for repopulation
-        traderData.Assort.Items.Clear();
-        traderData.Assort.BarterScheme.Clear();
-        traderData.Assort.LoyalLevelItems.Clear();
-
-        _buildRootIds.Clear();
-        _buildSignatures.Clear();
-
-        if (_showingWeaponPresets)
+        lock (_assortGate)
         {
-            var count = PopulateWeaponPresets(traderData, "db/weaponPresets.json");
-            logger.Info(
-                $"[PresetTrader]: Rotated to gunsmith/quest weapon presets: {count} preset(s)");
-        }
-        else
-        {
-            var buildCount = Refresh();
-            var gearCount = PopulatePresets(traderData, "db/gearPresets.json");
-            var armorCount = PopulatePresets(traderData, "db/armorPresets.json");
-            logger.Info(
-                $"[PresetTrader]: Rotated back to weapon builds, gear and armor: {buildCount} build(s), {gearCount} gear, {armorCount} armor");
+            _showingWeaponPresets = !_showingWeaponPresets;
+
+            // Clear assort for repopulation
+            traderData.Assort.Items.Clear();
+            traderData.Assort.BarterScheme.Clear();
+            traderData.Assort.LoyalLevelItems.Clear();
+
+            _buildRootIds.Clear();
+            _buildSignatures.Clear();
+
+            if (_showingWeaponPresets)
+            {
+                var count = PopulateWeaponPresets(traderData, "db/weaponPresets.json");
+                logger.Info(
+                    $"[PresetTrader]: Rotated to gunsmith/quest weapon presets: {count} preset(s)");
+            }
+            else
+            {
+                var buildCount = RefreshCore(traderId);
+                var gearCount = PopulatePresets(traderData, "db/gearPresets.json");
+                var armorCount = PopulatePresets(traderData, "db/armorPresets.json");
+                logger.Debug(
+                    $"[PresetTrader]: Rotated back to weapon builds, gear and armor: {buildCount} build(s), {gearCount} gear, {armorCount} armor");
+            }
         }
     }
 
@@ -788,6 +838,7 @@ public class PresetTraderRefresher(
         traderData.Assort.LoyalLevelItems.Remove(rootId);
     }
 
+    // Only track equipment composition. Build names, item IDs, and runtime state
     private static string ComputeBuildSignature(List<Item> items)
     {
         var parts = items
@@ -800,9 +851,9 @@ public class PresetTraderRefresher(
 }
 
 /// <summary>
-/// Runs before SPT's TraderDynamicRouter (Routers=400000) so the flip
-/// happens before the assort snapshot. Returns empty; SPT serves the
-/// flipped assort. URL matches all getTraderAssort/ — guard on trader ID.
+/// Runs before SPT's TraderDynamicRouter (Routers=400000) so a rotation (if
+/// any) happens before the assort snapshot. Returns empty; SPT serves the
+/// (possibly rotated) assort.
 /// </summary>
 [Injectable(TypePriority = OnLoadOrder.Routers - 1)]
 public class PresetTraderAssortRouter(
@@ -815,10 +866,17 @@ public class PresetTraderAssortRouter(
             "/client/trading/api/getTraderAssort/",
             async (url, info, sessionID, output, cancellationToken) =>
             {
-                // URL prefix matches all traders; guard on our ID.
-                if (url.Contains(refresher.GetTraderIdString()))
+                // Branch on the trailing trader ID (exact match).
+                var path = url.Split('?')[0];
+                var traderId = path.Substring(path.LastIndexOf('/') + 1);
+
+                if (traderId == refresher.GetTraderIdString())
                 {
-                    refresher.FlipGroup();
+                    await refresher.OnOwnTraderAssortFetchedAsync(cancellationToken);
+                }
+                else
+                {
+                    refresher.RecordOtherTraderAssortFetch();
                 }
 
                 return string.Empty;
@@ -877,7 +935,8 @@ public class PresetTraderItemMovingRouter(
                     && evt.TryGetProperty("tid", out var tidEl)
                     && tidEl.GetString() == traderId)
                 {
-                    logger.Debug($"[PresetTrader]: Purchase detected from {traderId}");
+                    logger.Debug(
+                        $"[PresetTrader]: Purchase detected from {traderId}, suppressing post-buy auto-refresh");
                     refresher.NotifyTrade();
                     return;
                 }
