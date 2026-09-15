@@ -413,6 +413,15 @@ public class PresetTraderRefresher(
                     rootItem.Upd.UnlimitedCount = true;
                     rootItem.Upd.BuyRestrictionCurrent = 0;
 
+                    foreach (var part in itemList)
+                    {
+                        part.Upd ??= new Upd();
+                        part.Upd.SpawnedInSession = itemHelper.IsOfBaseclass(part.Template, BaseClasses.AMMO)
+                            ? null
+                            : true;
+                        NormalizeDurability(part);
+                    }
+
                     var price = (int)itemList.Select(item => item.Template).Sum(itemHelper.GetItemMaxPrice);
 
                     if (price <= 0)
@@ -777,6 +786,15 @@ public class PresetTraderRefresher(
                 root.Upd.UnlimitedCount = true;
                 root.Upd.BuyRestrictionCurrent = 0;
 
+                foreach (var part in presetItems)
+                {
+                    part.Upd ??= new Upd();
+                    part.Upd.SpawnedInSession = itemHelper.IsOfBaseclass(part.Template, BaseClasses.AMMO)
+                        ? null
+                        : true;
+                    NormalizeDurability(part);
+                }
+
                 var price = (int)presetItems.Select(item => item.Template).Sum(itemHelper.GetItemMaxPrice);
                 if (price <= 0)
                 {
@@ -847,6 +865,23 @@ public class PresetTraderRefresher(
             .ToArray();
 
         return string.Join(";", parts);
+    }
+
+    private void NormalizeDurability(Item item)
+    {
+        if (item.Upd?.Repairable is null)
+        {
+            return;
+        }
+
+        var maxDurability = itemHelper.GetItem(item.Template).Value?.Properties?.MaxDurability;
+        if (maxDurability is null or <= 0)
+        {
+            return;
+        }
+
+        item.Upd.Repairable.MaxDurability = maxDurability;
+        item.Upd.Repairable.Durability = maxDurability;
     }
 }
 
