@@ -272,13 +272,11 @@ public class PresetTraderRefresher(
 
         if (now - Interlocked.Read(ref _lastOtherTraderAssortFetchUnixMs) < CompanionWindowMs)
         {
-            logger.Debug("[PresetTrader]: Skipping rotation - bulk trader refresh");
             return;
         }
 
         if (now - Interlocked.Read(ref _lastPurchaseUnixMs) < PostPurchaseSuppressMs)
         {
-            logger.Debug("[PresetTrader]: Skipping rotation - post-purchase auto-refresh");
             return;
         }
 
@@ -382,8 +380,6 @@ public class PresetTraderRefresher(
                     RemoveBuildAssort(traderData, staleRootId);
                     _buildRootIds.Remove(build.Id);
                     _buildSignatures.Remove(build.Id);
-                    logger.Debug(
-                        $"[PresetTrader]: Replacing modified build '{build.Name}' ({build.Id})");
                 }
 
                 try
@@ -449,9 +445,6 @@ public class PresetTraderRefresher(
                     _buildRootIds[build.Id] = newRootId;
                     _buildSignatures[build.Id] = signature;
 
-                    logger.Debug(
-                        $"[PresetTrader]: Added build '{build.Name}' ({build.Id}) for {price} roubles");
-
                     syncedCount++;
                 }
                 catch (Exception ex)
@@ -469,8 +462,6 @@ public class PresetTraderRefresher(
                 RemoveBuildAssort(traderData, kvp.Value);
                 _buildRootIds.Remove(kvp.Key);
                 _buildSignatures.Remove(kvp.Key);
-                logger.Debug(
-                    $"[PresetTrader]: Removed deleted build ({kvp.Key}) from trader");
             }
         }
 
@@ -530,17 +521,13 @@ public class PresetTraderRefresher(
 
             if (_showingWeaponPresets)
             {
-                var count = PopulateWeaponPresets(traderData, "db/weaponPresets.json");
-                logger.Info(
-                    $"[PresetTrader]: Rotated to gunsmith/quest weapon presets: {count} preset(s)");
+                PopulateWeaponPresets(traderData, "db/weaponPresets.json");
             }
             else
             {
-                var buildCount = RefreshCore(traderId);
-                var gearCount = PopulatePresets(traderData, "db/gearPresets.json");
-                var armorCount = PopulatePresets(traderData, "db/armorPresets.json");
-                logger.Debug(
-                    $"[PresetTrader]: Rotated back to weapon builds, gear and armor: {buildCount} build(s), {gearCount} gear, {armorCount} armor");
+                RefreshCore(traderId);
+                PopulatePresets(traderData, "db/gearPresets.json");
+                PopulatePresets(traderData, "db/armorPresets.json");
             }
         }
     }
@@ -689,9 +676,6 @@ public class PresetTraderRefresher(
                     traderData.Assort.LoyalLevelItems[rootId] = 1;
 
                     added++;
-
-                    logger.Debug(
-                        $"[PresetTrader]: Added preset '{set.RootTpl}' for {price} roubles");
                 }
                 catch (Exception ex)
                 {
@@ -819,9 +803,6 @@ public class PresetTraderRefresher(
                 traderData.Assort.LoyalLevelItems[rootId] = 1;
 
                 added++;
-
-                logger.Debug(
-                    $"[PresetTrader]: Added weapon preset '{name}' ({root.Template}) for {price} roubles");
             }
             catch (Exception ex)
             {
@@ -970,8 +951,6 @@ public class PresetTraderItemMovingRouter(
                     && evt.TryGetProperty("tid", out var tidEl)
                     && tidEl.GetString() == traderId)
                 {
-                    logger.Debug(
-                        $"[PresetTrader]: Purchase detected from {traderId}, suppressing post-buy auto-refresh");
                     refresher.NotifyTrade();
                     return;
                 }
