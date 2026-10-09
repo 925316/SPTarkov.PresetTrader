@@ -93,7 +93,7 @@ public partial class PresetTraderRefresher
             return;
         }
 
-        _showingWeaponPresets = false;
+        _rotationState = RotationBuilds;
 
         lock (_assortGate)
         {
@@ -103,10 +103,9 @@ public partial class PresetTraderRefresher
             var buildCount = RefreshCore(traderId);
             var gearCount = PopulatePresets(traderData, "db/gearPresets.json");
             var armorCount = PopulatePresets(traderData, "db/armorPresets.json");
-            var keyCount = PopulateKeyPacks(traderData, "db/keyPresets.json");
 
             logger.Success(
-                $"[PresetTrader]: Loaded {buildCount} weapon build(s), {gearCount} gear preset(s), {armorCount} armor preset(s) and {keyCount} key pack(s) to trader {traderId}. Opening the trader or refreshing flips to gunsmith/quest weapon presets.");
+                $"[PresetTrader]: Loaded {buildCount} weapon build(s), {gearCount} gear preset(s) and {armorCount} armor preset(s) to trader {traderId}. Opening the trader or refreshing rotates through key packs and gunsmith/quest weapon presets.");
         }
     }
 
@@ -120,7 +119,7 @@ public partial class PresetTraderRefresher
 
         lock (_assortGate)
         {
-            _showingWeaponPresets = !_showingWeaponPresets;
+            _rotationState = (_rotationState + 1) % RotationStateCount;
 
             traderData.Assort.Items.Clear();
             traderData.Assort.BarterScheme.Clear();
@@ -128,18 +127,21 @@ public partial class PresetTraderRefresher
 
             _buildRootIds.Clear();
             _buildSignatures.Clear();
+            _keyPackByRootId.Clear();
 
-            if (_showingWeaponPresets)
+            switch (_rotationState)
             {
-                PopulateWeaponPresets(traderData, "db/weaponPresets.json");
-                PopulateKeyPacks(traderData, "db/keyPresets.json");
-            }
-            else
-            {
-                RefreshCore(traderId);
-                PopulatePresets(traderData, "db/gearPresets.json");
-                PopulatePresets(traderData, "db/armorPresets.json");
-                PopulateKeyPacks(traderData, "db/keyPresets.json");
+                case RotationBuilds:
+                    RefreshCore(traderId);
+                    PopulatePresets(traderData, "db/gearPresets.json");
+                    PopulatePresets(traderData, "db/armorPresets.json");
+                    break;
+                case RotationKeyPacks:
+                    PopulateKeyPacks(traderData, "db/keyPresets.json");
+                    break;
+                case RotationGunsmith:
+                    PopulateWeaponPresets(traderData, "db/weaponPresets.json");
+                    break;
             }
         }
     }

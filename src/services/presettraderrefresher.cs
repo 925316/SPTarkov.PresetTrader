@@ -41,10 +41,15 @@ public partial class PresetTraderRefresher(
     private const int PostPurchaseSuppressMs = 1500;
     private const int MinRotationIntervalMs = 500;
 
+    private const int RotationBuilds = 0;
+    private const int RotationKeyPacks = 1;
+    private const int RotationGunsmith = 2;
+    private const int RotationStateCount = 3;
+
     private readonly object _assortGate = new();
 
     private MongoId? _traderId;
-    private bool _showingWeaponPresets;
+    private int _rotationState;
     private long _lastOtherTraderAssortFetchUnixMs;
     private long _lastPurchaseUnixMs;
     private long _lastRotationUnixMs;
@@ -77,8 +82,7 @@ public partial class PresetTraderRefresher(
             return Task.FromResult(true);
         }
 
-        // Builds+gear+armor only; the assort router handles rotation.
-        if (_showingWeaponPresets)
+        if (_rotationState != RotationBuilds)
         {
             return Task.FromResult(false);
         }
