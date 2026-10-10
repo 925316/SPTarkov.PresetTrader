@@ -45,7 +45,7 @@ public class PresetTraderAssortRouter(
 
                 if (traderId == refresher.GetTraderIdString())
                 {
-                    await refresher.OnOwnTraderAssortFetchedAsync(cancellationToken);
+                    await refresher.OnOwnTraderAssortFetchedAsync(sessionID, cancellationToken);
                 }
                 else
                 {

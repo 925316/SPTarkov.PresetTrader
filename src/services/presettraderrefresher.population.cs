@@ -180,7 +180,7 @@ public partial class PresetTraderRefresher
         return added;
     }
 
-    private int PopulateWeaponPresets(Trader traderData, string relativePath)
+    private int PopulateWeaponPresets(Trader traderData, string relativePath, HashSet<string>? onlyNames = null)
     {
         var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
         var presets = modHelper.GetJsonDataFromFile<Dictionary<string, List<Item>>>(pathToMod, relativePath);
@@ -197,6 +197,11 @@ public partial class PresetTraderRefresher
         {
             try
             {
+                if (onlyNames is not null && !onlyNames.Contains(name))
+                {
+                    continue;
+                }
+
                 if (presetItems is not { Count: > 0 })
                 {
                     continue;

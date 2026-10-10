@@ -27,6 +27,7 @@ namespace PresetTrader;
 public partial class PresetTraderRefresher(
     ISptLogger<PresetTraderRefresher> logger,
     ProfileHelper profileHelper,
+    TemplateTable templateTable,
     TradersTable tradersTable,
     ItemHelper itemHelper,
     ICloner cloner,

@@ -34,7 +34,7 @@ public partial class PresetTraderRefresher
     /// Rotates on a deliberate open/refresh: a lone assort fetch that is
     /// neither a bulk-refresh companion nor the post-purchase auto-refresh.
     /// </summary>
-    public async Task OnOwnTraderAssortFetchedAsync(CancellationToken cancellationToken)
+    public async Task OnOwnTraderAssortFetchedAsync(MongoId sessionId, CancellationToken cancellationToken)
     {
         if (_traderId is null)
         {
@@ -69,7 +69,7 @@ public partial class PresetTraderRefresher
         }
 
         Interlocked.Exchange(ref _lastRotationUnixMs, now);
-        Rotate(_traderId.Value);
+        Rotate(_traderId.Value, sessionId);
     }
 
     public void NotifyTrade()
@@ -95,6 +95,8 @@ public partial class PresetTraderRefresher
 
         _rotationState = RotationBuilds;
 
+        ValidateQuestPresetMapping();
+
         lock (_assortGate)
         {
             _buildRootIds.Clear();
@@ -109,7 +111,7 @@ public partial class PresetTraderRefresher
         }
     }
 
-    private void Rotate(MongoId traderId)
+    private void Rotate(MongoId traderId, MongoId sessionId)
     {
         if (!tradersTable.TryGetValue(traderId, out var traderData))
         {
@@ -119,7 +121,12 @@ public partial class PresetTraderRefresher
 
         lock (_assortGate)
         {
-            _rotationState = (_rotationState + 1) % RotationStateCount;
+            var questNames = GetActiveQuestPresetNames(sessionId);
+            var questSet = questNames.Count > 0
+                ? new HashSet<string>(questNames, StringComparer.Ordinal)
+                : null;
+
+            _rotationState = (_rotationState + 1) % (questSet is null ? 2 : RotationStateCount);
 
             traderData.Assort.Items.Clear();
             traderData.Assort.BarterScheme.Clear();
@@ -140,7 +147,7 @@ public partial class PresetTraderRefresher
                     PopulateKeyPacks(traderData, "db/keyPresets.json");
                     break;
                 case RotationGunsmith:
-                    PopulateWeaponPresets(traderData, "db/weaponPresets.json");
+                    PopulateWeaponPresets(traderData, "db/weaponPresets.json", questSet);
                     break;
             }
         }
