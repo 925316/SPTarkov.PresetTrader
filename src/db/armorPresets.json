@@ -37,39 +37,22 @@
       {
         "Slot": "Groin_back",
         "Tpl": "6575c326c6700bd6b40e8a80"
-      }
-    ]
-  },
-  {
-    "RootTpl": "5b44cf1486f77431723e3d05",
-    "Attachments": [
-      {
-        "Slot": "Shoulder_r",
-        "Tpl": "6575c40c52b7f8c76a05ee41"
       },
       {
-        "Slot": "Shoulder_l",
-        "Tpl": "6575c3fd52b7f8c76a05ee3d"
+        "Slot": "Front_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
       },
       {
-        "Slot": "Collar",
-        "Tpl": "6575c3ec52b7f8c76a05ee39"
+        "Slot": "Back_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
       },
       {
-        "Slot": "soft_armor_right",
-        "Tpl": "6575c3dfdc9932aed601c5f8"
+        "Slot": "Left_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
       },
       {
-        "Slot": "Soft_armor_left",
-        "Tpl": "6575c3cdc6700bd6b40e8a90"
-      },
-      {
-        "Slot": "Soft_armor_back",
-        "Tpl": "6575c3beefc786cd9101a5ed"
-      },
-      {
-        "Slot": "Soft_armor_front",
-        "Tpl": "6575c3b3dc9932aed601c5f4"
+        "Slot": "Right_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
       }
     ]
   },
@@ -103,6 +86,22 @@
       {
         "Slot": "Soft_armor_front",
         "Tpl": "65731b46cea9255e2102360a"
+      },
+      {
+        "Slot": "Front_plate",
+        "Tpl": "656f66b5c6baea13cd07e108"
+      },
+      {
+        "Slot": "Back_plate",
+        "Tpl": "657b28d25f444d6dff0c6c77"
+      },
+      {
+        "Slot": "Left_side_plate",
+        "Tpl": "654a4f8bc721968a4404ef18"
+      },
+      {
+        "Slot": "Right_side_plate",
+        "Tpl": "654a4f8bc721968a4404ef18"
       }
     ]
   },
@@ -128,6 +127,22 @@
       {
         "Slot": "Soft_armor_front",
         "Tpl": "65732688d9d89ff7ac0d9c4c"
+      },
+      {
+        "Slot": "Front_plate",
+        "Tpl": "656f63c027aed95beb08f62c"
+      },
+      {
+        "Slot": "Back_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Left_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Right_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
       }
     ]
   },
@@ -161,6 +176,22 @@
       {
         "Slot": "Shoulder_r",
         "Tpl": "6573337f2cc8dfad2c0a3da7"
+      },
+      {
+        "Slot": "Front_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Back_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Left_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Right_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
       }
     ]
   },
@@ -182,6 +213,22 @@
       {
         "Slot": "soft_armor_front",
         "Tpl": "6575ef599c7cad336508e453"
+      },
+      {
+        "Slot": "front_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "back_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "left_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "right_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
       }
     ]
   },
@@ -215,93 +262,27 @@
       {
         "Slot": "Soft_armor_front",
         "Tpl": "6575c342efc786cd9101a5e5"
+      },
+      {
+        "Slot": "Front_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Back_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Left_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Right_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
       }
     ]
-  },
-  {
-    "RootTpl": "545cdb794bdc2d3a198b456a",
-    "Attachments": [
-      {
-        "Slot": "Groin",
-        "Tpl": "6575ce8bdc9932aed601c61e"
-      },
-      {
-        "Slot": "Shoulder_r",
-        "Tpl": "6575cea8b15fef3dd405162c"
-      },
-      {
-        "Slot": "Shoulder_l",
-        "Tpl": "6575ce9db15fef3dd4051628"
-      },
-      {
-        "Slot": "Collar",
-        "Tpl": "6575ce6f16c2762fba005806"
-      },
-      {
-        "Slot": "soft_armor_right",
-        "Tpl": "6575ce5befc786cd9101a671"
-      },
-      {
-        "Slot": "Soft_armor_left",
-        "Tpl": "6575ce5016c2762fba005802"
-      },
-      {
-        "Slot": "Soft_armor_back",
-        "Tpl": "6575ce45dc9932aed601c616"
-      },
-      {
-        "Slot": "Soft_armor_front",
-        "Tpl": "6575ce3716c2762fba0057fd"
-      }
-    ]
-  },
-  {
-    "RootTpl": "60a283193cb70855c43a381d",
-    "Attachments": [
-      {
-        "Slot": "Groin",
-        "Tpl": "6575d5a616c2762fba005820"
-      },
-      {
-        "Slot": "Shoulder_r",
-        "Tpl": "6575d5bd16c2762fba005828"
-      },
-      {
-        "Slot": "Shoulder_l",
-        "Tpl": "6575d5b316c2762fba005824"
-      },
-      {
-        "Slot": "Collar",
-        "Tpl": "6575d598b15fef3dd4051678"
-      },
-      {
-        "Slot": "soft_armor_right",
-        "Tpl": "6575d589b15fef3dd4051674"
-      },
-      {
-        "Slot": "Soft_armor_left",
-        "Tpl": "6575d57a16c2762fba00581c"
-      },
-      {
-        "Slot": "Soft_armor_back",
-        "Tpl": "6575d56b16c2762fba005818"
-      },
-      {
-        "Slot": "Soft_armor_front",
-        "Tpl": "6575d561b15fef3dd4051670"
-      }
-    ]
-  },
-  {
-    "RootTpl": "656fa8d700d62bcd2e024084",
-    "Attachments": []
   },
   {
     "RootTpl": "656fa99800d62bcd2e024088",
-    "Attachments": []
-  },
-  {
-    "RootTpl": "656fae5f7c2d57afe200c0d7",
     "Attachments": []
   },
   {
@@ -313,7 +294,315 @@
     "Attachments": []
   },
   {
-    "RootTpl": "6557458f83942d705f0c4962",
+    "RootTpl": "5e4abb5086f77406975c9342",
+    "Attachments": [
+      {
+        "Slot": "Front_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Back_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Soft_armor_front",
+        "Tpl": "6575e71760703324250610c3"
+      },
+      {
+        "Slot": "Soft_armor_back",
+        "Tpl": "6575e72660703324250610c7"
+      }
+    ]
+  },
+  {
+    "RootTpl": "5c0e625a86f7742d77340f62",
+    "Attachments": [
+      {
+        "Slot": "Front_plate",
+        "Tpl": "656f63c027aed95beb08f62c"
+      },
+      {
+        "Slot": "Back_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Left_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Right_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Soft_armor_front",
+        "Tpl": "65764275d8537eb26a0355e9"
+      },
+      {
+        "Slot": "Soft_armor_back",
+        "Tpl": "657642b0e6d5dd75f40688a5"
+      },
+      {
+        "Slot": "Soft_armor_left",
+        "Tpl": "6576434820cc24d17102b148"
+      },
+      {
+        "Slot": "soft_armor_right",
+        "Tpl": "657643732bc38ef78e076477"
+      },
+      {
+        "Slot": "Collar",
+        "Tpl": "657643a220cc24d17102b14c"
+      }
+    ]
+  },
+  {
+    "RootTpl": "5ca2151486f774244a3b8d30",
+    "Attachments": [
+      {
+        "Slot": "Front_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Back_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Left_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Right_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Soft_armor_front",
+        "Tpl": "6575dd3e9e27f4a85e081142"
+      },
+      {
+        "Slot": "Soft_armor_back",
+        "Tpl": "6575dd519e27f4a85e081146"
+      },
+      {
+        "Slot": "Soft_armor_left",
+        "Tpl": "6575dd64945bf78edd04c438"
+      },
+      {
+        "Slot": "soft_armor_right",
+        "Tpl": "6575dd6e9d3a0ddf660b9047"
+      },
+      {
+        "Slot": "Collar",
+        "Tpl": "6575dd769d3a0ddf660b904b"
+      },
+      {
+        "Slot": "Groin",
+        "Tpl": "6575dd800546f8b1de093df6"
+      },
+      {
+        "Slot": "Groin_back",
+        "Tpl": "6575dd94945bf78edd04c43c"
+      }
+    ]
+  },
+  {
+    "RootTpl": "5c0e57ba86f7747fa141986d",
+    "Attachments": [
+      {
+        "Slot": "Front_plate",
+        "Tpl": "656f66b5c6baea13cd07e108"
+      },
+      {
+        "Slot": "Back_plate",
+        "Tpl": "657b28d25f444d6dff0c6c77"
+      },
+      {
+        "Slot": "Soft_armor_front",
+        "Tpl": "65707fc348c7a887f2010432"
+      },
+      {
+        "Slot": "Soft_armor_back",
+        "Tpl": "6570800612755ae0d907acf8"
+      },
+      {
+        "Slot": "Soft_armor_left",
+        "Tpl": "65708070f65e2491bf00972c"
+      },
+      {
+        "Slot": "soft_armor_right",
+        "Tpl": "657080a212755ae0d907ad04"
+      },
+      {
+        "Slot": "Collar",
+        "Tpl": "657080ca12755ae0d907ad5e"
+      },
+      {
+        "Slot": "Groin",
+        "Tpl": "65708122f65e2491bf009755"
+      },
+      {
+        "Slot": "Groin_back",
+        "Tpl": "65708165696fe382cf073255"
+      }
+    ]
+  },
+  {
+    "RootTpl": "654a4a964b446df1ad03f192",
     "Attachments": []
+  },
+  {
+    "RootTpl": "656f66b5c6baea13cd07e108",
+    "Attachments": []
+  },
+  {
+    "RootTpl": "609e8540d5c319764c2bc2e9",
+    "Attachments": [
+      {
+        "Slot": "Front_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Back_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Left_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Right_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Soft_armor_front",
+        "Tpl": "6572e5221b5bc1185508c24f"
+      },
+      {
+        "Slot": "Soft_armor_back",
+        "Tpl": "6572e52f73c0eabb700109a0"
+      },
+      {
+        "Slot": "Soft_armor_left",
+        "Tpl": "6572e53c73c0eabb700109a4"
+      },
+      {
+        "Slot": "soft_armor_right",
+        "Tpl": "6572e54873c0eabb700109a8"
+      }
+    ]
+  },
+  {
+    "RootTpl": "5d5d87f786f77427997cfaef",
+    "Attachments": [
+      {
+        "Slot": "Front_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Back_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Left_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Right_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Soft_armor_front",
+        "Tpl": "6570e5100b57c03ec90b970a"
+      },
+      {
+        "Slot": "Soft_armor_back",
+        "Tpl": "6570e479a6560e4ee50c2b02"
+      },
+      {
+        "Slot": "Soft_armor_left",
+        "Tpl": "6570e5674cc0d2ab1e05edbb"
+      },
+      {
+        "Slot": "soft_armor_right",
+        "Tpl": "6570e59b0b57c03ec90b970e"
+      }
+    ]
+  },
+  {
+    "RootTpl": "5c0e722886f7740458316a57",
+    "Attachments": [
+      {
+        "Slot": "Front_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Back_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Left_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Right_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Soft_armor_front",
+        "Tpl": "65730c0e292ecadbfa09ad49"
+      },
+      {
+        "Slot": "Soft_armor_back",
+        "Tpl": "65730c2213a2f660f60bea96"
+      },
+      {
+        "Slot": "Soft_armor_left",
+        "Tpl": "65730c2b292ecadbfa09ad50"
+      },
+      {
+        "Slot": "soft_armor_right",
+        "Tpl": "65730c35292ecadbfa09ad54"
+      }
+    ]
+  },
+  {
+    "RootTpl": "628dc750b910320f4c27a732",
+    "Attachments": [
+      {
+        "Slot": "Front_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Back_plate",
+        "Tpl": "656fa99800d62bcd2e024088"
+      },
+      {
+        "Slot": "Left_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Right_side_plate",
+        "Tpl": "64afdb577bb3bfe8fe03fd1d"
+      },
+      {
+        "Slot": "Soft_armor_front",
+        "Tpl": "6572f1ca4c8d903cc60c874e"
+      },
+      {
+        "Slot": "Soft_armor_back",
+        "Tpl": "6572f1d60103b4a3270332db"
+      },
+      {
+        "Slot": "Soft_armor_left",
+        "Tpl": "6572f1e10103b4a3270332df"
+      },
+      {
+        "Slot": "soft_armor_right",
+        "Tpl": "6572f1edea457732140ce875"
+      },
+      {
+        "Slot": "Groin",
+        "Tpl": "6572f1f7ea457732140ce879"
+      }
+    ]
   }
 ]
