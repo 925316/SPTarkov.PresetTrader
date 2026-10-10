@@ -49,20 +49,23 @@ jobs:
           $hash = (Get-FileHash dist/SPTarkov.PresetTrader.zip -Algorithm SHA256).Hash.ToLower()
           "sha256=$hash" >> $env:GITHUB_OUTPUT
 
-      - name: Publish to the rolling latest release
+      - name: Publish versioned release
         env:
           GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.package.outputs.version }}
         shell: pwsh
         run: |
           $asset = "dist/SPTarkov.PresetTrader.zip"
           $commit = "${{ github.sha }}".Substring(0, 7)
-          $notes = "PresetTrader ${{ steps.package.outputs.version }}`nBuilt from commit $commit`nSHA256: ${{ steps.package.outputs.sha256 }}"
-          gh release upload latest $asset --clobber
+          $tag = "v$env:VERSION"
+          $title = "PresetTrader $tag"
+          $notes = "Built from commit $commit`nSHA256: ${{ steps.package.outputs.sha256 }}"
+          gh release upload $tag $asset --clobber
           if ($LASTEXITCODE -ne 0) {
-            gh release create latest $asset --title "PresetTrader latest" --target ${{ github.sha }} --notes $notes
+            gh release create $tag $asset --title $title --target ${{ github.sha }} --notes $notes
           } else {
-            gh release edit latest --target ${{ github.sha }} --notes $notes
+            gh release edit $tag --title $title --notes $notes
           }
-          # Force-update the tag so it always points at the latest commit
-          git tag -f latest ${{ github.sha }}
-          git push -f origin latest
+          gh api -X DELETE repos/${{ github.repository }}/git/refs/tags/$tag
+          gh api -X POST repos/${{ github.repository }}/git/refs -f ref="refs/tags/$tag" -f sha="${{ github.sha }}"
+          gh release edit $tag --draft=false
