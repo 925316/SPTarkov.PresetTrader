@@ -26,11 +26,11 @@ namespace PresetTrader;
 public partial class PresetTraderRefresher
 {
     /// <summary>
-    /// Sells key packs as EMPTY containers: the client refuses to buy
-    /// containers that already hold items, so the shelf shows only the SICC
-    /// root while the price covers the full pack. The template tree is
-    /// registered in _keyPackByRootId so TryInjectKeyPacks can deliver the
-    /// contents after a successful purchase.
+    /// Sells key packs as empty containers: the client refuses to buy containers
+    /// that already hold items, so the shelf shows only the SICC root while the
+    /// price covers the full pack. The template tree is registered in
+    /// _keyPackByRootId so TryInjectKeyPacks can deliver the contents after a
+    /// successful purchase.
     /// </summary>
     private int PopulateKeyPacks(Trader traderData, string relativePath)
     {
@@ -109,7 +109,6 @@ public partial class PresetTraderRefresher
                     continue;
                 }
 
-                // Price covers the whole pack even though only the empty root shows.
                 var price = (int)packItems.Select(item => item.Template).Sum(itemHelper.GetItemMaxPrice);
                 if (price <= 0)
                 {
@@ -132,7 +131,6 @@ public partial class PresetTraderRefresher
                         UnlimitedCount = true,
                         BuyRestrictionCurrent = 0,
                         SpawnedInSession = templateRoot.Upd?.SpawnedInSession,
-                        // Keep the stash tag so the identical SICC icons stay tellable apart.
                         Tag = templateRoot.Upd?.Tag is { } tag
                             ? new UpdTag { Color = tag.Color, Name = tag.Name }
                             : null
@@ -169,9 +167,7 @@ public partial class PresetTraderRefresher
     /// <summary>
     /// After a key pack purchase, spawn the pack's keys into the bought
     /// container: profile inventory plus the response envelope's `new` array.
-    /// Runs in a post-router after ItemEventStaticRouter, so the vanilla trade
-    /// (empty container + payment) has already completed. Returns the original
-    /// output untouched on any failure.
+    /// Returns the original output untouched on any failure.
     /// </summary>
     public string TryInjectKeyPacks(MongoId sessionId, ItemEventRouterRequest info, string? output)
     {
@@ -188,8 +184,6 @@ public partial class PresetTraderRefresher
                 return output;
             }
 
-            // Collect key-pack purchases from this request (dict read gated;
-            // template lists are immutable after populate).
             var purchases = new List<(List<Item> Template, int Count)>();
 
             lock (_assortGate)
@@ -275,8 +269,7 @@ public partial class PresetTraderRefresher
                 return output;
             }
 
-            var profile = profileHelper.GetPmcProfile(sessionId);
-            if (profile?.Inventory?.Items is not { } profileItems)
+            if (purchases.Count == 0)
             {
                 return output;
             }
@@ -399,7 +392,7 @@ public partial class PresetTraderRefresher
             // Round-trip with default options so no parsed entry (e.g. a null
             // errmsg) is dropped by jsonUtil's WhenWritingNull policy.
             var rewritten = envelope.ToJsonString();
-            profileItems.AddRange(newChildren);
+            profileHelper.GetPmcProfile(sessionId)?.Inventory?.Items?.AddRange(newChildren);
             return rewritten;
         }
         catch (Exception ex)
@@ -408,5 +401,4 @@ public partial class PresetTraderRefresher
             return output ?? string.Empty;
         }
     }
-
 }

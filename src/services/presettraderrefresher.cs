@@ -57,8 +57,6 @@ public partial class PresetTraderRefresher(
     private readonly Dictionary<MongoId, MongoId> _buildRootIds = new();
     private readonly Dictionary<MongoId, string> _buildSignatures = new();
 
-    // Assort root id -> key pack template tree (full pack from keyPresets.json).
-    // Rebuilt on every populate; read by the post-purchase delivery router.
     private readonly Dictionary<MongoId, List<Item>> _keyPackByRootId = new();
 
     public void SetTraderId(MongoId traderId)

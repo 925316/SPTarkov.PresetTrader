@@ -38,7 +38,7 @@ public class PresetTraderAssortRouter(
     [
         new RouteAction<EmptyRequestData>(
             "/client/trading/api/getTraderAssort/",
-            async             (url, info, sessionID, output, cancellationToken) =>
+            async (url, info, sessionID, output, cancellationToken) =>
             {
                 var path = url.Split('?')[0];
                 var traderId = path.Substring(path.LastIndexOf('/') + 1);

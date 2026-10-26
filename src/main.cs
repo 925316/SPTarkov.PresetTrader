@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using SPTarkov.Common.Models.Logging;
 using SPTarkov.DI.Annotations;
+using SPTarkov.Reflection.Patching;
 using SPTarkov.Server.Core.DI;
 using SPTarkov.Server.Core.Extensions;
 using SPTarkov.Server.Core.Helpers.Items;
@@ -27,7 +28,8 @@ namespace PresetTrader;
 public class Main(
     ISptLogger<Main> logger,
     ModHelper modHelper,
-    PresetTraderRefresher refresher
+    PresetTraderRefresher refresher,
+    IEnumerable<IRuntimePatch> patches
 )
     : IOnLoad
 {
@@ -44,6 +46,12 @@ public class Main(
 
         refresher.SetTraderId(traderBase.Id);
         refresher.InitialLoad();
+
+        PresetTraderFindInRaidPatch.Attach(refresher);
+        foreach (var patch in patches)
+        {
+            patch.Enable();
+        }
 
         return Task.CompletedTask;
     }
